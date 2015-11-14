@@ -1,1 +1,1 @@
-web:    play run
+web:    activator run

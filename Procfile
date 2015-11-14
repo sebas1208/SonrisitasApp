@@ -1,1 +1,1 @@
-web:    activator run
+web: target/start -Dhttp.port=$PORT $JAVA_OPTS

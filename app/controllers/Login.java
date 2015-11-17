@@ -10,5 +10,4 @@ public class Login extends Controller {
     public Result login() {
         return ok(login.render("Your new application is ready."));
     }
-
 }

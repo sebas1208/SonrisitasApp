@@ -1,0 +1,7 @@
+New log file opened at Tue Nov 17 11:08:45 ECT 2015 by 32377@toshiba
+Taking next connection to: 49852
+New client attempting to connect on port: 42238-49852
+  Address = /127.0.1.1:49852
+This client on port 42238 has uuid ce9e2a74-32d0-471c-9dc5-8860086d43fe configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-ce9e2a74-32d0-471c-9dc5-8860086d43fe
+Taking next connection to: 49852

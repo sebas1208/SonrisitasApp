@@ -1,2 +1,8 @@
-.*.un~
+*.un~
 target/
+logs
+project/project
+project/target
+tmp
+dist
+.cache

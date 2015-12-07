@@ -1,19 +1,13 @@
-New log file opened at Mon Nov 23 17:26:01 ECT 2015 by 16780@toshiba
-Taking next connection to: 52693
-New client attempting to connect on port: 45920-52693
-  Address = /127.0.1.1:52693
-This client on port 45920 has uuid 763c9531-6da7-450b-aaa6-651a7e3768d1 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
-Connected Clients: play-fork-run-763c9531-6da7-450b-aaa6-651a7e3768d1
-Taking next connection to: 52693
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 52693
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 52693
-New client attempting to connect on port: 46312-52693
-  Address = /127.0.1.1:52693
-Handshake exception on socket: 46312
+New log file opened at Sun Dec 06 20:19:02 ECT 2015 by 12222@toshiba
+Taking next connection to: 43742
+New client attempting to connect on port: 48724-43742
+  Address = /127.0.1.1:43742
+This client on port 48724 has uuid c432a209-0679-43ae-803d-f61e4094c253 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-c432a209-0679-43ae-803d-f61e4094c253
+Taking next connection to: 43742
+New client attempting to connect on port: 48770-43742
+  Address = /127.0.1.1:43742
+Handshake exception on socket: 48770
 sbt.impl.ipc.HandshakeException: Unable to perform handshake
 	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
 	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
@@ -23,15 +17,28 @@ Caused by: java.io.EOFException
 	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
 	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
 	... 2 more
-Taking next connection to: 52693
-New client attempting to connect on port: 46313-52693
-  Address = /127.0.1.1:52693
-This client on port 46313 has uuid b47e246a-4b06-4ebe-8e59-9a3ba9ad4f58 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
-Connected Clients: play-fork-run-b47e246a-4b06-4ebe-8e59-9a3ba9ad4f58
-Taking next connection to: 52693
+Taking next connection to: 43742
+New client attempting to connect on port: 48772-43742
+  Address = /127.0.1.1:43742
+This client on port 48772 has uuid 78f7b15f-9b35-4eb1-941c-7dfbeae30344 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: activator-c432a209-0679-43ae-803d-f61e4094c253, play-fork-run-78f7b15f-9b35-4eb1-941c-7dfbeae30344
+Taking next connection to: 43742
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 43742
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 43742
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 43742
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 43742
 Checking to see if clients are empty...
 No non-daemon clients connected after 3 min. Shutting down.
+1 daemon clients are connected.
 Server socket thread exiting.
-0 clients open, will close them...
+1 clients open, will close them...
 All client sockets have been closed.
-Closing the 16780@toshiba logs at Mon Nov 23 17:41:20 ECT 2015, goodbye.
+Closing the 12222@toshiba logs at Sun Dec 06 20:36:07 ECT 2015, goodbye.

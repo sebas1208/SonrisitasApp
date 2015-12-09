@@ -5470,3 +5470,10 @@ Running task... Cancel: sbt.server.ServerTaskCancellation@6ed0142d, check cycles
 Total time: 0 s, completed 08/12/2015 23:08:39
 > server-post-command-cleanup
 > server-handle-next-server-request
+Done executing sbt server engine, result Right(Exit(0))
+Closing listening server socket
+Waiting for socket thread
+Waiting for request processor thread
+Waiting for command engine result
+Returning control to sbt launcher with result Exit(0)
+Closing the 13069@toshiba logs at Tue Dec 08 23:17:37 ECT 2015, goodbye.

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.gr1.sonrisitas.modelos;
+package models;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,32 +14,20 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-
+import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  *
  * @author sebastian
  */
 @Entity
-@Table(name = "agenda_odontologo", catalog = "d5p5cglukdp5dk", schema = "public")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "AgendaOdontologo.findAll", query = "SELECT a FROM AgendaOdontologo a"),
-    @NamedQuery(name = "AgendaOdontologo.findByAgeDia", query = "SELECT a FROM AgendaOdontologo a WHERE a.ageDia = :ageDia"),
-    @NamedQuery(name = "AgendaOdontologo.findByAgeHoraInicio", query = "SELECT a FROM AgendaOdontologo a WHERE a.ageHoraInicio = :ageHoraInicio"),
-    @NamedQuery(name = "AgendaOdontologo.findByAgeHoraFin", query = "SELECT a FROM AgendaOdontologo a WHERE a.ageHoraFin = :ageHoraFin"),
-    @NamedQuery(name = "AgendaOdontologo.findByAgeActivo", query = "SELECT a FROM AgendaOdontologo a WHERE a.ageActivo = :ageActivo"),
-    @NamedQuery(name = "AgendaOdontologo.findByAgeFechaRegistro", query = "SELECT a FROM AgendaOdontologo a WHERE a.ageFechaRegistro = :ageFechaRegistro"),
-    @NamedQuery(name = "AgendaOdontologo.findByAgeDiaNombre", query = "SELECT a FROM AgendaOdontologo a WHERE a.ageDiaNombre = :ageDiaNombre"),
-    @NamedQuery(name = "AgendaOdontologo.findByAgeId", query = "SELECT a FROM AgendaOdontologo a WHERE a.ageId = :ageId")})
-public class AgendaOdontologo implements Serializable {
+@Table(name = "agenda_odontologo", schema = "public")
+public class AgendaOdontologo extends Model implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -73,6 +61,8 @@ public class AgendaOdontologo implements Serializable {
     @JoinColumn(name = "odo_id", referencedColumnName = "odo_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Odontologo odoId;
+
+    public static Finder<Long,AgendaOdontologo> find = new Finder<Long,AgendaOdontologo>(Long.class, AgendaOdontologo.class);
 
     public AgendaOdontologo() {
     }
@@ -177,5 +167,5 @@ public class AgendaOdontologo implements Serializable {
     public String toString() {
         return "ec.gr1.sonrisitas.modelos.AgendaOdontologo[ ageId=" + ageId + " ]";
     }
-    
+
 }

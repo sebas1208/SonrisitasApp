@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.gr1.sonrisitas.modelos;
+package models;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,33 +16,21 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
+import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  *
  * @author sebastian
  */
 @Entity
-@Table(name = "historia_clinica_cabecera", catalog = "d5p5cglukdp5dk", schema = "public")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "HistoriaClinicaCabecera.findAll", query = "SELECT h FROM HistoriaClinicaCabecera h"),
-    @NamedQuery(name = "HistoriaClinicaCabecera.findByHccAntecedentesFamiliares", query = "SELECT h FROM HistoriaClinicaCabecera h WHERE h.hccAntecedentesFamiliares = :hccAntecedentesFamiliares"),
-    @NamedQuery(name = "HistoriaClinicaCabecera.findByHccAntecedentesPersonales", query = "SELECT h FROM HistoriaClinicaCabecera h WHERE h.hccAntecedentesPersonales = :hccAntecedentesPersonales"),
-    @NamedQuery(name = "HistoriaClinicaCabecera.findByHccEnfermedadActual", query = "SELECT h FROM HistoriaClinicaCabecera h WHERE h.hccEnfermedadActual = :hccEnfermedadActual"),
-    @NamedQuery(name = "HistoriaClinicaCabecera.findByHccActivo", query = "SELECT h FROM HistoriaClinicaCabecera h WHERE h.hccActivo = :hccActivo"),
-    @NamedQuery(name = "HistoriaClinicaCabecera.findByHccFechaRegistro", query = "SELECT h FROM HistoriaClinicaCabecera h WHERE h.hccFechaRegistro = :hccFechaRegistro"),
-    @NamedQuery(name = "HistoriaClinicaCabecera.findByHccId", query = "SELECT h FROM HistoriaClinicaCabecera h WHERE h.hccId = :hccId")})
-public class HistoriaClinicaCabecera implements Serializable {
+@Table(name = "historia_clinica_cabecera",  schema = "public")
+public class HistoriaClinicaCabecera extends Model implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -72,8 +60,11 @@ public class HistoriaClinicaCabecera implements Serializable {
     @JoinColumn(name = "pac_id", referencedColumnName = "pac_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Paciente pacId;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "hccId", fetch = FetchType.LAZY)
     private List<HistoriaClinicaDetalle> historiaClinicaDetalleList;
+
+    public static Finder<Long,HistoriaClinicaCabecera> find = new Finder<Long,HistoriaClinicaCabecera>(Long.class, HistoriaClinicaCabecera.class);
 
     public HistoriaClinicaCabecera() {
     }
@@ -145,7 +136,6 @@ public class HistoriaClinicaCabecera implements Serializable {
         this.pacId = pacId;
     }
 
-    @XmlTransient
     public List<HistoriaClinicaDetalle> getHistoriaClinicaDetalleList() {
         return historiaClinicaDetalleList;
     }
@@ -178,5 +168,5 @@ public class HistoriaClinicaCabecera implements Serializable {
     public String toString() {
         return "ec.gr1.sonrisitas.modelos.HistoriaClinicaCabecera[ hccId=" + hccId + " ]";
     }
-    
+
 }

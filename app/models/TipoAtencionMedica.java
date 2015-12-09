@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.gr1.sonrisitas.modelos;
+package models;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,33 +14,21 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
+import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  *
  * @author sebastian
  */
 @Entity
-@Table(name = "tipo_atencion_medica", catalog = "d5p5cglukdp5dk", schema = "public")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "TipoAtencionMedica.findAll", query = "SELECT t FROM TipoAtencionMedica t"),
-    @NamedQuery(name = "TipoAtencionMedica.findByTamId", query = "SELECT t FROM TipoAtencionMedica t WHERE t.tamId = :tamId"),
-    @NamedQuery(name = "TipoAtencionMedica.findByTamNombre", query = "SELECT t FROM TipoAtencionMedica t WHERE t.tamNombre = :tamNombre"),
-    @NamedQuery(name = "TipoAtencionMedica.findByTamDuracionHoras", query = "SELECT t FROM TipoAtencionMedica t WHERE t.tamDuracionHoras = :tamDuracionHoras"),
-    @NamedQuery(name = "TipoAtencionMedica.findByTamDuracionMinutos", query = "SELECT t FROM TipoAtencionMedica t WHERE t.tamDuracionMinutos = :tamDuracionMinutos"),
-    @NamedQuery(name = "TipoAtencionMedica.findByTamActivo", query = "SELECT t FROM TipoAtencionMedica t WHERE t.tamActivo = :tamActivo"),
-    @NamedQuery(name = "TipoAtencionMedica.findByTamFechaRegistro", query = "SELECT t FROM TipoAtencionMedica t WHERE t.tamFechaRegistro = :tamFechaRegistro")})
-public class TipoAtencionMedica implements Serializable {
+@Table(name = "tipo_atencion_medica",  schema = "public")
+public class TipoAtencionMedica extends Model implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -65,8 +53,11 @@ public class TipoAtencionMedica implements Serializable {
     @Column(name = "tam_fecha_registro")
     @Temporal(TemporalType.DATE)
     private Date tamFechaRegistro;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tamId", fetch = FetchType.LAZY)
     private List<AtencionMedica> atencionMedicaList;
+
+    public static Finder<Long,TipoAtencionMedica> find = new Finder<Long,TipoAtencionMedica>(Long.class, TipoAtencionMedica.class);
 
     public TipoAtencionMedica() {
     }
@@ -130,7 +121,6 @@ public class TipoAtencionMedica implements Serializable {
         this.tamFechaRegistro = tamFechaRegistro;
     }
 
-    @XmlTransient
     public List<AtencionMedica> getAtencionMedicaList() {
         return atencionMedicaList;
     }
@@ -163,5 +153,5 @@ public class TipoAtencionMedica implements Serializable {
     public String toString() {
         return "ec.gr1.sonrisitas.modelos.TipoAtencionMedica[ tamId=" + tamId + " ]";
     }
-    
+
 }

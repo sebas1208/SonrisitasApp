@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.gr1.sonrisitas.modelos;
+package models;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,42 +16,21 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
+import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  *
  * @author sebastian
  */
 @Entity
-@Table(name = "paciente", catalog = "d5p5cglukdp5dk", schema = "public")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p"),
-    @NamedQuery(name = "Paciente.findByPacCedula", query = "SELECT p FROM Paciente p WHERE p.pacCedula = :pacCedula"),
-    @NamedQuery(name = "Paciente.findByPacNombres", query = "SELECT p FROM Paciente p WHERE p.pacNombres = :pacNombres"),
-    @NamedQuery(name = "Paciente.findByPacApellidos", query = "SELECT p FROM Paciente p WHERE p.pacApellidos = :pacApellidos"),
-    @NamedQuery(name = "Paciente.findByPacDireccion", query = "SELECT p FROM Paciente p WHERE p.pacDireccion = :pacDireccion"),
-    @NamedQuery(name = "Paciente.findByPacFechaNacimiento", query = "SELECT p FROM Paciente p WHERE p.pacFechaNacimiento = :pacFechaNacimiento"),
-    @NamedQuery(name = "Paciente.findByPacTelefono", query = "SELECT p FROM Paciente p WHERE p.pacTelefono = :pacTelefono"),
-    @NamedQuery(name = "Paciente.findByPacEmail", query = "SELECT p FROM Paciente p WHERE p.pacEmail = :pacEmail"),
-    @NamedQuery(name = "Paciente.findByPacSeguroMedico", query = "SELECT p FROM Paciente p WHERE p.pacSeguroMedico = :pacSeguroMedico"),
-    @NamedQuery(name = "Paciente.findByPacActivo", query = "SELECT p FROM Paciente p WHERE p.pacActivo = :pacActivo"),
-    @NamedQuery(name = "Paciente.findByPacFechaRegistro", query = "SELECT p FROM Paciente p WHERE p.pacFechaRegistro = :pacFechaRegistro"),
-    @NamedQuery(name = "Paciente.findByPacSexo", query = "SELECT p FROM Paciente p WHERE p.pacSexo = :pacSexo"),
-    @NamedQuery(name = "Paciente.findByPacEstadoCivil", query = "SELECT p FROM Paciente p WHERE p.pacEstadoCivil = :pacEstadoCivil"),
-    @NamedQuery(name = "Paciente.findByPacLugarNacimiento", query = "SELECT p FROM Paciente p WHERE p.pacLugarNacimiento = :pacLugarNacimiento"),
-    @NamedQuery(name = "Paciente.findByPacOcupacion", query = "SELECT p FROM Paciente p WHERE p.pacOcupacion = :pacOcupacion"),
-    @NamedQuery(name = "Paciente.findByPacId", query = "SELECT p FROM Paciente p WHERE p.pacId = :pacId")})
-public class Paciente implements Serializable {
+@Table(name = "paciente",  schema = "public")
+public class Paciente extends Model implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -118,8 +97,11 @@ public class Paciente implements Serializable {
     @JoinColumn(name = "usu_id", referencedColumnName = "usu_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario usuId;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacId", fetch = FetchType.LAZY)
     private List<AtencionMedica> atencionMedicaList;
+
+    public static Finder<Long,Paciente> find = new Finder<Long,Paciente>(Long.class, Paciente.class);
 
     public Paciente() {
     }
@@ -259,7 +241,6 @@ public class Paciente implements Serializable {
         this.pacId = pacId;
     }
 
-    @XmlTransient
     public List<HistoriaClinicaCabecera> getHistoriaClinicaCabeceraList() {
         return historiaClinicaCabeceraList;
     }
@@ -276,7 +257,7 @@ public class Paciente implements Serializable {
         this.usuId = usuId;
     }
 
-    @XmlTransient
+
     public List<AtencionMedica> getAtencionMedicaList() {
         return atencionMedicaList;
     }
@@ -309,5 +290,5 @@ public class Paciente implements Serializable {
     public String toString() {
         return "ec.gr1.sonrisitas.modelos.Paciente[ pacId=" + pacId + " ]";
     }
-    
+
 }

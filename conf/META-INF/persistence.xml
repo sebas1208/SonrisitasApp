@@ -3,13 +3,37 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
 
-    <persistence-unit name="defaultPersistenceUnit" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <non-jta-data-source>DefaultDS</non-jta-data-source>
-        <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-        </properties>
-    </persistence-unit>
+   <persistence-unit name="defaultPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <non-jta-data-source>DefaultDS</non-jta-data-source>
+    <class>models.Administrador</class>
+    <class>models.AgendaOdontologia</class>
+    <class>models.AtencionMedica</class>
+    <class>models.Especialidad</class>
+    <class>models.HistoriaClinicaCabecera</class>
+    <class>models.HistoriaClinicaDetalle</class>
+    <class>models.Odontologo</class>
+    <class>models.OdontologoEspecialidad</class>
+    <class>models.Paciente</class>
+    <class>models.TipoAtencioMedica</class>
+    <class>models.Usuario</class>
+    <properties>
+        <!--Hibernate properties-->
+        <!-- <property name="hibernate.show_sql" value="false"/>
+        <property name="hibernate.format_sql" value="true"/> -->
+        <!-- <property name="hibernate.hbm2ddl.auto" value="update"/> -->
+        <property name="hibernate.dialect" value="org.hibernate.dialect.PostgresSQLDialect"/>
 
+        <!-- <property name="hibernate.connection.CharSet" value="utf8"/>
+        <property name="hibernate.connection.characterEncoding" value="utf8"/>
+        <property name="hibernate.connection.useUnicode" value="true"/> -->
+
+    </properties>
+<!--     <properties>
+        <property name="javax.persistence.jdbc.url" value="postgresql://postgres:postgres@localhost:5432/sonrisitasApp"/>
+        <property name="javax.persistence.jdbc.password" value="webFactura"/>
+        <property name="javax.persistence.jdbc.driver" value="com.ibm.as400.access.AS400JDBCDriver"/>
+        <property name="javax.persistence.jdbc.user" value="conexFact"/>
+    </properties> -->
+</persistence-unit>
 </persistence>

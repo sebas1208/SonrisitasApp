@@ -1,35 +1,39 @@
-package controllers;
+package controllers.restServices;
 
 import play.*;
 import play.mvc.*;
-import models.Odontologo;
-import play.db.ebean.Model;
+import models.AgendaOdontologo;
+import models.Usuario;
+//import play.db.ebean.Model;
 import play.mvc.Result;
 import play.mvc.Results;
 import com.fasterxml.jackson.databind.JsonNode;
 import play.api.libs.ws.WS;
-import play.db.ebean.Model;
 import play.libs.Json;
 import scala.concurrent.Await;
 import scala.concurrent.Future;
 import scala.concurrent.duration.Duration;
+import javax.persistence.Query;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class OdontologoController extends Controller {
+public class AgendaOdontologoController extends Controller {
 
     public Result all() {
-    	List<Odontologo> odontologos = new Model.Finder<String,Odontologo>(String.class,Odontologo.class).all();
-    	return Results.ok(Json.toJson(odontologos));
+        List<AgendaOdontologo> agendaOdontologo = AgendaOdontologo.find.all();
+        //System.out.println(odontologos.get(0).getOdoNombres());
+        return Results.ok(Json.toJson(agendaOdontologo));
     }
 
+/*    @Transactional
     public Result one(String id) {
-        Odontologo odontologo = new Model.Finder<String,Odontologo>(String.class,Odontologo.class).byId(id);
-        if(odontologo == null) return Results.ok("{error: \"No hay datos\"}");
+        Odontologo odontologo = JPA.em().find(Odontologo.class, Integer.parseInt(id));
+        if(odontologo == null) return Results.ok("{\nerror: \"No hay datos\n\"}");
         return Results.ok(Json.toJson(odontologo));
-    }
-    /*@BodyParser.Of(BodyParser.Json.class)
+    }*/
+/*    @BodyParser.Of(BodyParser.Json.class)
     public Result submitOdontologo() {
     	JsonNode jsonNode = Controller.request().body().asJson();
         String url = jsonNode.findPath("url").asText();

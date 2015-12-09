@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.gr1.sonrisitas.modelos;
+package models;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,32 +14,21 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
+import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  *
  * @author sebastian
  */
 @Entity
-@Table(name = "especialidad", catalog = "d5p5cglukdp5dk", schema = "public")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Especialidad.findAll", query = "SELECT e FROM Especialidad e"),
-    @NamedQuery(name = "Especialidad.findByEspNombre", query = "SELECT e FROM Especialidad e WHERE e.espNombre = :espNombre"),
-    @NamedQuery(name = "Especialidad.findByEspArea", query = "SELECT e FROM Especialidad e WHERE e.espArea = :espArea"),
-    @NamedQuery(name = "Especialidad.findByEspActivo", query = "SELECT e FROM Especialidad e WHERE e.espActivo = :espActivo"),
-    @NamedQuery(name = "Especialidad.findByEspFechaRegistro", query = "SELECT e FROM Especialidad e WHERE e.espFechaRegistro = :espFechaRegistro"),
-    @NamedQuery(name = "Especialidad.findByEspId", query = "SELECT e FROM Especialidad e WHERE e.espId = :espId")})
-public class Especialidad implements Serializable {
+@Table(name = "especialidad",  schema = "public")
+public class Especialidad extends Model implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -61,8 +50,11 @@ public class Especialidad implements Serializable {
     @NotNull
     @Column(name = "esp_id")
     private Long espId;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "espId", fetch = FetchType.LAZY)
     private List<OdontologoEspecialidad> odontologoEspecialidadList;
+
+    public static Finder<Long,Especialidad> find = new Finder<Long,Especialidad>(Long.class, Especialidad.class);
 
     public Especialidad() {
     }
@@ -117,7 +109,6 @@ public class Especialidad implements Serializable {
         this.espId = espId;
     }
 
-    @XmlTransient
     public List<OdontologoEspecialidad> getOdontologoEspecialidadList() {
         return odontologoEspecialidadList;
     }
@@ -150,5 +141,5 @@ public class Especialidad implements Serializable {
     public String toString() {
         return "ec.gr1.sonrisitas.modelos.Especialidad[ espId=" + espId + " ]";
     }
-    
+
 }

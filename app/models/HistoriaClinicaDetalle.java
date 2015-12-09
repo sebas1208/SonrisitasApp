@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.gr1.sonrisitas.modelos;
+package models;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,35 +16,21 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
+import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  *
  * @author sebastian
  */
 @Entity
-@Table(name = "historia_clinica_detalle", catalog = "d5p5cglukdp5dk", schema = "public")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "HistoriaClinicaDetalle.findAll", query = "SELECT h FROM HistoriaClinicaDetalle h"),
-    @NamedQuery(name = "HistoriaClinicaDetalle.findByHcdExploracionFisica", query = "SELECT h FROM HistoriaClinicaDetalle h WHERE h.hcdExploracionFisica = :hcdExploracionFisica"),
-    @NamedQuery(name = "HistoriaClinicaDetalle.findByHcdDiagnostico", query = "SELECT h FROM HistoriaClinicaDetalle h WHERE h.hcdDiagnostico = :hcdDiagnostico"),
-    @NamedQuery(name = "HistoriaClinicaDetalle.findByHcdEvolucion", query = "SELECT h FROM HistoriaClinicaDetalle h WHERE h.hcdEvolucion = :hcdEvolucion"),
-    @NamedQuery(name = "HistoriaClinicaDetalle.findByHcdExamenesComplemetarios", query = "SELECT h FROM HistoriaClinicaDetalle h WHERE h.hcdExamenesComplemetarios = :hcdExamenesComplemetarios"),
-    @NamedQuery(name = "HistoriaClinicaDetalle.findByHcdActivo", query = "SELECT h FROM HistoriaClinicaDetalle h WHERE h.hcdActivo = :hcdActivo"),
-    @NamedQuery(name = "HistoriaClinicaDetalle.findByHcdFechaRegistro", query = "SELECT h FROM HistoriaClinicaDetalle h WHERE h.hcdFechaRegistro = :hcdFechaRegistro"),
-    @NamedQuery(name = "HistoriaClinicaDetalle.findByHcdRecetaMedica", query = "SELECT h FROM HistoriaClinicaDetalle h WHERE h.hcdRecetaMedica = :hcdRecetaMedica"),
-    @NamedQuery(name = "HistoriaClinicaDetalle.findByHcdId", query = "SELECT h FROM HistoriaClinicaDetalle h WHERE h.hcdId = :hcdId")})
-public class HistoriaClinicaDetalle implements Serializable {
+@Table(name = "historia_clinica_detalle",  schema = "public")
+public class HistoriaClinicaDetalle extends Model implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -84,8 +70,11 @@ public class HistoriaClinicaDetalle implements Serializable {
     @JoinColumn(name = "hcc_id", referencedColumnName = "hcc_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private HistoriaClinicaCabecera hccId;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "hcdId", fetch = FetchType.LAZY)
     private List<AtencionMedica> atencionMedicaList;
+
+    public static Finder<Long,HistoriaClinicaDetalle> find = new Finder<Long,HistoriaClinicaDetalle>(Long.class, HistoriaClinicaDetalle.class);
 
     public HistoriaClinicaDetalle() {
     }
@@ -175,7 +164,6 @@ public class HistoriaClinicaDetalle implements Serializable {
         this.hccId = hccId;
     }
 
-    @XmlTransient
     public List<AtencionMedica> getAtencionMedicaList() {
         return atencionMedicaList;
     }
@@ -208,5 +196,5 @@ public class HistoriaClinicaDetalle implements Serializable {
     public String toString() {
         return "ec.gr1.sonrisitas.modelos.HistoriaClinicaDetalle[ hcdId=" + hcdId + " ]";
     }
-    
+
 }

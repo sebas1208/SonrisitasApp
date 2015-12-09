@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.gr1.sonrisitas.modelos;
+package models;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,36 +16,21 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
+import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  *
  * @author sebastian
  */
 @Entity
-@Table(name = "odontologo", catalog = "d5p5cglukdp5dk", schema = "public")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Odontologo.findAll", query = "SELECT o FROM Odontologo o"),
-    @NamedQuery(name = "Odontologo.findByOdoId", query = "SELECT o FROM Odontologo o WHERE o.odoId = :odoId"),
-    @NamedQuery(name = "Odontologo.findByOdoNombres", query = "SELECT o FROM Odontologo o WHERE o.odoNombres = :odoNombres"),
-    @NamedQuery(name = "Odontologo.findByOdoApellidos", query = "SELECT o FROM Odontologo o WHERE o.odoApellidos = :odoApellidos"),
-    @NamedQuery(name = "Odontologo.findByOdoDireccion", query = "SELECT o FROM Odontologo o WHERE o.odoDireccion = :odoDireccion"),
-    @NamedQuery(name = "Odontologo.findByOdoTelefono", query = "SELECT o FROM Odontologo o WHERE o.odoTelefono = :odoTelefono"),
-    @NamedQuery(name = "Odontologo.findByOdoEmail", query = "SELECT o FROM Odontologo o WHERE o.odoEmail = :odoEmail"),
-    @NamedQuery(name = "Odontologo.findByOdoCedula", query = "SELECT o FROM Odontologo o WHERE o.odoCedula = :odoCedula"),
-    @NamedQuery(name = "Odontologo.findByOdoActivo", query = "SELECT o FROM Odontologo o WHERE o.odoActivo = :odoActivo"),
-    @NamedQuery(name = "Odontologo.findByOdoFechaRegistro", query = "SELECT o FROM Odontologo o WHERE o.odoFechaRegistro = :odoFechaRegistro")})
-public class Odontologo implements Serializable {
+@Table(name = "odontologo",  schema = "public")
+public class Odontologo extends Model implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -87,15 +72,20 @@ public class Odontologo implements Serializable {
     @Column(name = "odo_fecha_registro")
     @Temporal(TemporalType.DATE)
     private Date odoFechaRegistro;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "odoId", fetch = FetchType.LAZY)
     private List<AgendaOdontologo> agendaOdontologoList;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "odoId", fetch = FetchType.LAZY)
     private List<AtencionMedica> atencionMedicaList;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "odoId", fetch = FetchType.LAZY)
     private List<OdontologoEspecialidad> odontologoEspecialidadList;
     @JoinColumn(name = "usu_id", referencedColumnName = "usu_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario usuId;
+
+    public static Finder<Long,Odontologo> find = new Finder<Long,Odontologo>(Long.class, Odontologo.class);
 
     public Odontologo() {
     }
@@ -186,7 +176,7 @@ public class Odontologo implements Serializable {
         this.odoFechaRegistro = odoFechaRegistro;
     }
 
-    @XmlTransient
+    @JsonIgnore
     public List<AgendaOdontologo> getAgendaOdontologoList() {
         return agendaOdontologoList;
     }
@@ -195,7 +185,7 @@ public class Odontologo implements Serializable {
         this.agendaOdontologoList = agendaOdontologoList;
     }
 
-    @XmlTransient
+    @JsonIgnore
     public List<AtencionMedica> getAtencionMedicaList() {
         return atencionMedicaList;
     }
@@ -204,7 +194,7 @@ public class Odontologo implements Serializable {
         this.atencionMedicaList = atencionMedicaList;
     }
 
-    @XmlTransient
+    @JsonIgnore
     public List<OdontologoEspecialidad> getOdontologoEspecialidadList() {
         return odontologoEspecialidadList;
     }
@@ -245,5 +235,5 @@ public class Odontologo implements Serializable {
     public String toString() {
         return "ec.gr1.sonrisitas.modelos.Odontologo[ odoId=" + odoId + " ]";
     }
-    
+
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.gr1.sonrisitas.modelos;
+package models;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,34 +14,20 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-
+import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  *
  * @author sebastian
  */
 @Entity
-@Table(name = "administrador", catalog = "d5p5cglukdp5dk", schema = "public")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Administrador.findAll", query = "SELECT a FROM Administrador a"),
-    @NamedQuery(name = "Administrador.findByAdmId", query = "SELECT a FROM Administrador a WHERE a.admId = :admId"),
-    @NamedQuery(name = "Administrador.findByAdmNombre", query = "SELECT a FROM Administrador a WHERE a.admNombre = :admNombre"),
-    @NamedQuery(name = "Administrador.findByAdmApellido", query = "SELECT a FROM Administrador a WHERE a.admApellido = :admApellido"),
-    @NamedQuery(name = "Administrador.findByAdmDireccion", query = "SELECT a FROM Administrador a WHERE a.admDireccion = :admDireccion"),
-    @NamedQuery(name = "Administrador.findByAdmTelefono", query = "SELECT a FROM Administrador a WHERE a.admTelefono = :admTelefono"),
-    @NamedQuery(name = "Administrador.findByAdmEmail", query = "SELECT a FROM Administrador a WHERE a.admEmail = :admEmail"),
-    @NamedQuery(name = "Administrador.findByAdmActivo", query = "SELECT a FROM Administrador a WHERE a.admActivo = :admActivo"),
-    @NamedQuery(name = "Administrador.findByAdmFechaRegistro", query = "SELECT a FROM Administrador a WHERE a.admFechaRegistro = :admFechaRegistro")})
-public class Administrador implements Serializable {
-    private static final long serialVersionUID = 1L;
+@Table(name = "administrador", schema = "public")
+public class Administrador extends Model implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
@@ -80,6 +66,8 @@ public class Administrador implements Serializable {
     @JoinColumn(name = "usu_id", referencedColumnName = "usu_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario usuId;
+
+    public static Finder<Long,Administrador> find = new Finder<Long,Administrador>(Long.class, Administrador.class);
 
     public Administrador() {
     }
@@ -193,5 +181,5 @@ public class Administrador implements Serializable {
     public String toString() {
         return "ec.gr1.sonrisitas.modelos.Administrador[ admId=" + admId + " ]";
     }
-    
+
 }

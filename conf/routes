@@ -2,13 +2,23 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
+# Paginas Web
 GET     /                           controllers.Application.index()
 GET		/login 						controllers.Login.login()
 GET		/prueba						controllers.Prueba.prueba()
-GET 	/odontologo					controllers.OdontologoController.all()
-GET 	/odontologo/:id				controllers.OdontologoController.one(id)
-#POST 	/odontologo 				controllers.OdontologoController.submitOdontologo()
+
+#Odontologos Rest Metodos
+GET 	/odontologos				controllers.restServices.OdontologoController.all()
+GET 	/odontologo/:id				controllers.restServices.OdontologoController.one(id: Long)
+POST	/odontologo 				controllers.restServices.OdontologoController.nuevo()
+GET		/odontologo/borrar/:id		controllers.restServices.OdontologoController.delete(id: Long)
+
+#Usuarios Rest Metodos
+GET 	/usuarios					controllers.restServices.UsuarioController.all()
+GET 	/usuario/:id				controllers.restServices.UsuarioController.one(id: Long)
+POST	/usuario 					controllers.restServices.UsuarioController.nuevo()
+GET		/usuario/borrar/:id			controllers.restServices.UsuarioController.delete(id: Long)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

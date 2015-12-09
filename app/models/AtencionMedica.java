@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.gr1.sonrisitas.modelos;
+package models;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,30 +14,19 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
-
+import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  *
  * @author sebastian
  */
 @Entity
-@Table(name = "atencion_medica", catalog = "d5p5cglukdp5dk", schema = "public")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "AtencionMedica.findAll", query = "SELECT a FROM AtencionMedica a"),
-    @NamedQuery(name = "AtencionMedica.findByAtmFecha", query = "SELECT a FROM AtencionMedica a WHERE a.atmFecha = :atmFecha"),
-    @NamedQuery(name = "AtencionMedica.findByAtmHoraInicio", query = "SELECT a FROM AtencionMedica a WHERE a.atmHoraInicio = :atmHoraInicio"),
-    @NamedQuery(name = "AtencionMedica.findByAtmHoraFin", query = "SELECT a FROM AtencionMedica a WHERE a.atmHoraFin = :atmHoraFin"),
-    @NamedQuery(name = "AtencionMedica.findByAtmActivo", query = "SELECT a FROM AtencionMedica a WHERE a.atmActivo = :atmActivo"),
-    @NamedQuery(name = "AtencionMedica.findByAtmFechaRegistro", query = "SELECT a FROM AtencionMedica a WHERE a.atmFechaRegistro = :atmFechaRegistro"),
-    @NamedQuery(name = "AtencionMedica.findByAtmId", query = "SELECT a FROM AtencionMedica a WHERE a.atmId = :atmId")})
-public class AtencionMedica implements Serializable {
+@Table(name = "atencion_medica",  schema = "public")
+public class AtencionMedica extends Model implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -76,6 +65,8 @@ public class AtencionMedica implements Serializable {
     @JoinColumn(name = "tam_id", referencedColumnName = "tam_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private TipoAtencionMedica tamId;
+
+    public static Finder<Long,AtencionMedica> find = new Finder<Long,AtencionMedica>(Long.class, AtencionMedica.class);
 
     public AtencionMedica() {
     }
@@ -195,5 +186,5 @@ public class AtencionMedica implements Serializable {
     public String toString() {
         return "ec.gr1.sonrisitas.modelos.AtencionMedica[ atmId=" + atmId + " ]";
     }
-    
+
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.gr1.sonrisitas.modelos;
+package models;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,35 +14,25 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
+import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  *
  * @author sebastian
  */
 @Entity
-@Table(name = "usuario", catalog = "d5p5cglukdp5dk", schema = "public")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-    @NamedQuery(name = "Usuario.findByUsuUser", query = "SELECT u FROM Usuario u WHERE u.usuUser = :usuUser"),
-    @NamedQuery(name = "Usuario.findByUsuPassword", query = "SELECT u FROM Usuario u WHERE u.usuPassword = :usuPassword"),
-    @NamedQuery(name = "Usuario.findByUsuPreguntaRecuperacion", query = "SELECT u FROM Usuario u WHERE u.usuPreguntaRecuperacion = :usuPreguntaRecuperacion"),
-    @NamedQuery(name = "Usuario.findByUsuRespuestaRecuperacion", query = "SELECT u FROM Usuario u WHERE u.usuRespuestaRecuperacion = :usuRespuestaRecuperacion"),
-    @NamedQuery(name = "Usuario.findByUsuEmail", query = "SELECT u FROM Usuario u WHERE u.usuEmail = :usuEmail"),
-    @NamedQuery(name = "Usuario.findByUsuActivo", query = "SELECT u FROM Usuario u WHERE u.usuActivo = :usuActivo"),
-    @NamedQuery(name = "Usuario.findByUsuFechaRegistro", query = "SELECT u FROM Usuario u WHERE u.usuFechaRegistro = :usuFechaRegistro"),
-    @NamedQuery(name = "Usuario.findByUsuId", query = "SELECT u FROM Usuario u WHERE u.usuId = :usuId")})
-public class Usuario implements Serializable {
+@Table(name = "usuario",  schema = "public")
+@SequenceGenerator(name="seq", initialValue=1, allocationSize=100)
+public class Usuario extends Model implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -78,13 +68,19 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "usu_id")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
     private Long usuId;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuId", fetch = FetchType.LAZY)
     private List<Administrador> administradorList;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuId", fetch = FetchType.LAZY)
     private List<Paciente> pacienteList;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuId", fetch = FetchType.LAZY)
     private List<Odontologo> odontologoList;
+
+    public static Finder<Long,Usuario> find = new Finder<Long,Usuario>(Long.class, Usuario.class);
 
     public Usuario() {
     }
@@ -166,7 +162,6 @@ public class Usuario implements Serializable {
         this.usuId = usuId;
     }
 
-    @XmlTransient
     public List<Administrador> getAdministradorList() {
         return administradorList;
     }
@@ -175,7 +170,6 @@ public class Usuario implements Serializable {
         this.administradorList = administradorList;
     }
 
-    @XmlTransient
     public List<Paciente> getPacienteList() {
         return pacienteList;
     }
@@ -184,7 +178,6 @@ public class Usuario implements Serializable {
         this.pacienteList = pacienteList;
     }
 
-    @XmlTransient
     public List<Odontologo> getOdontologoList() {
         return odontologoList;
     }
@@ -217,5 +210,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "ec.gr1.sonrisitas.modelos.Usuario[ usuId=" + usuId + " ]";
     }
-    
+
 }

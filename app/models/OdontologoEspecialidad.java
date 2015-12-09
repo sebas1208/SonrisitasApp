@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.gr1.sonrisitas.modelos;
+package models;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -13,23 +13,17 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
-
+import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  *
  * @author sebastian
  */
 @Entity
-@Table(name = "odontologo_especialidad", catalog = "d5p5cglukdp5dk", schema = "public")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "OdontologoEspecialidad.findAll", query = "SELECT o FROM OdontologoEspecialidad o"),
-    @NamedQuery(name = "OdontologoEspecialidad.findByOdeId", query = "SELECT o FROM OdontologoEspecialidad o WHERE o.odeId = :odeId")})
-public class OdontologoEspecialidad implements Serializable {
+@Table(name = "odontologo_especialidad",  schema = "public")
+public class OdontologoEspecialidad extends Model implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -42,6 +36,8 @@ public class OdontologoEspecialidad implements Serializable {
     @JoinColumn(name = "odo_id", referencedColumnName = "odo_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Odontologo odoId;
+
+    public static Finder<Long,OdontologoEspecialidad> find = new Finder<Long,OdontologoEspecialidad>(Long.class, OdontologoEspecialidad.class);
 
     public OdontologoEspecialidad() {
     }
@@ -98,5 +94,5 @@ public class OdontologoEspecialidad implements Serializable {
     public String toString() {
         return "ec.gr1.sonrisitas.modelos.OdontologoEspecialidad[ odeId=" + odeId + " ]";
     }
-    
+
 }

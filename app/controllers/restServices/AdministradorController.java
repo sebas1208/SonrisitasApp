@@ -20,15 +20,19 @@ import java.util.concurrent.TimeUnit;
 
 public class AdministradorController extends Controller {
 
-    public Result all() {
-        List<Administrador> administradores = Administrador.find.all();
-        //System.out.println(odontologos.get(0).getOdoNombres());
-        return Results.ok(Json.toJson(administradores));
+    public Result todos() {
+        return Results.ok();
     }
 
-/*    public Result one(Long id){
-        Administrador administrador = Administrador.find.byId(id);
-        if(administrador == null) return Results.ok("{\"error\":\"No existe el usuario\"}");
-        return Results.ok(Json.toJson(usuario));
-    }*/
+    public Result uno(Long id) {
+        return Results.ok();
+    }
+
+    public Result nuevo() {
+        return Results.ok();
+    }
+
+    public Result borrar(Long id) {
+        return Results.ok();
+    }
 }

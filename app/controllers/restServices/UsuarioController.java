@@ -19,12 +19,12 @@ import play.data.Form;
 
 public class UsuarioController extends Controller {
 
-    public Result all() {
+    public Result todos() {
         List<Usuario> usuarios = Usuario.find.all();
         return Results.ok(Json.toJson(usuarios));
     }
 
-    public Result one(Long id){
+    public Result uno(Long id){
         Usuario usuario = Usuario.find.byId(id);
         if(usuario == null) return Results.ok("{\"error\":\"No existe el usuario\"}");
         return Results.ok(Json.toJson(usuario));
@@ -48,7 +48,7 @@ public class UsuarioController extends Controller {
         return Results.ok("Creado: " + dynamicForm.get("usuario"));
     }
 
-    public Result delete(Long id){
+    public Result borrar(Long id){
         Ebean.execute(new TxRunnable() {
           public void run() {
             Usuario usuario = Ebean.find(Usuario.class, id);

@@ -20,52 +20,19 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class HistoriaClinicaDetalleController extends Controller {
-
-    public Result all() {
-        List<HistoriaClinicaDetalle> historiasClinicasDetalle = HistoriaClinicaDetalle.find.all();
-        //System.out.println(odontologos.get(0).getOdoNombres());
-        return Results.ok(Json.toJson(historiasClinicasDetalle));
+    public Result todos() {
+        return Results.ok();
     }
 
-/*    @Transactional
-    public Result one(String id) {
-        Odontologo odontologo = JPA.em().find(Odontologo.class, Integer.parseInt(id));
-        if(odontologo == null) return Results.ok("{\nerror: \"No hay datos\n\"}");
-        return Results.ok(Json.toJson(odontologo));
-    }*/
-/*    @BodyParser.Of(BodyParser.Json.class)
-    public Result submitOdontologo() {
-    	JsonNode jsonNode = Controller.request().body().asJson();
-        String url = jsonNode.findPath("url").asText();
-        String fullname = jsonNode.findPath("fullname").asText();
-        JsonNode response = fetchInformation(url);
-        Odontologo odontologo = null;
-        if(response == null){
-            return Results.badRequest();
-        }else{
-            String odoCedula = response.findPath("cedula").textValue();
-            String odoNombres = response.findPath("nombres").textValue();
-            String odoApellidos = response.findPath("apellidos").textValue();
-            String odoDireccion = response.findPath("direccion").textValue();
-            String odoTelefono = response.findPath("telefono").textValue();
-            String odoEmail = response.findPath("email").textValue();
-            odontologo = new Odontologo(odoCedula, odoNombres, odoApellidos, odoDireccion, odoTelefono, odoEmail);
-        }
-        odontologo.save();
-        return Results.created();
+    public Result uno(Long id) {
+        return Results.ok();
     }
 
-    private static JsonNode fetchInformation(String url){
-        String restServiceUrl = "http://localhost/api/v1/extract?url="+url;
-        Future<Response> future = WS.url(restServiceUrl).get();
-        try {
-            Response result = Await.result(future, Duration.apply(30, TimeUnit.SECONDS));
-            JsonNode jsonNode = Json.parse(result.json().toString());
-            return jsonNode;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    public Result nuevo() {
+        return Results.ok();
+    }
 
-    }*/
+    public Result borrar(Long id) {
+        return Results.ok();
+    }
 }

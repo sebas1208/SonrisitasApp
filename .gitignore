@@ -1,10 +1,10 @@
 *.un~
 target/
-logs/
+logs/*
 RUNNING_PID
 project/project
 project/target
 tmp
 dist
 .cache
-.sbtserver/
+.sbtserver/*

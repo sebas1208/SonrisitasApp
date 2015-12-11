@@ -20,12 +20,12 @@ import play.data.Form;
 public class OdontologoController extends Controller {
 
     //READ OPERATION
-    public Result all() {
+    public Result todos() {
         List<Odontologo> odontologos = Odontologo.find.all();
         return Results.ok(Json.toJson(odontologos));
     }
 
-    public Result one(Long id){
+    public Result uno(Long id){
         Odontologo odontologo = Odontologo.find.byId(id);
         if(odontologo == null) return Results.ok("{\"error\":\"No existe el usuario\"}");
         return Results.ok(Json.toJson(odontologo));
@@ -51,7 +51,7 @@ public class OdontologoController extends Controller {
         return Results.ok("Usuario " + dynamicForm.get("usuario"));
     }
 
-    public Result delete(Long id){
+    public Result borrar(Long id){
             Ebean.execute(new TxRunnable() {
               public void run() {
                 Odontologo odontologo = Ebean.find(Odontologo.class, id);

@@ -50,8 +50,8 @@ public class HistoriaClinicaDetalle extends Model implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 500)
-    @Column(name = "hcd_examenes_complemetarios")
-    private String hcdExamenesComplemetarios;
+    @Column(name = "hcd_examenes_complementarios")
+    private String hcdExamenesComplementarios;
     @Column(name = "hcd_activo")
     private Boolean hcdActivo;
     @Column(name = "hcd_fecha_registro")
@@ -83,12 +83,12 @@ public class HistoriaClinicaDetalle extends Model implements Serializable {
         this.hcdId = hcdId;
     }
 
-    public HistoriaClinicaDetalle(Long hcdId, String hcdExploracionFisica, String hcdDiagnostico, String hcdEvolucion, String hcdExamenesComplemetarios, String hcdRecetaMedica) {
+    public HistoriaClinicaDetalle(Long hcdId, String hcdExploracionFisica, String hcdDiagnostico, String hcdEvolucion, String hcdExamenesComplementarios, String hcdRecetaMedica) {
         this.hcdId = hcdId;
         this.hcdExploracionFisica = hcdExploracionFisica;
         this.hcdDiagnostico = hcdDiagnostico;
         this.hcdEvolucion = hcdEvolucion;
-        this.hcdExamenesComplemetarios = hcdExamenesComplemetarios;
+        this.hcdExamenesComplementarios = hcdExamenesComplementarios;
         this.hcdRecetaMedica = hcdRecetaMedica;
     }
 
@@ -116,12 +116,12 @@ public class HistoriaClinicaDetalle extends Model implements Serializable {
         this.hcdEvolucion = hcdEvolucion;
     }
 
-    public String getHcdExamenesComplemetarios() {
-        return hcdExamenesComplemetarios;
+    public String getHcdExamenesComplementarios() {
+        return hcdExamenesComplementarios;
     }
 
-    public void setHcdExamenesComplemetarios(String hcdExamenesComplemetarios) {
-        this.hcdExamenesComplemetarios = hcdExamenesComplemetarios;
+    public void setHcdExamenesComplementarios(String hcdExamenesComplementarios) {
+        this.hcdExamenesComplementarios = hcdExamenesComplementarios;
     }
 
     public Boolean getHcdActivo() {

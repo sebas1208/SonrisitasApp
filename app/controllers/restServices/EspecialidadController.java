@@ -3,37 +3,58 @@ package controllers.restServices;
 import play.*;
 import play.mvc.*;
 import models.Especialidad;
-import models.Usuario;
-//import play.db.ebean.Model;
+import play.db.ebean.*;
 import play.mvc.Result;
 import play.mvc.Results;
-import com.fasterxml.jackson.databind.JsonNode;
 import play.api.libs.ws.WS;
 import play.libs.Json;
-import scala.concurrent.Await;
-import scala.concurrent.Future;
-import scala.concurrent.duration.Duration;
-import javax.persistence.Query;
 
 import java.util.List;
+import java.util.Date;
+import java.util.Calendar;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+import com.avaje.ebean.TxRunnable;
+import com.avaje.ebean.Ebean;
+import play.data.DynamicForm;
+import play.data.Form;
+import util.Fechas;
 
 public class EspecialidadController extends Controller {
 
     public Result todos() {
-        return Results.ok();
+        List<Especialidad> especialidades = Especialidad.find.all();
+        return Results.ok(Json.toJson(especialidades));
     }
 
-    public Result uno(Long id) {
-        return Results.ok();
+    public Result uno(Long id){
+        Especialidad especialidad = Especialidad.find.byId(id);
+        if(especialidad == null) return Results.ok("{\"error\":\"No existe el Especialidad\"}");
+        return Results.ok(Json.toJson(especialidad));
     }
 
-    public Result nuevo() {
-        return Results.ok();
+    public Result nuevo(){
+        DynamicForm dynamicForm = Form.form().bindFromRequest();
+        final Especialidad especialidad = new Especialidad();
+        Ebean.execute(new TxRunnable() {
+            public void run() {                
+                especialidad.setEspNombre(dynamicForm.get("nombre"));
+                especialidad.setEspArea(dynamicForm.get("area"));                
+                especialidad.setEspActivo(true);
+                especialidad.setEspFechaRegistro(Calendar.getInstance().getTime());
+                Ebean.save(especialidad);
+            }
+        });
+        return Results.ok(Json.toJson(especialidad));
     }
 
-    public Result borrar(Long id) {
-        return Results.ok();
+    public Result borrar(Long id){
+        Ebean.execute(new TxRunnable() {
+          public void run() {
+            Especialidad especialidad = Ebean.find(Especialidad.class, id);
+            if(especialidad != null){
+                Ebean.delete(especialidad);
+            }
+        }});
+        return Results.ok("Borrado: " + id);
     }
 }

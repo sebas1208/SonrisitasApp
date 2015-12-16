@@ -12,6 +12,7 @@ import play.libs.Json;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Calendar;
 import com.avaje.ebean.TxRunnable;
 import com.avaje.ebean.Ebean;
 import play.data.DynamicForm;
@@ -19,7 +20,6 @@ import play.data.Form;
 
 public class OdontologoController extends Controller {
 
-    //READ OPERATION
     public Result todos() {
         List<Odontologo> odontologos = Odontologo.find.all();
         return Results.ok(Json.toJson(odontologos));
@@ -33,9 +33,9 @@ public class OdontologoController extends Controller {
 
     public Result nuevo(){
         DynamicForm dynamicForm = Form.form().bindFromRequest();
+        final Odontologo odontologo = new Odontologo();
         Ebean.execute(new TxRunnable() {
-            public void run() {
-                Odontologo odontologo = new Odontologo();
+            public void run() {                
                 odontologo.setOdoNombres(dynamicForm.get("nombres"));
                 odontologo.setOdoApellidos(dynamicForm.get("apellidos"));
                 odontologo.setOdoDireccion(dynamicForm.get("direccion"));
@@ -44,21 +44,21 @@ public class OdontologoController extends Controller {
                 odontologo.setOdoCedula(dynamicForm.get("cedula"));
                 odontologo.setUsuId(Ebean.find(Usuario.class,Long.parseLong(dynamicForm.get("usuario"))));
                 odontologo.setOdoActivo(true);
-                odontologo.setOdoFechaRegistro(new Date());
+                odontologo.setOdoFechaRegistro(Calendar.getInstance().getTime());
                 Ebean.save(odontologo);
             }
         });
-        return Results.ok("Usuario " + dynamicForm.get("usuario"));
+        return Results.ok(Json.toJson(odontologo));
     }
 
     public Result borrar(Long id){
-            Ebean.execute(new TxRunnable() {
-              public void run() {
-                Odontologo odontologo = Ebean.find(Odontologo.class, id);
-                if(odontologo != null){
-                    Ebean.delete(odontologo);
-                }
-            }});
-            return Results.ok("Borrado: " + id);
+        Ebean.execute(new TxRunnable() {
+          public void run() {
+            Odontologo odontologo = Ebean.find(Odontologo.class, id);
+            if(odontologo != null){
+                Ebean.delete(odontologo);
+            }
+        }});
+        return Results.noContent();
     }
 }

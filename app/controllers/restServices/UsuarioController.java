@@ -11,6 +11,7 @@ import play.libs.Json;
 
 import java.util.List;
 import java.util.Date;
+import java.util.Calendar;
 import java.util.ArrayList;
 import com.avaje.ebean.TxRunnable;
 import com.avaje.ebean.Ebean;
@@ -32,20 +33,20 @@ public class UsuarioController extends Controller {
 
     public Result nuevo(){
         DynamicForm dynamicForm = Form.form().bindFromRequest();
+        final Usuario usuario = new Usuario();
         Ebean.execute(new TxRunnable() {
-            public void run() {
-                Usuario usuario = new Usuario();
+            public void run() {                
                 usuario.setUsuUser(dynamicForm.get("usuario"));
                 usuario.setUsuPassword(dynamicForm.get("password"));
                 usuario.setUsuPreguntaRecuperacion(dynamicForm.get("preguntaRecuperacion"));
                 usuario.setUsuRespuestaRecuperacion(dynamicForm.get("respuestaRecuperacion"));
                 usuario.setUsuEmail(dynamicForm.get("email"));
                 usuario.setUsuActivo(true);
-                usuario.setUsuFechaRegistro(new Date());
+                usuario.setUsuFechaRegistro(Calendar.getInstance().getTime());
                 Ebean.save(usuario);
             }
         });
-        return Results.ok("Creado: " + dynamicForm.get("usuario"));
+        return Results.ok(Json.toJson(usuario));
     }
 
     public Result borrar(Long id){

@@ -2,6 +2,9 @@
 # This file defines todos application routes (Higher priority routes first)
 # ~~~~
 
+#Paginas Web
+GET		/signUp 					controllers.views.SignUp.signUp()
+
 
 #Administrador
 GET 	/administradores			controllers.restServices.AdministradorController.todos()

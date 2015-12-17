@@ -67,7 +67,7 @@ create table public.historia_clinica_detalle (
   hcd_exploracion_fisica    varchar(500) not null,
   hcd_diagnostico           varchar(200) not null,
   hcd_evolucion             varchar(200) not null,
-  hcd_examenes_complemetarios varchar(500) not null,
+  hcd_examenes_complementarios varchar(500) not null,
   hcd_activo                boolean,
   hcd_fecha_registro        timestamp,
   hcd_receta_medica         varchar(500) not null,

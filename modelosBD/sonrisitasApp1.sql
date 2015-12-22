@@ -127,7 +127,7 @@ create table public.tipo_atencion_medica (
 ;
 
 create table public.usuario (
-  usu_id                    bigint not null,
+  usu_id                    bigserial not null,
   usu_user                  varchar(50) not null,
   usu_password              varchar(50) not null,
   usu_pregunta_recuperacion varchar(100) not null,
@@ -137,8 +137,6 @@ create table public.usuario (
   usu_fecha_registro        timestamp,
   constraint pk_usuario primary key (usu_id))
 ;
-
-create sequence public.usuario_seq increment by 100;
 
 alter table public.administrador add constraint fk_administrador_usuId_1 foreign key (usu_id) references public.usuario (usu_id);
 create index ix_administrador_usuId_1 on public.administrador (usu_id);
@@ -190,6 +188,3 @@ drop table if exists public.paciente cascade;
 drop table if exists public.tipo_atencion_medica cascade;
 
 drop table if exists public.usuario cascade;
-
-drop sequence if exists public.usuario_seq;
-

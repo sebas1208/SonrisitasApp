@@ -24,6 +24,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import play.data.validation.Constraints;
 /**
  *
  * @author sebastian
@@ -34,37 +35,37 @@ public class Odontologo extends Model implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
     @Column(name = "odo_id")
     private Long odoId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Constraints.MaxLength(50)
+    @Constraints.MinLength(1)   
+    @Constraints.Required
     @Column(name = "odo_nombres")
     private String odoNombres;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Constraints.MaxLength(50)
+    @Constraints.MinLength(1)   
+    @Constraints.Required
     @Column(name = "odo_apellidos")
     private String odoApellidos;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Constraints.MaxLength(50)
+    @Constraints.MinLength(5)   
+    @Constraints.Required
     @Column(name = "odo_direccion")
     private String odoDireccion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 15)
+    @Constraints.MaxLength(15)
+    @Constraints.MinLength(5)   
+    @Constraints.Required
     @Column(name = "odo_telefono")
     private String odoTelefono;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Constraints.MaxLength(50)
+    @Constraints.MinLength(5)   
+    @Constraints.Required
+    @Constraints.Email
     @Column(name = "odo_email")
     private String odoEmail;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 15)
+    @Constraints.MaxLength(15)
+    @Constraints.MinLength(5)   
+    @Constraints.Required
     @Column(name = "odo_cedula")
     private String odoCedula;
     @Column(name = "odo_activo")

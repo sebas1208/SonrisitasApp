@@ -16,7 +16,12 @@ libraryDependencies ++= Seq(
 	cache,
 	javaWs,
 	"com.typesafe.play" %% "play-json" % "2.4.3",
-	"com.fasterxml.jackson.core" % "jackson-annotations" % "2.6.0"
+	"com.fasterxml.jackson.core" % "jackson-annotations" % "2.6.0",
+	"org.apache.commons" % "commons-lang3" % "3.4",
+	"javax.mail" % "javax.mail-api" % "1.5.4",
+	"javax.activation" % "activation" % "1.1.1",
+	"com.sun.mail" % "javax.mail" % "1.5.4"
+
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the

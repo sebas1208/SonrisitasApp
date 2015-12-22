@@ -14,10 +14,14 @@
 		<meta name="generator" content="Bootply" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")" rel="stylesheet">
-		<!--[if lt IE 9]>
-			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-		<link href="@routes.Assets.versioned("stylesheets/styles.css")" rel="stylesheet">
+        <link href="@routes.Assets.versioned("stylesheets/bootstrap-responsive.min.css")" rel="stylesheet">
+        <link href="@routes.Assets.versioned("stylesheets/styles.css")" rel="stylesheet">
+        <link href="@routes.Assets.versioned("stylesheets/signin.css")" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+        <!--[if lt IE 9]>
+            <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link href="@routes.Assets.versioned("stylesheets/styles.css")" rel="stylesheet">
     </head>
     <body>
         @content
@@ -25,5 +29,6 @@
         <!-- script references -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 		<script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/signin.js")"></script>
     </body>
 </html>

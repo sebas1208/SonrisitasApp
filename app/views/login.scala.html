@@ -1,35 +1,54 @@
 @(message: String)
 
-@main("Login") {
+@templateMain("Login") {
 
-<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h1 class="text-center">Login</h1>
-			</div>
-			<div class="modal-body">
-				<form class="form col-md-12 center-block">
-					<div class="form-group">
-						<input type="text" class="form-control input-lg" placeholder="Email">
-					</div>
-					<div class="form-group">
-						<input type="password" class="form-control input-lg" placeholder="Password">
-					</div>
-					<div class="form-group">
-						<button class="btn btn-primary btn-lg btn-block">Sign In</button>
-						<span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<div class="col-md-12">
-					<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<div class="account-container">
+	
+	<div class="content clearfix">
+		
+		<form action="#" method="post">
+		
+			<h1>Login</h1>		
+			
+			<div class="login-fields">
+				
+				<p>Ingrese sus datos</p>
+				
+				<div class="field">
+					<label for="usuario">Usuario</label>
+					<input type="text" id="usuario" name="usuario" value="" placeholder="Usuario" class="login username-field" />
+				</div> <!-- /field -->
+				
+				<div class="field">
+					<label for="password">Password:</label>
+					<input type="password" id="password" name="password" value="" placeholder="Password" class="login password-field"/>
+				</div> <!-- /password -->
+				
+			</div> <!-- /login-fields -->
+			
+			<div class="login-actions">
+				
+<!-- 				<span class="login-checkbox">
+					<input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
+					<label class="choice" for="Field">Keep me signed in</label>
+				</span> -->
+									
+				<button class="button btn btn-success btn-large">Ingresar</button>
+				
+			</div> <!-- .actions -->
+			
+			
+			
+		</form>
+		
+	</div> <!-- /content -->
+	
+</div> <!-- /account-container -->
+
+
+
+<div class="login-extra">
+	<a href="#">Reset Password</a>
+</div> <!-- /login-extra -->
 
 }

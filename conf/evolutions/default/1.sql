@@ -67,7 +67,7 @@ create table public.historia_clinica_detalle (
   hcd_exploracion_fisica    varchar(500) not null,
   hcd_diagnostico           varchar(200) not null,
   hcd_evolucion             varchar(200) not null,
-  hcd_examenes_complemetarios varchar(500) not null,
+  hcd_examenes_complementarios varchar(500) not null,
   hcd_activo                boolean,
   hcd_fecha_registro        timestamp,
   hcd_receta_medica         varchar(500) not null,
@@ -77,12 +77,12 @@ create table public.historia_clinica_detalle (
 
 create table public.odontologo (
   odo_id                    bigserial not null,
-  odo_nombres               varchar(50) not null,
-  odo_apellidos             varchar(50) not null,
-  odo_direccion             varchar(50) not null,
-  odo_telefono              varchar(15) not null,
-  odo_email                 varchar(50) not null,
-  odo_cedula                varchar(15) not null,
+  odo_nombres               varchar(255),
+  odo_apellidos             varchar(255),
+  odo_direccion             varchar(255),
+  odo_telefono              varchar(255),
+  odo_email                 varchar(255),
+  odo_cedula                varchar(255),
   odo_activo                boolean,
   odo_fecha_registro        timestamp,
   usu_id                    bigint not null,
@@ -127,18 +127,16 @@ create table public.tipo_atencion_medica (
 ;
 
 create table public.usuario (
-  usu_id                    bigint not null,
-  usu_user                  varchar(50) not null,
-  usu_password              varchar(50) not null,
-  usu_pregunta_recuperacion varchar(100) not null,
-  usu_respuesta_recuperacion varchar(100) not null,
-  usu_email                 varchar(50) not null,
+  usu_id                    bigserial not null,
+  usu_user                  varchar(255),
+  usu_password              varchar(255),
+  usu_pregunta_recuperacion varchar(255),
+  usu_respuesta_recuperacion varchar(255),
+  usu_email                 varchar(255),
   usu_activo                boolean,
   usu_fecha_registro        timestamp,
   constraint pk_usuario primary key (usu_id))
 ;
-
-create sequence public.usuario_seq increment by 100;
 
 alter table public.administrador add constraint fk_administrador_usuId_1 foreign key (usu_id) references public.usuario (usu_id);
 create index ix_administrador_usuId_1 on public.administrador (usu_id);
@@ -190,6 +188,4 @@ drop table if exists public.paciente cascade;
 drop table if exists public.tipo_atencion_medica cascade;
 
 drop table if exists public.usuario cascade;
-
-drop sequence if exists public.usuario_seq;
 

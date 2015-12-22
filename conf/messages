@@ -1,0 +1,4 @@
+error.required = Hey, debes escribir algo aquí
+error.minLength = Hey, deberias escribir mas
+error.maxLength = Hey, deberias escribir menos
+error.email = Hey, el email parece invalido

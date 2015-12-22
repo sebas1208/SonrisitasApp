@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.Map;
+import java.util.HashMap;
 import com.avaje.ebean.TxRunnable;
 import com.avaje.ebean.Ebean;
 import play.data.DynamicForm;
@@ -32,19 +34,22 @@ public class OdontologoController extends Controller {
     }
 
     public Result nuevo(){
+        Form<Odontologo> userForm = Form.form(Odontologo.class).bindFromRequest();
+        // Map<String,String> anyData = new HashMap();
+        // anyData.put("usuFechaRegistro", "22/12/2015");
+        // userForm.bind(anyData);
         DynamicForm dynamicForm = Form.form().bindFromRequest();
-        final Odontologo odontologo = new Odontologo();
+
+        // if(userForm.hasErrors()){
+        //     Logger.error(userForm.errorsAsJson().toString());
+        //     return Results.badRequest(userForm.errorsAsJson());
+        // }
+        Logger.error(userForm.get().getUsuId().getUsuFechaRegistro().toString());
+        final Odontologo odontologo = userForm.get();
+        odontologo.setOdoActivo(false);
+        odontologo.setOdoFechaRegistro(Calendar.getInstance().getTime());
         Ebean.execute(new TxRunnable() {
-            public void run() {                
-                odontologo.setOdoNombres(dynamicForm.get("nombres"));
-                odontologo.setOdoApellidos(dynamicForm.get("apellidos"));
-                odontologo.setOdoDireccion(dynamicForm.get("direccion"));
-                odontologo.setOdoTelefono(dynamicForm.get("telefono"));
-                odontologo.setOdoEmail(dynamicForm.get("email"));
-                odontologo.setOdoCedula(dynamicForm.get("cedula"));
-                odontologo.setUsuId(Ebean.find(Usuario.class,Long.parseLong(dynamicForm.get("usuario"))));
-                odontologo.setOdoActivo(true);
-                odontologo.setOdoFechaRegistro(Calendar.getInstance().getTime());
+            public void run() {                                
                 Ebean.save(odontologo);
             }
         });

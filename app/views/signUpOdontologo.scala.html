@@ -1,0 +1,98 @@
+@templateMain("signUp Odontologo"){
+<div class="container">
+	<div ng-controller="AlertsCtrl">
+		<div ng-repeat="alert in alerts" class="alert alert-danger">{{ alert.msg }}</div>		
+	</div>
+	<div ng-view=""></div>
+</div>
+
+<div ng-controller="SignUpOdontologoController as singin" class="account-container register">
+	
+	<div class="content clearfix">
+		
+		<form ng-submit="agregarUsuario()">
+
+			<h1>Registro de Odontologo</h1>			
+			
+			<div class="login-fields">							
+				
+				<div class="field">
+					<label for="nombres">Nombres:</label>
+					<input ng-model="nombres" type="text" id="nombres" name="nombres" value="nombres" placeholder="Nombres" class="login"/>
+				</div>
+
+				<div class="field">
+					<label for="apellidos">Apellidos:</label>
+					<input ng-model="apellidos" type="text" id="apellidos" name="apellidos" value="apellidos" placeholder="Apellidos" class="login"/>
+				</div>
+
+				<div class="field">
+					<label for="direccion">Dirección:</label>
+					<input ng-model="direccion" type="text" id="direccion" name="direccion" value="" placeholder="Direccion" class="login" />
+				</div> 
+
+				<div class="field">
+					<label for="telefono">Telefono:</label>
+					<input ng-model="telefono" type="text" id="telefono" name="telefono" value="" placeholder="Telefono" class="login" />
+				</div>
+
+				<div class="field">
+					<label for="cedula">Cedula:</label>
+					<input ng-model="cedula" type="text" id="cedula" name="cedula" value="" placeholder="Cedula" class="login" />
+				</div> 
+
+				<div class="field">
+					<label for="usuario">Usuario:</label>
+					<input ng-model="usuario" type="text" id="usuario" name="usuario" value="" placeholder="Usuario" class="login" />
+				</div> <!-- /field -->
+				
+				<div class="field">
+					<label for="password">Password:</label>	
+					<input ng-model="password" type="password" id="password" name="password" value="" placeholder="Password" class="login" />
+				</div> <!-- /field -->
+				
+				<div class="field">
+					<label for="confirm_password">Confirm Password:</label>
+					<input ng-model="confirmPassword" type="password" id="confirm_password" name="confirm_password" value="" placeholder="Confirma el Password" class="login"/>
+				</div> <!-- /field -->
+				
+
+				<div class="field">
+					<p>Pregunta Recuperacion de Contraseña</p>
+					<label for="preguntaRecuperacion">PreguntaRecuperacion:</label>
+					<select style="width: 420px" ng-model="preguntaRecuperacion" name="preguntasRecuperacion" id="preguntasRecuperacion">
+						<option value="¿Cual es tu equipo de futbol favorito?" value="¿Cual es tu equipo de futbol favorito?">¿Cual es tu equipo de futbol favorito?</option>
+						<option value="¿Como se llama tu mascota?">¿Como se llama tu mascota?</option>
+						<option value="¿Como es el apellido de tu Madre?">¿Como es el apellido de tu Madre?</option>
+						<option value="¿Como es el nombre de tu mejor amigo de la Infancia?">¿Como es el nombre de tu mejor amigo?</option>
+					</select>
+				</div>
+
+				<div class="field">
+					<label for="respuesta">Respuesta:</label>
+					<input ng-model="respuestaRecuperacion" type="text" id="respuesta" name="respuesta" value="" placeholder="Respuesta" class="login"/>
+				</div> <!-- /field -->				
+
+				<div class="field">
+					<label for="email">Email:</label>
+					<input ng-model="email" type="text" id="email" name="email" value="email" placeholder="Email" class="login"/>
+				</div> <!-- /field -->				
+				
+				 <!-- /field -->					
+			</div> <!-- /login-fields -->
+			
+			<br>
+			<div class="login-actions">				
+
+				<button type="submit" class="btn btn-primary btn-large">Register</button>
+				
+			</div> <!-- .actions -->
+			
+		</form>
+		
+	</div> <!-- /content -->
+	
+</div> <!-- /account-container -->
+
+
+}

@@ -17,6 +17,7 @@ import com.avaje.ebean.TxRunnable;
 import com.avaje.ebean.Ebean;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.Logger;
 
 public class UsuarioController extends Controller {
 
@@ -27,26 +28,25 @@ public class UsuarioController extends Controller {
 
     public Result uno(Long id){
         Usuario usuario = Usuario.find.byId(id);
-        if(usuario == null) return Results.ok("{\"error\":\"No existe el usuario\"}");
+        if(usuario == null) return Results.badRequest("{\"error\":\"No existe el usuario\"}");
         return Results.ok(Json.toJson(usuario));
     }
 
     public Result nuevo(){
-        DynamicForm dynamicForm = Form.form().bindFromRequest();
-        final Usuario usuario = new Usuario();
+        Form<Usuario> userForm = Form.form(Usuario.class).bindFromRequest();               
+        if(userForm.hasErrors()){
+            Logger.error(userForm.errorsAsJson().toString());
+            return Results.badRequest(userForm.errorsAsJson());
+        }
+        final Usuario usuario = userForm.get();
+        usuario.setUsuActivo(false);
+        usuario.setUsuFechaRegistro(Calendar.getInstance().getTime());
         Ebean.execute(new TxRunnable() {
-            public void run() {                
-                usuario.setUsuUser(dynamicForm.get("usuario"));
-                usuario.setUsuPassword(dynamicForm.get("password"));
-                usuario.setUsuPreguntaRecuperacion(dynamicForm.get("preguntaRecuperacion"));
-                usuario.setUsuRespuestaRecuperacion(dynamicForm.get("respuestaRecuperacion"));
-                usuario.setUsuEmail(dynamicForm.get("email"));
-                usuario.setUsuActivo(true);
-                usuario.setUsuFechaRegistro(Calendar.getInstance().getTime());
+            public void run() {                                
                 Ebean.save(usuario);
             }
         });
-        return Results.ok(Json.toJson(usuario));
+        return Results.ok(Json.toJson(usuario));        
     }
 
     public Result borrar(Long id){

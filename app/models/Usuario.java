@@ -25,6 +25,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import play.data.validation.Constraints;
 /**
  *
  * @author sebastian
@@ -34,30 +35,28 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @SequenceGenerator(name="seq", initialValue=1, allocationSize=100)
 public class Usuario extends Model implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Constraints.MaxLength(50)
+    @Constraints.MinLength(5)   
+    @Constraints.Required
     @Column(name = "usu_user")
     private String usuUser;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Constraints.MaxLength(50)  
+    @Constraints.MinLength(8)  
+    @Constraints.Required
     @Column(name = "usu_password")
     private String usuPassword;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Constraints.MaxLength(100)    
+    @Constraints.Required
     @Column(name = "usu_pregunta_recuperacion")
     private String usuPreguntaRecuperacion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Constraints.MaxLength(100)    
+    @Constraints.Required
     @Column(name = "usu_respuesta_recuperacion")
     private String usuRespuestaRecuperacion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
     @Column(name = "usu_email")
+    @Constraints.MaxLength(50)    
+    @Constraints.Required
+    @Constraints.Email
     private String usuEmail;
     @Column(name = "usu_activo")
     private Boolean usuActivo;
@@ -66,9 +65,7 @@ public class Usuario extends Model implements Serializable {
     private Date usuFechaRegistro;
     @Id
     @Basic(optional = false)
-    @NotNull
     @Column(name = "usu_id")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
     private Long usuId;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuId", fetch = FetchType.LAZY)
@@ -97,6 +94,20 @@ public class Usuario extends Model implements Serializable {
         this.usuRespuestaRecuperacion = usuRespuestaRecuperacion;
         this.usuEmail = usuEmail;
     }
+
+    public String validate(){
+        if(findByEmail(this.usuEmail) != null){
+            return "El email ya se encuentra registrado a una cuenta";    
+        }
+        return null;
+    }
+
+    public static Usuario findByEmail(String email) {
+        return find
+        .where()
+        .eq("usuEmail", email)
+        .findUnique();
+    }    
 
     public String getUsuUser() {
         return usuUser;

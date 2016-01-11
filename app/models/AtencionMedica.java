@@ -7,6 +7,7 @@ package models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -59,9 +60,9 @@ public class AtencionMedica extends Model implements Serializable {
     @JoinColumn(name = "odo_id", referencedColumnName = "odo_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Odontologo odoId;
-    @JoinColumn(name = "pac_id", referencedColumnName = "pac_id")
+    @JoinColumn(name = "usu_id", referencedColumnName = "usu_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Paciente pacId;
+    private Usuario usuId;
     @JoinColumn(name = "tam_id", referencedColumnName = "tam_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private TipoAtencionMedica tamId;
@@ -74,6 +75,11 @@ public class AtencionMedica extends Model implements Serializable {
     public AtencionMedica(Long atmId) {
         this.atmId = atmId;
     }
+
+    public static List<AtencionMedica> findByUser(Long idUsuario) {
+        return find.where().eq("usu_Id", idUsuario).findList();
+    }
+
 
     public AtencionMedica(Long atmId, Date atmFecha, Date atmHoraInicio, Date atmHoraFin) {
         this.atmId = atmId;
@@ -146,12 +152,12 @@ public class AtencionMedica extends Model implements Serializable {
         this.odoId = odoId;
     }
 
-    public Paciente getPacId() {
-        return pacId;
+    public Usuario getUsuId() {
+        return usuId;
     }
 
-    public void setPacId(Paciente pacId) {
-        this.pacId = pacId;
+    public void setUsuId(Usuario usuId) {
+        this.usuId = usuId;
     }
 
     public TipoAtencionMedica getTamId() {

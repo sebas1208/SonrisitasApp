@@ -50,9 +50,12 @@ public class Especialidad extends Model implements Serializable {
     @NotNull
     @Column(name = "esp_id")
     private Long espId;
-    @JsonIgnore
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "espId", fetch = FetchType.LAZY)
     private List<OdontologoEspecialidad> odontologoEspecialidadList;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "espId", fetch = FetchType.LAZY)
+    private List<TipoAtencionMedica> tipoAtencionMedicaList;
 
     public static Finder<Long,Especialidad> find = new Finder<Long,Especialidad>(Long.class, Especialidad.class);
 
@@ -115,6 +118,14 @@ public class Especialidad extends Model implements Serializable {
 
     public void setOdontologoEspecialidadList(List<OdontologoEspecialidad> odontologoEspecialidadList) {
         this.odontologoEspecialidadList = odontologoEspecialidadList;
+    }
+
+    public List<TipoAtencionMedica> getTipoAtencionMedicaList() {
+        return tipoAtencionMedicaList;
+    }
+
+    public void setTipoAtencionMedicaList(List<TipoAtencionMedica> tipoAtencionMedicaList) {
+        this.tipoAtencionMedicaList = tipoAtencionMedicaList;
     }
 
     @Override

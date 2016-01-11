@@ -92,14 +92,12 @@ public class Paciente extends Model implements Serializable {
     @NotNull
     @Column(name = "pac_id")
     private Long pacId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacId", fetch = FetchType.LAZY)
-    private List<HistoriaClinicaCabecera> historiaClinicaCabeceraList;
     @JoinColumn(name = "usu_id", referencedColumnName = "usu_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Usuario usuId;
     @JsonIgnore
+    private Usuario usuId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacId", fetch = FetchType.LAZY)
-    private List<AtencionMedica> atencionMedicaList;
+    private List<HistoriaClinicaCabecera> historiaClinicaCabeceraList;
 
     public static Finder<Long,Paciente> find = new Finder<Long,Paciente>(Long.class, Paciente.class);
 
@@ -255,15 +253,6 @@ public class Paciente extends Model implements Serializable {
 
     public void setUsuId(Usuario usuId) {
         this.usuId = usuId;
-    }
-
-
-    public List<AtencionMedica> getAtencionMedicaList() {
-        return atencionMedicaList;
-    }
-
-    public void setAtencionMedicaList(List<AtencionMedica> atencionMedicaList) {
-        this.atencionMedicaList = atencionMedicaList;
     }
 
     @Override

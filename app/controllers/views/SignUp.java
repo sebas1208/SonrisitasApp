@@ -2,7 +2,7 @@ package controllers;
 
 import play.*;
 import play.mvc.*;
-import util.GoogleMail;
+import util.Gmail;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
@@ -15,16 +15,13 @@ public class SignUp extends Controller {
 		return ok(signUp.render());
 	}
 
-	public Result signUpOdontologo(){
-		return ok(signUpOdontologo.render());
-	}
-
 	public Result emailMessage(String email){
 		try{
-			GoogleMail.Send("sebas1208.avalos","goog1208",email,"Clinica Sonrisitas Confirmacion de Correo", "Querido Usuario:\nPara activar tu cuenta has clic en el siguiente enlace: " + "enlace");
+			Gmail.send(email,"Sonrisitas","Holi");
 		}catch(Exception e){
 			Logger.error("El correo no se ha podido enviar");
 			e.printStackTrace();
+			return badRequest();
 		}
 		return ok(emailMessage.render(email));
 	}

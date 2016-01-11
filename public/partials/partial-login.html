@@ -1,0 +1,24 @@
+<div class="container">
+	<div ng-controller="AlertsCtrl">
+		<div ng-repeat="alert in alerts" class="alert alert-danger">{{ alert.msg }}</div>		
+	</div>
+	<div ng-view=""></div>
+</div>
+
+<div class="account-container">
+	
+	<div class="content clearfix">
+		<h1 class="">LogIn</h1>
+		<form name="logInForm" ng-controller="logInController" ng-submit="logIn()" class=""  novalidate>
+			<div class="form-group">
+				<input ng-model="email" type="email" required class="form-control" placeholder="Email">
+			</div>
+			<div class="form-group">
+				<input ng-model="password" type="password" required class="form-control" placeholder="Password">
+			</div>
+			<button type="submit" class="btn btn-primary">Ingresar</button>
+
+			<a href="#">¿Te olvidaste la contraseña?</a>				
+		</form>		
+	</div> <!-- /content -->
+</div>

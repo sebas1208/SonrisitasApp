@@ -14,6 +14,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -48,11 +50,18 @@ public class TipoAtencionMedica extends Model implements Serializable {
     @NotNull
     @Column(name = "tam_duracion_minutos")
     private int tamDuracionMinutos;
+    @Basic(optional = false)    
+    @Column(name = "tam_duracion_nem")
+    private String tamDuracionNem;
     @Column(name = "tam_activo")
     private Boolean tamActivo;
     @Column(name = "tam_fecha_registro")
     @Temporal(TemporalType.DATE)
     private Date tamFechaRegistro;
+    @JoinColumn(name = "esp_id", referencedColumnName = "esp_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Especialidad espId;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tamId", fetch = FetchType.LAZY)
     private List<AtencionMedica> atencionMedicaList;
@@ -87,6 +96,14 @@ public class TipoAtencionMedica extends Model implements Serializable {
 
     public void setTamNombre(String tamNombre) {
         this.tamNombre = tamNombre;
+    }
+
+    public String getTamDuracionNem() {
+        return tamDuracionNem;
+    }
+
+    public void setTamDuracionNem(String tamDuracionNem) {
+        this.tamDuracionNem = tamDuracionNem;
     }
 
     public int getTamDuracionHoras() {
@@ -127,6 +144,14 @@ public class TipoAtencionMedica extends Model implements Serializable {
 
     public void setAtencionMedicaList(List<AtencionMedica> atencionMedicaList) {
         this.atencionMedicaList = atencionMedicaList;
+    }
+
+    public Especialidad getEspId() {
+        return espId;
+    }
+
+    public void setEspId(Especialidad espId) {
+        this.espId = espId;
     }
 
     @Override

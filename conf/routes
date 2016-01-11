@@ -4,80 +4,85 @@
 
 #Paginas Web
 #Index
-GET     /                           controllers.Home.home()
+GET     /                           controllers.Home.index()
 #SignUp
 GET		/signUp 					controllers.SignUp.signUp()
 GET 	/emailMessage/:email		controllers.SignUp.emailMessage(email)
-GET 	/signUpOdontologo			controllers.SignUp.signUpOdontologo()
 #Login
 GET		/login 						controllers.Login.login()
+POST	/authenticateUser			controllers.Home.authUser()
+#Pagina Principal
+GET 	/home 						controllers.Home.home()
 
 
 #Administrador
-GET 	/administradores			controllers.restServices.AdministradorController.todos()
+GET 	/administrador			controllers.restServices.AdministradorController.todos()
 GET 	/administrador/:id			controllers.restServices.AdministradorController.uno(id: Long)
 POST	/administrador 				controllers.restServices.AdministradorController.nuevo()
 GET		/administrador/borrar/:id	controllers.restServices.AdministradorController.borrar(id: Long)
 
 #Agenda Odontologo
-GET 	/agendasOdontologo				controllers.restServices.AgendaOdontologoController.todos()
+GET 	/agendaOdontologo				controllers.restServices.AgendaOdontologoController.todos()
+GET 	/agendaOdontologo/:idOdontologo		controllers.restServices.AgendaOdontologoController.buscarPorOdontologo(idOdontologo: Long)
 GET 	/agendaOdontologo/:id			controllers.restServices.AgendaOdontologoController.uno(id: Long)
 POST	/agendaOdontologo 				controllers.restServices.AgendaOdontologoController.nuevo()
 GET		/agendaOdontologo/borrar/:id 	controllers.restServices.AgendaOdontologoController.borrar(id: Long)
 
 #Atencion Medica
-GET 	/atenciunosMedicas			controllers.restServices.AtencionMedicaController.todos()
+GET 	/atencionMedica				controllers.restServices.AtencionMedicaController.todos()
+GET		/atencionMedica/buscarPorUsuario/:idUsuario controllers.restServices.AtencionMedicaController.buscarPorUsuario(idUsuario: Long)
 GET 	/atencionMedica/:id			controllers.restServices.AtencionMedicaController.uno(id: Long)
 POST	/atencionMedica 			controllers.restServices.AtencionMedicaController.nuevo()
 GET		/atencionMedica/borrar/:id	controllers.restServices.AtencionMedicaController.borrar(id: Long)
 
 #Especialidad
-GET 	/especilidades				controllers.restServices.EspecialidadController.todos()
+GET 	/especialidad				controllers.restServices.EspecialidadController.todos()
 GET 	/especialidad/:id			controllers.restServices.EspecialidadController.uno(id: Long)
 POST	/especialidad 				controllers.restServices.EspecialidadController.nuevo()
 GET		/especialidad/borrar/:id	controllers.restServices.EspecialidadController.borrar(id: Long)
 
 #Historia Clinica Cabecera
-GET 	/historiasClinicaCabecera				controllers.restServices.HistoriaClinicaCabeceraController.todos()
+GET 	/historiaClinicaCabecera				controllers.restServices.HistoriaClinicaCabeceraController.todos()
 GET 	/historiaClinicaCabecera/:id			controllers.restServices.HistoriaClinicaCabeceraController.uno(id: Long)
 POST	/historiaClinicaCabecera 				controllers.restServices.HistoriaClinicaCabeceraController.nuevo()
 GET		/historiaClinicaCabecera/borrar/:id		controllers.restServices.HistoriaClinicaCabeceraController.borrar(id: Long)
 
 
 #Historia Clinica Detalle
-GET 	/historiasClinicaDetalle				controllers.restServices.HistoriaClinicaDetalleController.todos()
-GET 	/historiaClinicaDettodose/:id			controllers.restServices.HistoriaClinicaDetalleController.uno(id: Long)
+GET 	/historiaClinicaDetalle				controllers.restServices.HistoriaClinicaDetalleController.todos()
+GET 	/historiaClinicaDetalle/:id			controllers.restServices.HistoriaClinicaDetalleController.uno(id: Long)
 POST	/historiaClinicaDetalle 				controllers.restServices.HistoriaClinicaDetalleController.nuevo()
 GET		/historiaClinicaDetalle/borrar/:id		controllers.restServices.HistoriaClinicaDetalleController.borrar(id: Long)
 
 
 #Odontologo
-GET 	/odontologos				controllers.restServices.OdontologoController.todos()
+GET 	/odontologo				controllers.restServices.OdontologoController.todos()
 GET 	/odontologo/:id				controllers.restServices.OdontologoController.uno(id: Long)
 POST	/odontologo 				controllers.restServices.OdontologoController.nuevo()
 GET		/odontologo/borrar/:id		controllers.restServices.OdontologoController.borrar(id: Long)
 
 #OdontologoEspecialidad
-GET 	/odontologoEspecialidades			controllers.restServices.OdontologoEspecialidadController.todos()
+GET 	/odontologoEspecialidad			controllers.restServices.OdontologoEspecialidadController.todos()
 GET 	/odontologoEspecialidad/:id			controllers.restServices.OdontologoEspecialidadController.uno(id: Long)
 POST	/odontologoEspecialidad 			controllers.restServices.OdontologoEspecialidadController.nuevo()
 GET		/odontologoEspecialidad/borrar/:id	controllers.restServices.OdontologoEspecialidadController.borrar(id: Long)
 
 #Paciente
-GET 	/pacientes					controllers.restServices.PacienteController.todos()
+GET 	/paciente					controllers.restServices.PacienteController.todos()
 GET 	/paciente/:id				controllers.restServices.PacienteController.uno(id: Long)
 POST	/paciente 					controllers.restServices.PacienteController.nuevo()
 GET		/paciente/borrar/:id		controllers.restServices.PacienteController.borrar(id: Long)
 
 #TipoAtencion
-GET 	/tiposAtencion				controllers.restServices.TipoAtencionMedicaController.todos()
+GET 	/tipoAtencion				controllers.restServices.TipoAtencionMedicaController.todos()
 GET 	/tipoAtencion/:id			controllers.restServices.TipoAtencionMedicaController.uno(id: Long)
 POST	/tipoAtencion 				controllers.restServices.TipoAtencionMedicaController.nuevo()
 GET		/tipoAtencion/borrar/:id	controllers.restServices.TipoAtencionMedicaController.borrar(id: Long)
 
 
 #Usuarios Rest Metodos
-GET 	/usuarios					controllers.restServices.UsuarioController.todos()
+GET 	/usuario					controllers.restServices.UsuarioController.todos()
+GET 	/usuario/buscarPorEmail/:email	controllers.restServices.UsuarioController.buscarPorEmail(email: String)
 GET 	/usuario/:id				controllers.restServices.UsuarioController.uno(id: Long)
 POST	/usuario 					controllers.restServices.UsuarioController.nuevo()
 GET		/usuario/borrar/:id			controllers.restServices.UsuarioController.borrar(id: Long)
@@ -86,6 +91,5 @@ GET		/usuario/borrar/:id			controllers.restServices.UsuarioController.borrar(id:
 ###Paginas y Otros
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET     /*file               		controllers.Assets.versioned(path="/public", file: Asset)
 # Paginas Web
-GET		/prueba						controllers.Prueba.prueba()

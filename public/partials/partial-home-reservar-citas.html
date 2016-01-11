@@ -1,0 +1,17 @@
+<div ng-controller="citasController">
+	<h1>Seleccion el Tipo de Atención</h2>
+	<div class="dropdown">
+		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		Tipo Atencion
+		<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			<div ng-repeat="especialidad in especialidadList">
+				<li class="dropdown-header"><h5>{{especialidad.espArea}}</h5></li>	
+				<div ng-repeat="tipoAtencionMedica in especialidad.tipoAtencionMedicaList">
+					<li><a href="#/reservar-citas-odontologos/{{especialidad.espId}}/{{tipoAtencionMedica.tamId}}" class="btn btn-link">{{tipoAtencionMedica.tamNombre}}</a></li>	
+				</div>
+			</div>						
+		</ul>
+	</div>	
+</div>

@@ -1,52 +1,61 @@
-app.factory('alertService', function($timeout) {
+(function(){
+	var app = angular.module('alertSignUp', []);
 
-	var ALERT_TIMEOUT = 10000;
+	app.factory('alertService', function($timeout) {
 
-	function add(type, msg, timeout) {
+		var ALERT_TIMEOUT = 10000;
 
-		if (timeout) {
-			$timeout(function(){
-				closeAlert(this);
-			}, timeout);
-		} else {
-			$timeout(function(){
-				closeAlert(this);
-			}, ALERT_TIMEOUT);
+		function add(type, msg, timeout) {
+
+			if (timeout) {
+				$timeout(function(){
+					closeAlert(this);
+				}, timeout);
+			} else {
+				$timeout(function(){
+					closeAlert(this);
+				}, ALERT_TIMEOUT);
+			}
+
+			return alerts.push({
+				type: type,
+				msg: msg,
+				close: function() {
+					return closeAlert(this);
+				}
+			});
 		}
 
-		return alerts.push({
-			type: type,
-			msg: msg,
-			close: function() {
-				return closeAlert(this);
-			}
-		});
-	}
+		function closeAlert(alert) {
+			return closeAlertIdx(alerts.indexOf(alert));
+		}
 
-	function closeAlert(alert) {
-		return closeAlertIdx(alerts.indexOf(alert));
-	}
+		function closeAlertIdx(index) {
+			return alerts.splice(index, 1);
+		}
 
-	function closeAlertIdx(index) {
-		return alerts.splice(index, 1);
-	}
+		function clear(){
+			alerts = [];
+		}
 
-	function clear(){
+		function get() {
+			return alerts;
+		}
+
+		var service = {
+			add: add,
+			closeAlert: closeAlert,
+			closeAlertIdx: closeAlertIdx,
+			clear: clear,
+			get: get
+		},
 		alerts = [];
-	}
 
-	function get() {
-		return alerts;
-	}
+		return service;
+	});
 
-	var service = {
-		add: add,
-		closeAlert: closeAlert,
-		closeAlertIdx: closeAlertIdx,
-		clear: clear,
-		get: get
-	},
-	alerts = [];
-
-	return service;
-});
+	app.controller('AlertsCtrl', ['$scope', 'alertService',function ($scope, alertService) {
+	$scope.alerts = alertService.get();
+	console.log(alertService);
+	}]);
+})();

@@ -5,7 +5,7 @@ import play.mvc.*;
 import models.AtencionMedica;
 import models.HistoriaClinicaDetalle;
 import models.Odontologo;
-import models.Paciente;
+import models.Usuario;
 import models.TipoAtencionMedica;
 import play.db.ebean.*;
 import play.mvc.Result;
@@ -37,23 +37,44 @@ public class AtencionMedicaController extends Controller {
     }
 
     public Result nuevo(){
+        // Form<AtencionMedica> atmForm = Form.form(AtencionMedica.class).bindFromRequest();               
+        // if(atmForm.hasErrors()){
+        //     Logger.error(atmForm.errorsAsJson().toString());
+        //     return Results.badRequest(atmForm.errorsAsJson());
+        // }
+        // final AtencionMedica atm = atmForm.get();
+        // atm.setAtmActivo(true);
+        // atm.setAtmFechaRegistro(Calendar.getInstance().getTime());
+        // Ebean.execute(new TxRunnable() {
+        //     public void run() {                                
+        //         Ebean.save(atm);
+        //     }
+        // });
+        // return Results.ok(Json.toJson(atm));
+
+
         DynamicForm dynamicForm = Form.form().bindFromRequest();
         final AtencionMedica atencionMedica = new AtencionMedica();
+        Logger.error(dynamicForm.get("odoId"));
         Ebean.execute(new TxRunnable() {
             public void run() {                
-                atencionMedica.setAtmFecha(Fechas.stringToDate(dynamicForm.get("fecha")));
-                atencionMedica.setAtmHoraInicio(Fechas.stringToTime(dynamicForm.get("horaInicio")));
-                atencionMedica.setAtmHoraFin(Fechas.stringToTime(dynamicForm.get("horaFin")));
-                atencionMedica.setHcdId(Ebean.find(HistoriaClinicaDetalle.class,Long.parseLong(dynamicForm.get("historiaClinicaDetalle"))));
-                atencionMedica.setOdoId(Ebean.find(Odontologo.class,Long.parseLong(dynamicForm.get("odontologo"))));
-                atencionMedica.setPacId(Ebean.find(Paciente.class,Long.parseLong(dynamicForm.get("paciente"))));
-                atencionMedica.setTamId(Ebean.find(TipoAtencionMedica.class,Long.parseLong(dynamicForm.get("tipoAtencionMedica"))));
+                atencionMedica.setAtmFecha(Fechas.stringToDate(dynamicForm.get("atmFecha")));
+                atencionMedica.setAtmHoraInicio(Fechas.stringToTime(dynamicForm.get("atmHoraInicio")));
+                atencionMedica.setAtmHoraFin(Fechas.stringToTime(dynamicForm.get("atmHoraFin")));
+                atencionMedica.setOdoId(Ebean.find(Odontologo.class,Long.parseLong(dynamicForm.get("odoId"))));
+                atencionMedica.setUsuId(Ebean.find(Usuario.class,Long.parseLong(dynamicForm.get("usuId"))));
+                atencionMedica.setTamId(Ebean.find(TipoAtencionMedica.class,Long.parseLong(dynamicForm.get("tamId"))));
                 atencionMedica.setAtmActivo(true);
                 atencionMedica.setAtmFechaRegistro(Calendar.getInstance().getTime());
                 Ebean.save(atencionMedica);
             }
         });
         return Results.ok(Json.toJson(atencionMedica));
+    }
+
+    public Result buscarPorUsuario(Long idUsuario){
+        List<AtencionMedica> atencionMedicaList = AtencionMedica.findByUser(idUsuario);
+        return Results.ok(Json.toJson(atencionMedicaList));
     }
 
     public Result borrar(Long id){

@@ -32,6 +32,7 @@ public class OdontologoEspecialidad extends Model implements Serializable {
     private Long odeId;
     @JoinColumn(name = "esp_id", referencedColumnName = "esp_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Especialidad espId;
     @JoinColumn(name = "odo_id", referencedColumnName = "odo_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

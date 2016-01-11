@@ -23,14 +23,19 @@ import util.Fechas;
 public class AgendaOdontologoController extends Controller {
 
     public Result todos() {
-        List<AgendaOdontologo> agendaOdontologos = AgendaOdontologo.find.all();
-        return Results.ok(Json.toJson(agendaOdontologos));
+        List<AgendaOdontologo> agendaOdontologoList = AgendaOdontologo.find.all();
+        return Results.ok(Json.toJson(agendaOdontologoList));
     }
 
     public Result uno(Long id){
         AgendaOdontologo agendaOdontologo = AgendaOdontologo.find.byId(id);
         if(agendaOdontologo == null) return Results.ok("{\"error\":\"No existe el agendaOdontologo\"}");
         return Results.ok(Json.toJson(agendaOdontologo));
+    }
+
+    public Result buscarPorOdontologo(Long idOdontologo){
+        List<AgendaOdontologo> agendaOdontologoList = AgendaOdontologo.findByOdontologo(idOdontologo);
+        return Results.ok(Json.toJson(agendaOdontologoList));
     }
 
     public Result nuevo(){

@@ -7,6 +7,7 @@ package models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -77,6 +78,10 @@ public class AgendaOdontologo extends Model implements Serializable {
         this.ageHoraInicio = ageHoraInicio;
         this.ageHoraFin = ageHoraFin;
         this.ageDiaNombre = ageDiaNombre;
+    }
+
+    public static List<AgendaOdontologo> findByOdontologo(Long idOdontologo) {
+        return find.where().eq("odo_id", idOdontologo).findList();
     }
 
     public short getAgeDia() {

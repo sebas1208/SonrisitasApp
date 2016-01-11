@@ -1,0 +1,8 @@
+<div ng-controller="odontologosController">
+	<h2>{{especialidad.espArea}} -  {{tipoAtencionMedica.tamNombre}}</h2>
+	<h4>Duración: {{tipoAtencionMedica.tamDuracionNem}}</h4>
+	<h4>Seleccione el Odontologo</h4>
+	<div ng-repeat="odontologoEspecialidad in especialidad.odontologoEspecialidadList">
+		<a href="#/reservar-citas-horarios/{{especialidad.espId}}/{{tipoAtencionMedica.tamId}}/{{odontologoEspecialidad.odoId.odoId}}" class="btn btn-link">{{odontologoEspecialidad.odoId.odoNombres}} {{odontologoEspecialidad.odoId.odoApellidos}}</a>
+	</div>
+</div>

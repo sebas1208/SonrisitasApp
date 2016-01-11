@@ -70,7 +70,6 @@ public class Usuario extends Model implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuId", fetch = FetchType.LAZY)
     private List<Administrador> administradorList;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuId", fetch = FetchType.LAZY)
     private List<Paciente> pacienteList;
     @JsonIgnore
@@ -84,6 +83,10 @@ public class Usuario extends Model implements Serializable {
 
     public Usuario(Long usuId) {
         this.usuId = usuId;
+    }
+
+    public static Usuario findByEmailAndPassword(String email, String password) {
+        return find.where().eq("usu_email", email.toLowerCase()).eq("usu_password", password).findUnique();
     }
 
     public Usuario(Long usuId, String usuUser, String usuPassword, String usuPreguntaRecuperacion, String usuRespuestaRecuperacion, String usuEmail) {

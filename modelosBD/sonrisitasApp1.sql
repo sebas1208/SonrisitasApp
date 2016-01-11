@@ -12,7 +12,7 @@ create table public.administrador (
   adm_email                 varchar(25) not null,
   adm_activo                boolean,
   adm_fecha_registro        timestamp,
-  usu_id                    bigint not null,
+  usu_id                    bigint,
   constraint pk_administrador primary key (adm_id))
 ;
 
@@ -37,7 +37,7 @@ create table public.atencion_medica (
   atm_fecha_registro        timestamp,
   hcd_id                    bigint not null,
   odo_id                    bigint not null,
-  pac_id                    bigint not null,
+  usu_id                    bigint not null,
   tam_id                    bigint not null,
   constraint pk_atencion_medica primary key (atm_id))
 ;
@@ -85,7 +85,7 @@ create table public.odontologo (
   odo_cedula                varchar(15) not null,
   odo_activo                boolean,
   odo_fecha_registro        timestamp,
-  usu_id                    bigint not null,
+  usu_id                    bigint,
   constraint pk_odontologo primary key (odo_id))
 ;
 
@@ -112,7 +112,7 @@ create table public.paciente (
   pac_estado_civil          varchar(20),
   pac_lugar_nacimiento      varchar(20),
   pac_ocupacion             varchar(20),
-  usu_id                    bigint not null,
+  usu_id                    bigint,
   constraint pk_paciente primary key (pac_id))
 ;
 
@@ -123,6 +123,7 @@ create table public.tipo_atencion_medica (
   tam_duracion_minutos      integer not null,
   tam_activo                boolean,
   tam_fecha_registro        timestamp,
+  esp_id                    bigint not null,
   constraint pk_tipo_atencion_medica primary key (tam_id))
 ;
 
@@ -146,8 +147,8 @@ alter table public.atencion_medica add constraint fk_atencion_medica_hcdId_3 for
 create index ix_atencion_medica_hcdId_3 on public.atencion_medica (hcd_id);
 alter table public.atencion_medica add constraint fk_atencion_medica_odoId_4 foreign key (odo_id) references public.odontologo (odo_id);
 create index ix_atencion_medica_odoId_4 on public.atencion_medica (odo_id);
-alter table public.atencion_medica add constraint fk_atencion_medica_pacId_5 foreign key (pac_id) references public.paciente (pac_id);
-create index ix_atencion_medica_pacId_5 on public.atencion_medica (pac_id);
+alter table public.atencion_medica add constraint fk_atencion_medica_usuId_5 foreign key (usu_Id) references public.usuario (usu_id);
+create index ix_atencion_medica_usuId_5 on public.atencion_medica (usu_id);
 alter table public.atencion_medica add constraint fk_atencion_medica_tamId_6 foreign key (tam_id) references public.tipo_atencion_medica (tam_id);
 create index ix_atencion_medica_tamId_6 on public.atencion_medica (tam_id);
 alter table public.historia_clinica_cabecera add constraint fk_historia_clinica_cabecera_p_7 foreign key (pac_id) references public.paciente (pac_id);
@@ -162,6 +163,8 @@ alter table public.odontologo_especialidad add constraint fk_odontologo_especial
 create index ix_odontologo_especialidad_od_11 on public.odontologo_especialidad (odo_id);
 alter table public.paciente add constraint fk_paciente_usuId_12 foreign key (usu_id) references public.usuario (usu_id);
 create index ix_paciente_usuId_12 on public.paciente (usu_id);
+alter table public.tipo_atencion_medica add constraint fk_tipo_atencion_medica_espId_13 foreign key (esp_id) references public.especialidad (esp_id);
+create index ix_tipo_atencion_medica_espId_13 on public.tipo_atencion_medica (esp_id);
 
 
 

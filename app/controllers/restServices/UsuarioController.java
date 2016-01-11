@@ -59,4 +59,10 @@ public class UsuarioController extends Controller {
         }});
         return Results.ok("Borrado: " + id);
     }
+
+    public Result buscarPorEmail(String email){
+        Usuario usuario = Usuario.findByEmail(email);
+        if(usuario == null) return Results.badRequest("{\"error\":\"No existe el usuario\"}");
+        return Results.ok(Json.toJson(usuario));
+    }
 }

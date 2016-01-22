@@ -1,0 +1,32 @@
+<div class="container">
+	<button class="btn btn-success">Nuevo</button>
+</div>
+<br>
+
+<div class="container">
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Duracion</th>
+					<th>Especialidad</th>
+					<th>Activo</th>
+					<th>Fecha Registro</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="tipoAtencionMedica in tipoAtencionMedicaList">
+					<td>{{tipoAtencionMedica.tamNombre}}</td>
+					<td>{{tipoAtencionMedica.tamDuracionNem}}</td>
+					<td>{{tipoAtencionMedica.tamNombreEspecialidad}}</td>
+					<td>{{tipoAtencionMedica.tamActivo}}</td>
+					<td>{{tipoAtencionMedica.tamFechaRegistro | date:'dd/MMMM/yyyy'}}</td>
+					<td><button class="btn btn-primary"><i class="icon-edit"></i></button></td>
+					<td><button class="btn btn-danger"><i class="icon-trash"></i></button></td>
+				</tr>
+			</tbody>
+		</table>
+</div>

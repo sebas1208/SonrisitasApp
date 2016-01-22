@@ -1,4 +1,5 @@
 <div ng-controller="horariosController">
+	{{error}}
 	<h1>{{especialidad.espNombre}} - {{odontologo.odoNombres}} {{odontologo.odoApellidos}}</h1>	
 	<div ng-controller="modalController">
 		Horario de Atencion del Odontologo
@@ -13,23 +14,7 @@
 		</div> <!-- /form-group -->
 
 		<div class="dropdown">
-			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				Día
-				<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">				
-				<li><a ng-click="seleccionarDia('Lunes')" href=""><h5>Lunes</h5></a></li>
-				<li><a ng-click="seleccionarDia('Martes')"  href=""><h5>Martes</h5></a></li>
-				<li><a ng-click="seleccionarDia('Miercoles')"  href=""><h5>Miercoles</h5></a></li>
-				<li><a ng-click="seleccionarDia('Jueves')"  href=""><h5>Jueves</h5></a></li>
-				<li><a ng-click="seleccionarDia('Viernes')"  href=""><h5>Viernes</h5></a></li>
-				<li><a ng-click="seleccionarDia('Sabado')"  href=""><h5>Sabado</h5></a></li>
-			</ul>
-			{{dia}}
-		</div>
-
-		<div class="dropdown">
-			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" ng-click="seleccionarDia()" aria-expanded="true">
 				Hora
 				<span class="caret"></span>
 			</button>
@@ -40,7 +25,7 @@
 			</ul>
 			{{horaSeleccionada | date:'h:mma'}}
 		</div>
-
+		<br>
 		<a ng-click="toggleModal()" class="btn btn-success">Aceptar</a>
 
 		<modal title="Confirmación de la Cita" visible="showModal">
@@ -48,10 +33,10 @@
 				<h4>Especialidad: <small>{{especialidad.espArea}}</small></h4>
 				<h4>Doctor(a): <small>{{odontologo.odoNombres}} {{odontologo.odoApellidos}}</small></h4>
 				<h4>Tipo Atencion: <small>{{tipoAtencionMedica.tamNombre}}</small></h4>
-				<h4>Dia: <small>{{dia}}</small></h4>
+				<h4>Fecha: <small>{{fechaSeleccionada | date:'dd-MM-yyyy'}}</small></h4>
 				<h4>Hora: <small>{{horaSeleccionada | date:'h:mma'}}</small></h4>
 				<h4>Duracion: <small>{{tipoAtencionMedica.tamDuracionNem}}</small></h4>
-				<p>Se enviará un recordatorio a su correo electronico con los detalles de la cita.</p>
+				<p>Se enviará un recordatorio a su correo electronico con los detalles de la cita.</p>	
 				<button type="submit" ng-click="toggleModal()" class="btn btn-success">Confirmar</button>
 			</form>
 		</modal>

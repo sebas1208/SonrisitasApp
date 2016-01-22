@@ -1,6 +1,0 @@
-<div ng-controller="listaCitasController">
-	<h1>Lista de citas</h1>
-	<div ng-repeat="atencionMedica in listaCitas">
-		<h4>Fecha: <small>{{atencionMedica.atmFecha | date:'yyyy/MM//dd'}}</small> Hora: <small>{{atencionMedica.atmHoraInicio | date:'h:mma'}}</small> Doctor: <small>{{atencionMedica.odoId.odoNombres}} {{atencionMedica.odoId.odoApellidos}}</small> Tipo Atencion: <small>{{atencionMedica.tamId.tamNombre}}</small></h4>
-	</div>
-</div>

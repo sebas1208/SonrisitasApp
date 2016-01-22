@@ -170,6 +170,8 @@ create index ix_tipo_atencion_medica_espId_13 on public.tipo_atencion_medica (es
 
 # --- !Downs
 
+drop sequence if exists public.
+
 drop table if exists public.administrador cascade;
 
 drop table if exists public.agenda_odontologo cascade;

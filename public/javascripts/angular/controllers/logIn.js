@@ -11,9 +11,15 @@
 						email: $scope.email
 					}
 				}).then(
-				function success(respuesta) {				
+				function success(respuesta) {
 					$cookies.put('userEmail',$scope.email);
-					$window.location.href = "/home";
+					//$window.location.href = "/home";
+					console.log(respuesta.data);
+					if(respuesta.data.redirectTo === "admin"){
+						$window.location.href = "/admin";
+					}else{
+						$window.location.href = "/home";
+					}
 				},
 				function error(error) {
 					if(error.status === 400) {

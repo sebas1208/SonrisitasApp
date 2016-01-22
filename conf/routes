@@ -9,14 +9,15 @@ GET     /                           controllers.Home.index()
 GET		/signUp 					controllers.SignUp.signUp()
 GET 	/emailMessage/:email		controllers.SignUp.emailMessage(email)
 #Login
-GET		/login 						controllers.Login.login()
 POST	/authenticateUser			controllers.Home.authUser()
+GET		/redirectToHome/:userEmail	controllers.Home.redirectToHome(userEmail: String)
 #Pagina Principal
 GET 	/home 						controllers.Home.home()
+GET 	/admin 						controllers.Home.admin()
 
 
 #Administrador
-GET 	/administrador			controllers.restServices.AdministradorController.todos()
+GET 	/administrador			 	controllers.restServices.AdministradorController.todos()
 GET 	/administrador/:id			controllers.restServices.AdministradorController.uno(id: Long)
 POST	/administrador 				controllers.restServices.AdministradorController.nuevo()
 GET		/administrador/borrar/:id	controllers.restServices.AdministradorController.borrar(id: Long)

@@ -55,17 +55,22 @@ public class AtencionMedicaController extends Controller {
 
         DynamicForm dynamicForm = Form.form().bindFromRequest();
         final AtencionMedica atencionMedica = new AtencionMedica();
-        Logger.error(dynamicForm.get("odoId"));
+        atencionMedica.setAtmFecha(Fechas.stringToDate(dynamicForm.get("atmFecha")));
+        atencionMedica.setAtmHoraInicio(Fechas.stringToTime(dynamicForm.get("atmHoraInicio")));
+        atencionMedica.setAtmHoraFin(Fechas.stringToTime(dynamicForm.get("atmHoraFin")));
+        atencionMedica.setOdoId(Ebean.find(Odontologo.class,Long.parseLong(dynamicForm.get("odoId"))));
+        atencionMedica.setUsuId(Ebean.find(Usuario.class,Long.parseLong(dynamicForm.get("usuId"))));
+        atencionMedica.setTamId(Ebean.find(TipoAtencionMedica.class,Long.parseLong(dynamicForm.get("tamId"))));
+        atencionMedica.setAtmActivo(true);
+        atencionMedica.setAtmFechaRegistro(Calendar.getInstance().getTime());
+        if(AtencionMedica.findByUserDayAndHour(atencionMedica.getUsuId().getUsuId(),atencionMedica.getAtmFecha(),atencionMedica.getAtmHoraInicio()) != null){
+            return Results.badRequest("{\"error\":[\"Ya tienes agendada una cita en este horario.\"]}");
+        }
+        if(AtencionMedica.findByOdoDayAndHour(atencionMedica.getOdoId().getOdoId(),atencionMedica.getAtmFecha(),atencionMedica.getAtmHoraInicio()) != null){
+            return Results.badRequest("{\"error\":[\"El odontologo ya tiene agendado una cita en este horario.\"]}");
+        }
         Ebean.execute(new TxRunnable() {
-            public void run() {                
-                atencionMedica.setAtmFecha(Fechas.stringToDate(dynamicForm.get("atmFecha")));
-                atencionMedica.setAtmHoraInicio(Fechas.stringToTime(dynamicForm.get("atmHoraInicio")));
-                atencionMedica.setAtmHoraFin(Fechas.stringToTime(dynamicForm.get("atmHoraFin")));
-                atencionMedica.setOdoId(Ebean.find(Odontologo.class,Long.parseLong(dynamicForm.get("odoId"))));
-                atencionMedica.setUsuId(Ebean.find(Usuario.class,Long.parseLong(dynamicForm.get("usuId"))));
-                atencionMedica.setTamId(Ebean.find(TipoAtencionMedica.class,Long.parseLong(dynamicForm.get("tamId"))));
-                atencionMedica.setAtmActivo(true);
-                atencionMedica.setAtmFechaRegistro(Calendar.getInstance().getTime());
+            public void run() {                                
                 Ebean.save(atencionMedica);
             }
         });

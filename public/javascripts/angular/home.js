@@ -12,28 +12,27 @@
 
 	app.config(function ($stateProvider, $urlRouterProvider) {	
 		$urlRouterProvider.otherwise('/content');
-		
-		$stateProvider        
-	    // HOME STATES AND NESTED VIEWS ========================================
+
+		$stateProvider
 	    .state('content', {
 	        url: '/content',
-	        templateUrl: 'partials/partial-home-content.html'
+	        templateUrl: 'partials/home/partial-home-content.html'
 	    })
 	    .state('reservar-citas', {
 	        url: '/reservar-citas',
-	        templateUrl: 'partials/partial-home-reservar-citas.html'
+	        templateUrl: 'partials/home/partial-home-reservar-citas.html'
 	    })
 	    .state('reservar-citas-odontologos', {
 	        url: '/reservar-citas-odontologos/:idEspecialidad/:idTipoAtencionMedica',
-	        templateUrl: 'partials/partial-home-reservar-citas-odontologos.html'
+	        templateUrl: 'partials/home/partial-home-reservar-citas-odontologos.html'
 	    })
 	    .state('reservar-citas-horarios', {
 	        url: '/reservar-citas-horarios/:idEspecialidad/:idTipoAtencionMedica/:idOdontologo',
-	        templateUrl: 'partials/partial-home-reservar-citas-horarios.html'
+	        templateUrl: 'partials/home/partial-home-reservar-citas-horarios.html'
 	    }).
 	    state('lista-citas', {
 	        url: '/lista-citas/:idUsuario',
-	        templateUrl: 'partials/partial-home-lista-citas.html'
+	        templateUrl: 'partials/home/partial-home-lista-citas.html'
 	    });
 	});
 })();

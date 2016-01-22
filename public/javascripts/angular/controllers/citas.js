@@ -47,17 +47,18 @@
 		$scope.especialidad = EspecialidadService.get({idEspecialidad: $scope.idEspecialidad});
 		$scope.tipoAtencionMedica = TipoAtencionMedicaService.get({idTipoAtencion: $stateParams.idTipoAtencionMedica})
 		$scope.agendaOdontologoList = AgendaOdontologoService.buscarPorOdontologo({idOdontologo: $scope.idOdontologo});
-		$scope.usuario = UsuarioService.buscarPorEmail({email:$cookies.get('userEmail')});		
+		$scope.usuario = UsuarioService.buscarPorEmail({email:$cookies.get('userEmail')});
+		$scope.horariosPermitidosDia = [];
 
 		$scope.escojerHorario = function(agendaOdontologo){			
 			$scope.agendaOdontologoSeleccionada = agendaOdontologo;			
 		}
 
-		$scope.seleccionarDia = function(dia){
-			$scope.dia = dia;			
+		$scope.seleccionarDia = function(){
+			$scope.fechaSeleccionada = this.fechaSeleccionada;		
 			var agendaOdontologoDiaSeleccionadoList = [];
 			for (var i = 0; i < $scope.agendaOdontologoList.length; i++) {
-				if($scope.agendaOdontologoList[i].ageDiaNombre == dia){
+				if($scope.agendaOdontologoList[i].ageDia == ($scope.fechaSeleccionada.getDay())){
 					agendaOdontologoDiaSeleccionadoList.push($scope.agendaOdontologoList[i]);
 				}				
 			};			
@@ -73,12 +74,9 @@
 		}
 
 		$scope.seleccionarHora = function(hora){
+			console.log("hola");
 			console.log(hora);
 			$scope.horaSeleccionada = hora;
-		}
-
-		$scope.seleccionarFecha = function(){			
-			
 		}
 
 		$scope.confirmarCita = function(){						
@@ -99,7 +97,8 @@
 			}).$promise.then(function(result){
 				$window.location.href = "/home#/lista-citas/";
 			}, function(error){
-				$scope.error = error;
+				console.log(error);
+				$scope.error = error.data;
 			});			
 		}
 	}]);

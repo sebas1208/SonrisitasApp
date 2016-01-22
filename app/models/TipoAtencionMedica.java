@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import com.avaje.ebean.Model;
@@ -65,6 +66,8 @@ public class TipoAtencionMedica extends Model implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tamId", fetch = FetchType.LAZY)
     private List<AtencionMedica> atencionMedicaList;
+    @Transient
+    private String tamNombreEspecialidad;
 
     public static Finder<Long,TipoAtencionMedica> find = new Finder<Long,TipoAtencionMedica>(Long.class, TipoAtencionMedica.class);
 
@@ -152,6 +155,10 @@ public class TipoAtencionMedica extends Model implements Serializable {
 
     public void setEspId(Especialidad espId) {
         this.espId = espId;
+    }
+
+    public String getTamNombreEspecialidad() {
+        return this.espId.getEspArea();
     }
 
     @Override

@@ -22,6 +22,10 @@ public class Home extends Controller {
 		return ok(home.render());
 	}
 
+	public Result admin(){
+		return ok(admin.render());
+	}
+
 	public Result authUser(){
 		Form<SignUp> signUpForm = Form.form(SignUp.class).bindFromRequest();
 
@@ -38,11 +42,24 @@ public class Home extends Controller {
 			if(usuario == null){
 				return Results.badRequest("{\"password\":[\"El password que ingresaste no es el correcto\"]}");
 			}else{
-				Logger.info(String.valueOf(usuario.getUsuId()));
-				//session("userId",String.valueOf(usuario.getUsuId()));
-				return ok();
+				if(!usuario.getAdministradorList().isEmpty()){
+					return ok("{\"redirectTo\":\"admin\"}");
+				}
+				return ok("{\"redirectTo\":\"user\"}");
 			}
-		}		
+		}
+	}
+
+	public Result redirectToHome(String userEmail){
+		Usuario usuairo = Usuario.findByEmail(userEmail);
+		if(usuairo != null){
+			if(usuairo.getAdministradorList() == null){
+				return ok(admin.render());
+			}
+			return ok(home.render());
+		}else{
+			return badRequest();
+		}
 	}
 
 	private static ObjectNode buildJsonResponse(String type, String message) {

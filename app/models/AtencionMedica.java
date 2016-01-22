@@ -80,6 +80,13 @@ public class AtencionMedica extends Model implements Serializable {
         return find.where().eq("usu_Id", idUsuario).findList();
     }
 
+    public static AtencionMedica findByUserDayAndHour(Long idUsuario,Date fecha, Date horaInicio) {
+        return find.where().eq("usu_id", idUsuario).where().eq("atm_fecha", fecha).where().eq("atm_hora_inicio", horaInicio).findUnique();
+    }
+
+    public static AtencionMedica findByOdoDayAndHour(Long idOdontologo,Date fecha, Date horaInicio) {
+        return find.where().eq("odo_id", idOdontologo).where().eq("atm_fecha", fecha).where().eq("atm_hora_inicio", horaInicio).findUnique();
+    }
 
     public AtencionMedica(Long atmId, Date atmFecha, Date atmHoraInicio, Date atmHoraFin) {
         this.atmId = atmId;

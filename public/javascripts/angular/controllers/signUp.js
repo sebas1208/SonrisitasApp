@@ -24,14 +24,12 @@
 				function falloEnElGuardado(error) {
 					if(error.status === 400) {
 						angular.forEach(error.data, function(value, key) {
-							console.log(alertService);
 							alertService.add('danger', key.replace('usu','') + ' : ' + value);
 						});
 					}
 					if(error.status === 500) {
 						alertService.add('danger', 'Internal server error!');
 					}
-					console.log(error);
 				});
 			}
 		};

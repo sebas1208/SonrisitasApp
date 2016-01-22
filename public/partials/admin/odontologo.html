@@ -1,0 +1,35 @@
+<div class="container">
+	<button class="btn btn-success">Nuevo</button>
+</div>
+<br>
+
+<div class="container">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Dirección</th>
+				<th>Teléfono</th>
+				<th>Email</th>
+				<th>Cedula</th>
+				<th>Activo</th>
+				<th>Fecha Registro</th>
+				<th>Editar</th>
+				<th>Eliminar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="odontologo in odontologoList">
+				<td>{{odontologo.odoNombres}} {{odontologo.odoApellidos}}</td>
+				<td>{{odontologo.odoDireccion}}</td>
+				<td>{{odontologo.odoTelefono}}</td>
+				<td>{{odontologo.odoEmail}}</td>
+				<td>{{odontologo.odoCedula}}</td>
+				<td>{{odontologo.odoActivo}}</td>
+				<td>{{odontologo.odoFechaRegistro | date:'dd/MMMM/yyyy'}}</td>
+				<td><button class="btn btn-primary"><i class="icon-edit"></i></button></td>
+				<td><button class="btn btn-danger"><i class="icon-trash"></i></button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

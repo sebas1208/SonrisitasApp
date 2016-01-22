@@ -1,0 +1,34 @@
+<div class="container">
+	<button class="btn btn-success">Nuevo</button>
+</div>
+<br>
+
+<div class="container">
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Odontologo</th>
+					<th>Dia</th>
+					<th>Hora Inicio</th>
+					<th>Hora Fin</th>
+					<th>Activo</th>
+					<th>Fecha Registro</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="agendaOdontologo in agendaOdontologoList">
+					<td>{{agendaOdontologo.odoId.odoNombres}}</td>
+					<td>{{agendaOdontologo.ageDiaNombre}}</td>
+					<td>{{agendaOdontologo.ageHoraInicio | date:'h:mma'}}</td>
+					<td>{{agendaOdontologo.ageHoraFin | date:'h:mma'}}</td>
+					<td>{{agendaOdontologo.ageActivo}}</td>
+					<td>{{agendaOdontologo.ageFechaRegistro | date:'dd/MMMM/yyyy'}}</td>
+					<td><button class="btn btn-primary"><i class="icon-edit"></i></button></td>
+					<td><button class="btn btn-danger"><i class="icon-trash"></i></button></td>
+				</tr>
+			</tbody>
+		</table>
+</div>

@@ -3,7 +3,7 @@
     app.factory('EspecialidadService',['$resource',function($resource){
         var factory = $resource(
             //'http://localhost:9000/especialidad/:idEspecialidad',
-            'https://localhost:9000/especialidad/:idEspecialidad',
+            'https://obscure-atoll-1131.herokuapp.com/especialidad/:idEspecialidad',
             {
                 idEspecialidad:'@idEspecialidad'
             },

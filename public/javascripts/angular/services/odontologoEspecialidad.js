@@ -5,7 +5,7 @@
 
         var factory = $resource(
             //'http://localhost:9000/odontologoEspecialidad/:idOdontologoEspecialidad',
-            'https://localhost:9000/odontologoEspecialidad/:idOdontologoEspecialidad',
+            'https://obscure-atoll-1131.herokuapp.com/:idOdontologoEspecialidad',
             {
                 idOdontologoEspecialidad:'@idOdontologoEspecialidad'
             },

@@ -5,7 +5,7 @@
 
         var factory = $resource(
             //'http://localhost:9000/atencionMedica/:idAtencionMedica',
-            'https://localhost:9000/atencionMedica/:idAtencionMedica',
+            'https://obscure-atoll-1131.herokuapp.com/atencionMedica/:idAtencionMedica',
             {
                 idAtencionMedica:'@idAtencionMedica'
             },
@@ -20,7 +20,7 @@
             buscarPorUsuario:
             {
                 //url: 'http://localhost:9000/atencionMedica/buscarPorUsuario/:idUsuario',
-                url: 'https://localhost:9000/atencionMedica/buscarPorUsuario/:idUsuario',
+                url: 'https://obscure-atoll-1131.herokuapp.com/atencionMedica/buscarPorUsuario/:idUsuario',
                 metod: 'GET',
                 isArray: true,
                 param: {

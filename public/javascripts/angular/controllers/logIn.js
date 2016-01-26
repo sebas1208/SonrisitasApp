@@ -6,7 +6,7 @@
 			$http({
 					method: 'POST',
 					//url: 'http://localhost:9000/authenticateUser',
-					url: 'https://localhost:9000/authenticateUser',
+					url: 'https://obscure-atoll-1131.herokuapp.com/authenticateUser',
 					data: {
 						password: $scope.password,
 						email: $scope.email

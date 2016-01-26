@@ -4,7 +4,7 @@
     app.factory('UsuarioService',['$resource',function($resource){
 
         var factory = $resource(
-            'https://localhost:9000/usuario/:idUsuario',
+            'https://obscure-atoll-1131.herokuapp.com/usuario/:idUsuario',
             //'http://localhost:9000/usuario/:idUsuario',
             {
                 idUsuario:'@idUsuario'
@@ -20,7 +20,7 @@
             buscarPorEmail:
             {
                 //url:'http://localhost:9000/usuario/buscarPorEmail/:email',
-                url:'https://localhost:9000/usuario/buscarPorEmail/:email',
+                url:'https://obscure-atoll-1131.herokuapp.com/usuario/buscarPorEmail/:email',
                 method: 'GET',
                 params:{
                     email: '@email'

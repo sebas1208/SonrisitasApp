@@ -34,25 +34,33 @@ public class OdontologoController extends Controller {
     }
 
     public Result nuevo(){
-        Form<Odontologo> userForm = Form.form(Odontologo.class).bindFromRequest();
-        // Map<String,String> anyData = new HashMap();
-        // anyData.put("usuFechaRegistro", "22/12/2015");
-        // userForm.bind(anyData);
-        DynamicForm dynamicForm = Form.form().bindFromRequest();
-
-        // if(userForm.hasErrors()){
-        //     Logger.error(userForm.errorsAsJson().toString());
-        //     return Results.badRequest(userForm.errorsAsJson());
-        // }
-        Logger.error(userForm.get().getUsuId().getUsuFechaRegistro().toString());
-        final Odontologo odontologo = userForm.get();
-        odontologo.setOdoActivo(false);
+        Form<Odontologo> odontologoForm = Form.form(Odontologo.class).bindFromRequest();
+        if(odontologoForm.hasErrors()){
+            Logger.error(odontologoForm.errorsAsJson().toString());
+            return Results.badRequest(odontologoForm.errorsAsJson());
+        }
+        final Odontologo odontologo = odontologoForm.get();
+        odontologo.setOdoActivo(true);
         odontologo.setOdoFechaRegistro(Calendar.getInstance().getTime());
         Ebean.execute(new TxRunnable() {
-            public void run() {                                
+            public void run() {
                 Ebean.save(odontologo);
             }
         });
+        return Results.ok(Json.toJson(odontologo));
+    }
+
+    public Result editar(Long id){
+        DynamicForm dynamicForm = Form.form().bindFromRequest();
+        Odontologo odontologo = Odontologo.find.byId(id);
+        odontologo.setOdoNombres(dynamicForm.get("odoNombres"));
+        odontologo.setOdoApellidos(dynamicForm.get("odoApellidos"));
+        odontologo.setOdoDireccion(dynamicForm.get("odoDireccion"));
+        odontologo.setOdoTelefono(dynamicForm.get("odoTelefono"));
+        odontologo.setOdoEmail(dynamicForm.get("odoEmail"));
+        odontologo.setOdoCedula(dynamicForm.get("odoCedula"));
+        odontologo.setOdoActivo(Boolean.valueOf(dynamicForm.get("odoActivo")));
+        Ebean.save(odontologo);
         return Results.ok(Json.toJson(odontologo));
     }
 
@@ -64,6 +72,6 @@ public class OdontologoController extends Controller {
                 Ebean.delete(odontologo);
             }
         }});
-        return Results.noContent();
+        return Results.ok("Borrado: " + id);
     }
 }

@@ -42,10 +42,14 @@ public class Home extends Controller {
 			if(usuario == null){
 				return Results.badRequest("{\"password\":[\"El password que ingresaste no es el correcto\"]}");
 			}else{
-				if(!usuario.getAdministradorList().isEmpty()){
-					return ok("{\"redirectTo\":\"admin\"}");
+				if(usuario.getUsuActivo()){
+					if(!usuario.getAdministradorList().isEmpty()){
+						return ok("{\"redirectTo\":\"admin\"}");
+					}
+					return ok("{\"redirectTo\":\"user\"}");
+				}else{
+					return Results.badRequest("{\"cuenta\":[\"Tu cuenta todavía no ha sido verificada por favor ingresa a tu correo electronico y sigue las instrucciones.\"]}");
 				}
-				return ok("{\"redirectTo\":\"user\"}");
 			}
 		}
 	}
@@ -74,13 +78,27 @@ public class Home extends Controller {
 		@Constraints.Required
 		@Constraints.Email
 		public String email;
+
+		public String getEmail(){
+			return this.email;
+		}
+
+		public void setEmail(String email){
+			this.email = email;
+		}
 	}
 
 	public static class SignUp extends UserForm {
 		@Constraints.Required
 		@Constraints.MinLength(6)
 		public String password;
-	}
 
-	
+		public String getPassword(){
+			return this.password;
+		}
+
+		public void setPassword(String password){
+			this.password = password;
+		}
+	}
 }

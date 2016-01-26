@@ -1,10 +1,10 @@
-<div class="container">
-	<button class="btn btn-success">Nuevo</button>
-</div>
-<br>
+<div ng-controller="modalController">
+	<div class="container">
+		<button ng-click="toggleModal()" class="btn btn-success">Nuevo</button>
+	</div>
+	<br>
 
-<div class="container">
-
+	<div class="container">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -22,9 +22,48 @@
 					<td>{{especialidad.espArea}}</td>
 					<td>{{especialidad.espActivo}}</td>
 					<td>{{especialidad.espFechaRegistro | date:'dd/MMMM/yyyy'}}</td>
-					<td><button class="btn btn-primary"><i class="icon-edit"></i></button></td>
-					<td><button class="btn btn-danger"><i class="icon-trash"></i></button></td>
+					<td><button ng-click="toggleEditModal(); cargarInformacionEditar(especialidad)" class="btn btn-primary"><i class="icon-edit"></i></button></td>
+					<td><button ng-click="toggleDeleteModal(); cargarInformacionEliminar(especialidad,$index)"class="btn btn-danger"><i class="icon-trash"></i></button></td>
 				</tr>
 			</tbody>
 		</table>
+
+		<modal title="Crear especialidad" visible="showModal">
+			<form role="form" ng-submit="crearEspecialidad()">
+				<div class="form-group">
+					<input ng-model="nuevaEspecialidad.nombre" required type="text" placeholder="Nombre" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<input ng-model="nuevaEspecialidad.area" required type="text" placeholder="Area" class="form-control" />
+				</div>
+				<button type="submit" ng-click="toggleModal()" class="btn btn-success">Confirmar</button>
+			</form>
+		</modal>
+
+		<modal title="Editar especialidad" visible="editShowModal">
+			<form role="form" ng-submit="editarEspecialidad()">
+				<div class="form-group">
+					<input ng-model="especialidadEditar.espNombre" required type="text" placeholder="Nombre" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<input ng-model="especialidadEditar.espArea" required type="text" placeholder="Area" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<h5>Activo <input ng-model="especialidadEditar.espActivo" type="checkbox" placeholder="Area" /></h5>
+				</div>
+				<button type="submit" ng-click="toggleEditModal()" class="btn btn-success">Confirmar</button>
+			</form>
+		</modal>
+
+		<modal title="Eliminar especialidad" visible="deleteShowModal">
+			<form role="form" ng-submit="eliminarEspecialidad()">
+				<h4>¿Esta seguro de eliminar este registro?</h4>
+				<br>
+				<button type="submit" ng-click="toggleDeleteModal()" class="btn btn-danger">Eliminar</button>
+			</form>
+		</modal>
+	</div>
 </div>

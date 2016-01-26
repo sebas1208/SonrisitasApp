@@ -67,6 +67,8 @@ public class Usuario extends Model implements Serializable {
     @Basic(optional = false)
     @Column(name = "usu_id")
     private Long usuId;
+    @Column(name = "usu_confirm_email_random")
+    private String usuConfirmEmailRandom;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuId", fetch = FetchType.LAZY)
     private List<Administrador> administradorList;
@@ -198,6 +200,14 @@ public class Usuario extends Model implements Serializable {
 
     public void setOdontologoList(List<Odontologo> odontologoList) {
         this.odontologoList = odontologoList;
+    }
+
+    public String getUsuConfirmEmailRandom(){
+        return this.usuConfirmEmailRandom;
+    }
+
+    public void setUsuConfirmEmailRandom(String usuConfirmEmailRandom){
+        this.usuConfirmEmailRandom = usuConfirmEmailRandom;
     }
 
     @Override

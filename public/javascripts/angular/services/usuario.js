@@ -4,7 +4,8 @@
     app.factory('UsuarioService',['$resource',function($resource){
 
         var factory = $resource(
-            'http://localhost:9000/usuario/:idUsuario',
+            'https://localhost:9000/usuario/:idUsuario',
+            //'http://localhost:9000/usuario/:idUsuario',
             {
                 idUsuario:'@idUsuario'
             },
@@ -18,7 +19,8 @@
             },
             buscarPorEmail:
             {
-                url:'http://localhost:9000/usuario/buscarPorEmail/:email',
+                //url:'http://localhost:9000/usuario/buscarPorEmail/:email',
+                url:'https://localhost:9000/usuario/buscarPorEmail/:email',
                 method: 'GET',
                 params:{
                     email: '@email'

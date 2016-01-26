@@ -4,7 +4,8 @@
     app.factory('TipoAtencionMedicaService',['$resource',function($resource){
 
         var factory = $resource(
-            'http://localhost:9000/tipoAtencion/:idTipoAtencion',
+            //'http://localhost:9000/tipoAtencion/:idTipoAtencion',
+            'https://localhost:9000/tipoAtencion/:idTipoAtencion',
             {
                 idTipoAtencion:'@idTipoAtencion'
             },

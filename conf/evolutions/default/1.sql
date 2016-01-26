@@ -137,6 +137,7 @@ create table public.usuario (
   usu_email                 varchar(255),
   usu_activo                boolean,
   usu_fecha_registro        timestamp,
+  usu_confirm_email_random  varchar(255),
   constraint pk_usuario primary key (usu_id))
 ;
 

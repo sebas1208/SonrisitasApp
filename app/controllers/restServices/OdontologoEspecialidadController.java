@@ -36,7 +36,7 @@ public class OdontologoEspecialidadController extends Controller {
         DynamicForm dynamicForm = Form.form().bindFromRequest();
         final OdontologoEspecialidad odontologoEspecialidad = new OdontologoEspecialidad();
         Ebean.execute(new TxRunnable() {
-            public void run() {                                
+            public void run() {
                 odontologoEspecialidad.setOdoId(Ebean.find(Odontologo.class,Long.parseLong(dynamicForm.get("odontologo"))));
                 odontologoEspecialidad.setEspId(Ebean.find(Especialidad.class,Long.parseLong(dynamicForm.get("especialidad"))));
                 Ebean.save(odontologoEspecialidad);

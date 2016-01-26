@@ -28,6 +28,18 @@
 			function(error){
 				$scope.error = error;
 			});
+
+		$scope.cargarInformacionEliminar = function(cita,indice){
+			$scope.citaEliminar = cita;
+			$scope.indiceEliminar = indice;
+		}
+
+		$scope.eliminarCita = function(){
+			AtencionMedicaService.delete({idAtencionMedica: $scope.citaEliminar.atmId}).$promise.then(
+				function(result){
+					$scope.listaCitas.splice($scope.indiceEliminar,1)
+				});
+		}
 	}]);
 
 	app.controller('tipoAtencionMedica', ['$scope','TipoAtencionMedicaService', function($scope,TipoAtencionMedicaService){
@@ -41,6 +53,7 @@
 	}]);
 
 	app.controller('horariosController', ['$scope','$http','$stateParams','$cookies','$window','OdontologoService','EspecialidadService','AgendaOdontologoService','TipoAtencionMedicaService','UsuarioService','AtencionMedicaService', function($scope,$http,$stateParams,$cookies,$window,OdontologoService,EspecialidadService,AgendaOdontologoService,TipoAtencionMedicaService,UsuarioService,AtencionMedicaService){
+
 		$scope.idEspecialidad = $stateParams.idEspecialidad;
 		$scope.idOdontologo = $stateParams.idOdontologo;
 		$scope.odontologo = OdontologoService.get({idOdontologo: $scope.idOdontologo});
@@ -74,12 +87,10 @@
 		}
 
 		$scope.seleccionarHora = function(hora){
-			console.log("hola");
-			console.log(hora);
 			$scope.horaSeleccionada = hora;
 		}
 
-		$scope.confirmarCita = function(){						
+		$scope.confirmarCita = function(){
 			var fecha = new Date(this.fechaSeleccionada);
 			fecha = fecha.getDate() + '/' + (fecha.getMonth()+1) + '/' + fecha.getFullYear();
 			var horaInicio = new Date($scope.horaSeleccionada);
@@ -99,7 +110,7 @@
 			}, function(error){
 				console.log(error);
 				$scope.error = error.data;
-			});			
+			});
 		}
 	}]);
 })();

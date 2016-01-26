@@ -1,0 +1,4 @@
+-validar que no se escoja fechas anteriores en el calendario
+-hacer los cambios en el script de la base de datos y hacer un script para tener los registros iniciales
+-ver la forma de ligar los odontologos con usuario, busqueda, o en base, lista...etc
+-ver alguna forma para modificar la especialidad con la recursividad

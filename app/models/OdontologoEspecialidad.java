@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,6 +38,10 @@ public class OdontologoEspecialidad extends Model implements Serializable {
     @JoinColumn(name = "odo_id", referencedColumnName = "odo_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Odontologo odoId;
+    @Transient
+    private String nombreEspecialidad;
+    @Transient
+    private String nombreArea;
 
     public static Finder<Long,OdontologoEspecialidad> find = new Finder<Long,OdontologoEspecialidad>(Long.class, OdontologoEspecialidad.class);
 
@@ -69,6 +74,14 @@ public class OdontologoEspecialidad extends Model implements Serializable {
 
     public void setOdoId(Odontologo odoId) {
         this.odoId = odoId;
+    }
+
+    private String getNombreEspecialidad(){
+        return this.espId.getEspNombre();
+    }
+
+    private String getNombreArea(){
+        return this.espId.getEspArea();
     }
 
     @Override

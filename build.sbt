@@ -18,7 +18,7 @@ libraryDependencies ++= Seq(
 	"com.typesafe.play" %% "play-json" % "2.4.3",
 	"com.fasterxml.jackson.core" % "jackson-annotations" % "2.6.0",
 	"org.apache.commons" % "commons-lang3" % "3.4",
-	"javax.mail" % "javax.mail-api" % "1.5.5",
+	"javax.mail" % "javax.mail-api" % "1.4.7",
 	"javax.activation" % "activation" % "1.1.1",
 	"com.sun.mail" % "javax.mail" % "1.5.4"
 

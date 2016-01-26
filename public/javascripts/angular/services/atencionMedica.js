@@ -4,7 +4,8 @@
     app.factory('AtencionMedicaService',['$resource',function($resource){
 
         var factory = $resource(
-            'http://localhost:9000/atencionMedica/:idAtencionMedica',
+            //'http://localhost:9000/atencionMedica/:idAtencionMedica',
+            'https://localhost:9000/atencionMedica/:idAtencionMedica',
             {
                 idAtencionMedica:'@idAtencionMedica'
             },
@@ -18,7 +19,8 @@
             },
             buscarPorUsuario:
             {
-                url: 'http://localhost:9000/atencionMedica/buscarPorUsuario/:idUsuario',
+                //url: 'http://localhost:9000/atencionMedica/buscarPorUsuario/:idUsuario',
+                url: 'https://localhost:9000/atencionMedica/buscarPorUsuario/:idUsuario',
                 metod: 'GET',
                 isArray: true,
                 param: {

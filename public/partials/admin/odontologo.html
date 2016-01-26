@@ -1,35 +1,108 @@
-<div class="container">
-	<button class="btn btn-success">Nuevo</button>
-</div>
-<br>
+<div ng-controller="modalController">
+	<div class="container">
+		<button ng-click="toggleModal()" class="btn btn-success">Nuevo</button>
+	</div>
+	<br>
 
-<div class="container">
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Dirección</th>
-				<th>Teléfono</th>
-				<th>Email</th>
-				<th>Cedula</th>
-				<th>Activo</th>
-				<th>Fecha Registro</th>
-				<th>Editar</th>
-				<th>Eliminar</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="odontologo in odontologoList">
-				<td>{{odontologo.odoNombres}} {{odontologo.odoApellidos}}</td>
-				<td>{{odontologo.odoDireccion}}</td>
-				<td>{{odontologo.odoTelefono}}</td>
-				<td>{{odontologo.odoEmail}}</td>
-				<td>{{odontologo.odoCedula}}</td>
-				<td>{{odontologo.odoActivo}}</td>
-				<td>{{odontologo.odoFechaRegistro | date:'dd/MMMM/yyyy'}}</td>
-				<td><button class="btn btn-primary"><i class="icon-edit"></i></button></td>
-				<td><button class="btn btn-danger"><i class="icon-trash"></i></button></td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="container">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Dirección</th>
+					<th>Teléfono</th>
+					<th>Email</th>
+					<th>Cedula</th>
+					<th>Activo</th>
+					<th>Fecha Registro</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="odontologo in odontologoList">
+					<td>{{odontologo.odoNombres}} {{odontologo.odoApellidos}}</td>
+					<td>{{odontologo.odoDireccion}}</td>
+					<td>{{odontologo.odoTelefono}}</td>
+					<td>{{odontologo.odoEmail}}</td>
+					<td>{{odontologo.odoCedula}}</td>
+					<td>{{odontologo.odoActivo}}</td>
+					<td>{{odontologo.odoFechaRegistro | date:'dd/MMMM/yyyy'}}</td>
+					<td><button ng-click="toggleEditModal(); cargarInformacionEditar(odontologo)" class="btn btn-primary"><i class="icon-edit"></i></button></td>
+					<td><button ng-click="toggleDeleteModal(); cargarInformacionEliminar(odontologo,$index)" class="btn btn-danger"><i class="icon-trash"></i></button></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<modal title="Crear Odontologo" visible="showModal">
+			<form role="form" ng-submit="crearOdontologo()">
+				<div class="form-group">
+					<input ng-model="nuevoOdontologo.nombres" required type="text" placeholder="Nombres" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<input ng-model="nuevoOdontologo.apellidos" required type="text" placeholder="Apellidos" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<input ng-model="nuevoOdontologo.direccion" required type="text" placeholder="Direccion" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<input ng-model="nuevoOdontologo.telefono" required type="text" placeholder="Teléfono" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<input ng-model="nuevoOdontologo.email" required type="email" placeholder="Email" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<input ng-model="nuevoOdontologo.cedula" required type="text" placeholder="Cedula" class="form-control" />
+				</div>
+
+				<button type="submit" ng-click="toggleModal()" class="btn btn-success">Confirmar</button>
+			</form>
+		</modal>
+
+		<modal title="Editar Odontologo" visible="editShowModal">
+			<form role="form" ng-submit="editarOdontologo()">
+				<div class="form-group">
+					<input ng-model="odontologoEditar.odoNombres" required type="text" placeholder="Nombres" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<input ng-model="odontologoEditar.odoApellidos" required type="text" placeholder="Apellidos" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<input ng-model="odontologoEditar.odoDireccion" required type="text" placeholder="Direccion" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<input ng-model="odontologoEditar.odoTelefono" required type="text" placeholder="Teléfono" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<input ng-model="odontologoEditar.odoEmail" required type="email" placeholder="Email" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<input ng-model="odontologoEditar.odoCedula" required type="text" placeholder="Cedula" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<h5>Activo <input ng-model="odontologoEditar.odoActivo" type="checkbox" placeholder="Area" /></h5>
+				</div>
+				<button type="submit" ng-click="toggleEditModal()" class="btn btn-success">Confirmar</button>
+			</form>
+		</modal>
+
+		<modal title="Eliminar Odontologo" visible="deleteShowModal">
+			<form role="form" ng-submit="eliminarOdontolog()">
+				<h4>¿Esta seguro de eliminar este registro?</h4>
+				<br>
+				<button type="submit" ng-click="toggleDeleteModal()" class="btn btn-danger">Eliminar</button>
+			</form>
+		</modal>
+	</div>
 </div>

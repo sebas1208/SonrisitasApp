@@ -8,7 +8,8 @@
 			}else{
 				$http({
 					method: 'POST',
-					url: 'http://localhost:9000/usuario',
+					//url: 'http://localhost:9000/usuario',
+					url: 'https://localhost:9000/usuario',
 					data: {
 						usuUser: $scope.usuario,                
 						usuPassword: $scope.password,

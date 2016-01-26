@@ -4,7 +4,8 @@
     app.factory('OdontologoEspecialidadService',['$resource',function($resource){
 
         var factory = $resource(
-            'http://localhost:9000/odontologoEspecialidad/:idOdontologoEspecialidad',
+            //'http://localhost:9000/odontologoEspecialidad/:idOdontologoEspecialidad',
+            'https://localhost:9000/odontologoEspecialidad/:idOdontologoEspecialidad',
             {
                 idOdontologoEspecialidad:'@idOdontologoEspecialidad'
             },

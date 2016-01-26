@@ -4,8 +4,8 @@
     app.factory('OdontologoEspecialidadService',['$resource',function($resource){
 
         var factory = $resource(
-            //'http://localhost:9000/odontologoEspecialidad/:idOdontologoEspecialidad',
-            'https://obscure-atoll-1131.herokuapp.com/:idOdontologoEspecialidad',
+            'http://localhost:9000/odontologoEspecialidad/:idOdontologoEspecialidad',
+            //'https://obscure-atoll-1131.herokuapp.com/:idOdontologoEspecialidad',
             {
                 idOdontologoEspecialidad:'@idOdontologoEspecialidad'
             },

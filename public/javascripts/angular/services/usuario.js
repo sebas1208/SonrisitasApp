@@ -4,8 +4,8 @@
     app.factory('UsuarioService',['$resource',function($resource){
 
         var factory = $resource(
-            'https://obscure-atoll-1131.herokuapp.com/usuario/:idUsuario',
-            //'http://localhost:9000/usuario/:idUsuario',
+            //'https://obscure-atoll-1131.herokuapp.com/usuario/:idUsuario',
+            'http://localhost:9000/usuario/:idUsuario',
             {
                 idUsuario:'@idUsuario'
             },

@@ -32,7 +32,7 @@ public class SignUp extends Controller {
 		try{
 			Usuario usuario = Usuario.findByEmail(email);
 			if(usuario != null){
-				String message = "Saludos de la Clinica Dental Sonrisitas.\nPara confirmar su cuenta por favor haz click en el siguiente enlace: https://obscure-atoll-1131.herokuapp.com/confirmEmail/" + usuario.getUsuConfirmEmailRandom() + "/" + email;
+				String message = "Saludos de la Clinica Dental Sonrisitas.\nLos datos de su cuenta son los siguientes.\nUsuario: " + usuario.getUsuUser() + "\nPassword: " + usuario.getUsuPassword() + "\nPara confirmar su cuenta por favor haz click en el siguiente enlace: https://obscure-atoll-1131.herokuapp.com/confirmEmail/" + usuario.getUsuConfirmEmailRandom() + "/" + email;
 				Gmail.send(email,"Sonrisitas Confirmacion de Cuenta",message);
 			}else{
 				return badRequest();
@@ -44,5 +44,4 @@ public class SignUp extends Controller {
 		}
 		return ok(emailMessage.render(email));
 	}
-
 }

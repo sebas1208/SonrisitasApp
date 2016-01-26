@@ -33,6 +33,7 @@ GET		/agendaOdontologo/borrar/:id 	controllers.restServices.AgendaOdontologoCont
 GET 	/atencionMedica				controllers.restServices.AtencionMedicaController.todos()
 GET		/atencionMedica/buscarPorUsuario/:idUsuario controllers.restServices.AtencionMedicaController.buscarPorUsuario(idUsuario: Long)
 GET 	/atencionMedica/:id			controllers.restServices.AtencionMedicaController.uno(id: Long)
+PUT		/atencionMedica/:id			controllers.restServices.AtencionMedicaController.editar(id: Long)
 POST	/atencionMedica 			controllers.restServices.AtencionMedicaController.nuevo()
 DELETE	/atencionMedica/:id			controllers.restServices.AtencionMedicaController.borrar(id: Long)
 

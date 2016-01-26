@@ -90,4 +90,22 @@ public class AtencionMedicaController extends Controller {
         Gmail.send(atencionMedica.getUsuId().getUsuEmail(),"Sonrisitas Cita Eliminada",message);
         return Results.ok("Borrado: " + id);
     }
+
+    public Result editar(Long id){
+        DynamicForm dynamicForm = Form.form().bindFromRequest();
+        AtencionMedica atencionMedica = AtencionMedica.find.byId(id);
+        atencionMedica.setAtmFecha(Fechas.stringToDate(dynamicForm.get("atmFecha")));
+        atencionMedica.setAtmHoraInicio(Fechas.stringToTime(dynamicForm.get("atmHoraInicio")));
+        atencionMedica.setAtmHoraFin(Fechas.stringToTime(dynamicForm.get("atmHoraFin")));
+        atencionMedica.setOdoId(Ebean.find(Odontologo.class,Long.parseLong(dynamicForm.get("odoId"))));
+        atencionMedica.setTamId(Ebean.find(TipoAtencionMedica.class,Long.parseLong(dynamicForm.get("tamId"))));
+        if(AtencionMedica.findByUserDayAndHour(atencionMedica.getUsuId().getUsuId(),atencionMedica.getAtmFecha(),atencionMedica.getAtmHoraInicio()) != null){
+            return Results.badRequest("{\"error\":[\"Ya tienes agendada una cita en este horario.\"]}");
+        }
+        if(AtencionMedica.findByOdoDayAndHour(atencionMedica.getOdoId().getOdoId(),atencionMedica.getAtmFecha(),atencionMedica.getAtmHoraInicio()) != null){
+            return Results.badRequest("{\"error\":[\"El odontologo ya tiene agendado una cita en este horario.\"]}");
+        }
+        Ebean.save(atencionMedica);
+        return Results.ok(Json.toJson(atencionMedica));
+    }
 }

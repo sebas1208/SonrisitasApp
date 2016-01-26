@@ -5,7 +5,8 @@
 		$scope.logIn = function(){
 			$http({
 					method: 'POST',
-					url: 'http://localhost:9000/authenticateUser',
+					//url: 'http://localhost:9000/authenticateUser',
+					url: 'https://localhost:9000/authenticateUser',
 					data: {
 						password: $scope.password,
 						email: $scope.email

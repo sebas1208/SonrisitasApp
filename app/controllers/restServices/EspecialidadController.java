@@ -36,14 +36,24 @@ public class EspecialidadController extends Controller {
         DynamicForm dynamicForm = Form.form().bindFromRequest();
         final Especialidad especialidad = new Especialidad();
         Ebean.execute(new TxRunnable() {
-            public void run() {                
-                especialidad.setEspNombre(dynamicForm.get("nombre"));
-                especialidad.setEspArea(dynamicForm.get("area"));                
+            public void run() {
+                especialidad.setEspNombre(dynamicForm.get("espNombre"));
+                especialidad.setEspArea(dynamicForm.get("espArea"));
                 especialidad.setEspActivo(true);
                 especialidad.setEspFechaRegistro(Calendar.getInstance().getTime());
                 Ebean.save(especialidad);
             }
         });
+        return Results.ok(Json.toJson(especialidad));
+    }
+
+    public Result editar(Long id){
+        DynamicForm dynamicForm = Form.form().bindFromRequest();
+        Especialidad especialidad = Especialidad.find.byId(id);
+        especialidad.setEspNombre(dynamicForm.get("espNombre"));
+        especialidad.setEspArea(dynamicForm.get("espArea"));
+        especialidad.setEspActivo(Boolean.valueOf(dynamicForm.get("espActivo")));
+        Ebean.save(especialidad);
         return Results.ok(Json.toJson(especialidad));
     }
 

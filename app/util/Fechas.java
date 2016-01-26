@@ -38,4 +38,18 @@ final public class Fechas {
 		}	
 	}
 
+	//Las fechas en string tienen el formato dia/mes/año
+	public static String dateToString(Date fecha){
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		String stringFecha = format.format(fecha);
+		return stringFecha;
+	}
+
+	//Las horas tienen el formato hh:mm
+	public static String timeToString(Date hora){
+		DateFormat format = new SimpleDateFormat("HH:mm");
+		String stringFecha = format.format(hora);
+		return stringFecha;
+	}
+
 }

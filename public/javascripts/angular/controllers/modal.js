@@ -3,8 +3,19 @@
 
   app.controller('modalController', function ($scope) {
     $scope.showModal = false;
+    $scope.editShowModal = false;
+    $scope.deleteShowModal = false;
+
     $scope.toggleModal = function(){
       $scope.showModal = !$scope.showModal;
+    };
+
+    $scope.toggleEditModal = function(){
+      $scope.editShowModal = !$scope.editShowModal;
+    };
+
+    $scope.toggleDeleteModal = function(){
+      $scope.deleteShowModal = !$scope.deleteShowModal;
     };
   });
 

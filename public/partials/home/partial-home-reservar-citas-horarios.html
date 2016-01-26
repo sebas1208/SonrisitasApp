@@ -1,18 +1,36 @@
-<div ng-controller="horariosController">
+<div class="container" ng-controller="horariosController">
 	{{error}}
-	<h1>{{especialidad.espNombre}} - {{odontologo.odoNombres}} {{odontologo.odoApellidos}}</h1>	
+	<h1>{{especialidad.espNombre}} - {{odontologo.odoNombres}} {{odontologo.odoApellidos}}</h1>
+
 	<div ng-controller="modalController">
-		Horario de Atencion del Odontologo
-		<div ng-repeat="agendaOdontologo in agendaOdontologoList">
-			<!-- <button ng-click="toggleModal(); escojerHorario(agendaOdontologo) " class="btn btn-link">{{agendaOdontologo.ageDiaNombre}} {{agendaOdontologo.ageHoraInicio | date:'h:mma'}} - {{agendaOdontologo.ageHoraFin | date:'h:mma'}}</button> -->
-			{{agendaOdontologo.ageDiaNombre}} {{agendaOdontologo.ageHoraInicio | date:'h:mma'}} - {{agendaOdontologo.ageHoraFin | date:'h:mma'}}						
-		</div>		
+		Horario de Atencion
+		
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Día</th>
+					<th>Hora Inicio</th>
+					<th>Hora Fin</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="agendaOdontologo in agendaOdontologoList">
+					<td>{{agendaOdontologo.ageDiaNombre}}</td>
+					<td>{{agendaOdontologo.ageHoraInicio | date:'h:mma'}}</td>
+					<td>{{agendaOdontologo.ageHoraFin | date:'h:mma'}}</td>
+				</tr>
+			</tbody>
+		</table>
+
+
 		Seleccione el Horario en que desea agendar su cita
 		
+		<h5>Día</h5>
 		<div class="form-group">
 			<input ng-model="fechaSeleccionada" required type="date" placeholder="Fecha" class="form-control"/>
 		</div> <!-- /form-group -->
-
+	
+		<h5>Hora</h5>
 		<div class="dropdown">
 			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" ng-click="seleccionarDia()" aria-expanded="true">
 				Hora

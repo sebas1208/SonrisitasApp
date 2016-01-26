@@ -1,14 +1,15 @@
-<div class="container">
-	<button class="btn btn-success">Nuevo</button>
-</div>
-<br>
+<div ng-controller="modalController">
+	<div class="container">
+		<button ng-click="toggleModal()" class="btn btn-success">Nuevo</button>
+	</div>
+	<br>
 
-<div class="container">
-
-		<table class="table table-bordered">
-			<thead>
+	<div class="container">
+		<div ng-repeat="(odontologo,odontologoList) in agendaOdontologoList | groupBy: 'odoId.odoId'">
+			<h4>{{odontologoList[0].odoId.odoNombres | filterBy: 'odontologo'}} {{odontologoList[0].odoId.odoApellidos | filterBy: 'odontologo'}}</h4>
+			<table class="table table-bordered">
+				<thead>
 				<tr>
-					<th>Odontologo</th>
 					<th>Dia</th>
 					<th>Hora Inicio</th>
 					<th>Hora Fin</th>
@@ -19,8 +20,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="agendaOdontologo in agendaOdontologoList">
-					<td>{{agendaOdontologo.odoId.odoNombres}}</td>
+				<tr ng-repeat="agendaOdontologo in odontologoList">
 					<td>{{agendaOdontologo.ageDiaNombre}}</td>
 					<td>{{agendaOdontologo.ageHoraInicio | date:'h:mma'}}</td>
 					<td>{{agendaOdontologo.ageHoraFin | date:'h:mma'}}</td>
@@ -30,5 +30,70 @@
 					<td><button class="btn btn-danger"><i class="icon-trash"></i></button></td>
 				</tr>
 			</tbody>
-		</table>
+			</table>
+		</div>
+
+		<modal title="Crear Agenda Odontologo" visible="showModal">
+			<form role="form" ng-submit="crearAgendaOdontologo()">
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						Odontólogo
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<div ng-repeat="odontologo in odontologoList">
+							<li class="dropdown-header"><a href="" ng-click="escogerOdontologo(odontologo)"><h5>{{odontologo.odoNombres}} {{odontologo.odoApellidos}}</h5></a></li>
+						</div>
+					</ul>
+					{{odontologoEscogido.odoNombres}} {{odontologoEscogido.odoApellidos}}
+				</div><br>
+
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						Día
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<div>
+							<li class="dropdown-header"><a href="" ng-click="escogerDia(1)"><h5>Lunes</h5></a></li>
+							<li class="dropdown-header"><a href="" ng-click="escogerDia(2)"><h5>Martes</h5></a></li>
+							<li class="dropdown-header"><a href="" ng-click="escogerDia(3)"><h5>Miercoles</h5></a></li>
+							<li class="dropdown-header"><a href="" ng-click="escogerDia(4)"><h5>Jueves</h5></a></li>
+							<li class="dropdown-header"><a href="" ng-click="escogerDia(5)"><h5>Viernes</h5></a></li>
+							<li class="dropdown-header"><a href="" ng-click="escogerDia(6)"><h5>Sabado</h5></a></li>
+							<li class="dropdown-header"><a href="" ng-click="escogerDia(7)"><h5>Domingo</h5></a></li>
+						</div>
+					</ul>
+					{{nombreDia}}
+				</div><br>
+
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						Horario Inicio
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<div ng-repeat="horario in horarioList">
+							<li class="dropdown-header"><a href="" ng-click="escogerHorarioInicio(horario,$index)"><h5>{{horario}}</h5></a></li>
+						</div>
+					</ul>
+					{{nombreHorarioInicioEscogido}}
+				</div><br>
+
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						Horario Fin
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<div ng-repeat="horario in horarioList">
+							<li class="dropdown-header"><a href="" ng-click="escogerHorarioFin(horario,$index)"><h5>{{horario}}</h5></a></li>
+						</div>
+					</ul>
+					{{nombreHorarioFinEscogido}}
+				</div><br>
+				<button type="submit" ng-click="toggleModal()" class="btn btn-success">Confirmar</button>
+			</form>
+		</modal>
+	</div>
 </div>

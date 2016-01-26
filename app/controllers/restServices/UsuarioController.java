@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import com.avaje.ebean.TxRunnable;
 import com.avaje.ebean.Ebean;
 import play.data.DynamicForm;
+import java.util.Random;
 import play.data.Form;
 import play.Logger;
 
@@ -39,8 +40,11 @@ public class UsuarioController extends Controller {
             return Results.badRequest(userForm.errorsAsJson());
         }
         final Usuario usuario = userForm.get();
+        Random rnd = new Random();
+        int rndm = (int)(rnd.nextDouble() * 100000.0);
         usuario.setUsuActivo(false);
         usuario.setUsuFechaRegistro(Calendar.getInstance().getTime());
+        usuario.setUsuConfirmEmailRandom(String.valueOf(rndm));
         Ebean.execute(new TxRunnable() {
             public void run() {                                
                 Ebean.save(usuario);

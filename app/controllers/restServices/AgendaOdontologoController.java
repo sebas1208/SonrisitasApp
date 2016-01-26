@@ -41,15 +41,15 @@ public class AgendaOdontologoController extends Controller {
     public Result nuevo(){
         DynamicForm dynamicForm = Form.form().bindFromRequest();
         final AgendaOdontologo agendaOdontologo = new AgendaOdontologo();
+        agendaOdontologo.setAgeDia(Short.parseShort(dynamicForm.get("ageDia")));
+        agendaOdontologo.setAgeHoraInicio(Fechas.stringToTime(dynamicForm.get("ageHoraInicio")));
+        agendaOdontologo.setAgeHoraFin(Fechas.stringToTime(dynamicForm.get("ageHoraFin")));
+        agendaOdontologo.setAgeDiaNombre(dynamicForm.get("ageDiaNombre"));
+        agendaOdontologo.setAgeActivo(true);
+        agendaOdontologo.setAgeFechaRegistro(Calendar.getInstance().getTime());
+        agendaOdontologo.setOdoId(Ebean.find(Odontologo.class,Long.parseLong(dynamicForm.get("odoId"))));
         Ebean.execute(new TxRunnable() {
             public void run() {                
-                agendaOdontologo.setAgeDia(Short.parseShort(dynamicForm.get("dia")));
-                agendaOdontologo.setAgeHoraInicio(Fechas.stringToTime(dynamicForm.get("horaInicio")));
-                agendaOdontologo.setAgeHoraFin(Fechas.stringToTime(dynamicForm.get("horaFin")));
-                agendaOdontologo.setAgeDiaNombre(dynamicForm.get("nombreDia"));
-                agendaOdontologo.setAgeActivo(true);
-                agendaOdontologo.setAgeFechaRegistro(Calendar.getInstance().getTime());
-                agendaOdontologo.setOdoId(Ebean.find(Odontologo.class,Long.parseLong(dynamicForm.get("odontologo"))));
                 Ebean.save(agendaOdontologo);
             }
         });

@@ -3,6 +3,7 @@ package controllers.restServices;
 import play.*;
 import play.mvc.*;
 import models.TipoAtencionMedica;
+import models.Especialidad;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.api.libs.ws.WS;
@@ -31,16 +32,37 @@ public class TipoAtencionMedicaController extends Controller {
         return Results.ok(Json.toJson(tipoAtencionMedica));
     }
 
+    private String obtenerNemotecnico(int horas, int minutos){
+        String respuesta = "";
+        if(horas != 0){
+            if(horas == 1){
+                respuesta = "" + horas + " hora";
+            }else{
+                respuesta = "" + horas + " horas";
+            }
+        }
+        if(minutos != 0){
+            if (minutos == 1) {
+                respuesta += " " + minutos + " minuto";
+            }else{
+                respuesta += " " + minutos + " minutos";
+            }
+        }
+        return respuesta;
+    }
+
     public Result nuevo(){
         DynamicForm dynamicForm = Form.form().bindFromRequest();
         final TipoAtencionMedica tipoAtencionMedica = new TipoAtencionMedica();
+        tipoAtencionMedica.setTamNombre(dynamicForm.get("tamNombre"));
+        tipoAtencionMedica.setTamDuracionHoras(Integer.parseInt(dynamicForm.get("tamDuracionHoras")));
+        tipoAtencionMedica.setTamDuracionMinutos(Integer.parseInt(dynamicForm.get("tamDuracionMinutos")));
+        tipoAtencionMedica.setTamDuracionNem(obtenerNemotecnico(tipoAtencionMedica.getTamDuracionHoras(),tipoAtencionMedica.getTamDuracionMinutos()));
+        tipoAtencionMedica.setEspId(Especialidad.find.byId(Long.valueOf(dynamicForm.get("espId"))));
+        tipoAtencionMedica.setTamActivo(true);
+        tipoAtencionMedica.setTamFechaRegistro(Calendar.getInstance().getTime());
         Ebean.execute(new TxRunnable() {
-            public void run() {                
-                tipoAtencionMedica.setTamNombre(dynamicForm.get("nombre"));
-                tipoAtencionMedica.setTamDuracionHoras(Integer.parseInt(dynamicForm.get("duracionHoras")));
-                tipoAtencionMedica.setTamDuracionMinutos(Integer.parseInt(dynamicForm.get("duracionMinutos")));
-                tipoAtencionMedica.setTamActivo(true);
-                tipoAtencionMedica.setTamFechaRegistro(Calendar.getInstance().getTime());
+            public void run() {
                 Ebean.save(tipoAtencionMedica);
             }
         });

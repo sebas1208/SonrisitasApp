@@ -22,6 +22,7 @@ import com.avaje.ebean.Ebean;
 import play.data.DynamicForm;
 import play.data.Form;
 import util.Fechas;
+import util.Gmail;
 
 public class AtencionMedicaController extends Controller {
 
@@ -37,22 +38,6 @@ public class AtencionMedicaController extends Controller {
     }
 
     public Result nuevo(){
-        // Form<AtencionMedica> atmForm = Form.form(AtencionMedica.class).bindFromRequest();               
-        // if(atmForm.hasErrors()){
-        //     Logger.error(atmForm.errorsAsJson().toString());
-        //     return Results.badRequest(atmForm.errorsAsJson());
-        // }
-        // final AtencionMedica atm = atmForm.get();
-        // atm.setAtmActivo(true);
-        // atm.setAtmFechaRegistro(Calendar.getInstance().getTime());
-        // Ebean.execute(new TxRunnable() {
-        //     public void run() {                                
-        //         Ebean.save(atm);
-        //     }
-        // });
-        // return Results.ok(Json.toJson(atm));
-
-
         DynamicForm dynamicForm = Form.form().bindFromRequest();
         final AtencionMedica atencionMedica = new AtencionMedica();
         atencionMedica.setAtmFecha(Fechas.stringToDate(dynamicForm.get("atmFecha")));
@@ -70,10 +55,16 @@ public class AtencionMedicaController extends Controller {
             return Results.badRequest("{\"error\":[\"El odontologo ya tiene agendado una cita en este horario.\"]}");
         }
         Ebean.execute(new TxRunnable() {
-            public void run() {                                
+            public void run() {
                 Ebean.save(atencionMedica);
             }
         });
+        String message = "Saludos de la Clinica Dental Sonrisitas.\nUsted ha agendado una cita con los siguientes datos.\nFecha: " + Fechas.dateToString(atencionMedica.getAtmFecha()) + "\n" +
+        "Hora: " + Fechas.timeToString(atencionMedica.getAtmHoraInicio()) + "\n" +
+        "Duracion: " + atencionMedica.getTamId().getTamDuracionNem() + "\n" +
+        "Doctor: " + atencionMedica.getOdoId().getOdoNombres() + " " + atencionMedica.getOdoId().getOdoApellidos() + "\n" +
+        "Tipo Atencion: " + atencionMedica.getTamId().getTamNombre() + "\n";
+        Gmail.send(atencionMedica.getUsuId().getUsuEmail(),"Sonrisitas Informacion de Cita",message);
         return Results.ok(Json.toJson(atencionMedica));
     }
 
@@ -83,13 +74,20 @@ public class AtencionMedicaController extends Controller {
     }
 
     public Result borrar(Long id){
+        final AtencionMedica atencionMedica = Ebean.find(AtencionMedica.class, id);
+        String message = "Saludos de la Clinica Dental Sonrisitas.\nUsted ha eliminado una cita con los siguientes datos.\nFecha: " + Fechas.dateToString(atencionMedica.getAtmFecha()) + "\n" +
+        "Hora: " + Fechas.timeToString(atencionMedica.getAtmHoraInicio()) + "\n" +
+        "Duracion: " + atencionMedica.getTamId().getTamDuracionNem() + "\n" +
+        "Doctor: " + atencionMedica.getOdoId().getOdoNombres() + " " + atencionMedica.getOdoId().getOdoApellidos() + "\n" +
+        "Tipo Atencion: " + atencionMedica.getTamId().getTamNombre() + "\n" +
+        "Si usted no eliminó esta cita por favor contactese con la clinica para solucionar el inconveniente.";
         Ebean.execute(new TxRunnable() {
           public void run() {
-            AtencionMedica atencionMedica = Ebean.find(AtencionMedica.class, id);
             if(atencionMedica != null){
                 Ebean.delete(atencionMedica);
             }
         }});
+        Gmail.send(atencionMedica.getUsuId().getUsuEmail(),"Sonrisitas Cita Eliminada",message);
         return Results.ok("Borrado: " + id);
     }
 }

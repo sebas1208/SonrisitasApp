@@ -1,5 +1,5 @@
 (function(){
-	var app = angular.module('AdminHome', ['ui.bootstrap','ui.router','ngResource','ngCookies','Modal','EspecialidadAdmin','AgendaOdontologoAdmin','OdontologoAdmin','OdontologoEspecialidadAdmin','TipoAtencionMedicaAdmin']);
+	var app = angular.module('AdminHome', ['ui.bootstrap','ui.router','ngResource','ngCookies','angular.filter','Modal','EspecialidadAdmin','AgendaOdontologoAdmin','OdontologoAdmin','OdontologoEspecialidadAdmin','TipoAtencionMedicaAdmin']);
 
 	app.controller('SessionNavBarController', ['$scope','$cookies','$window', function($scope,$cookies, $window){
 		$scope.userEmail = $cookies.get('userEmail');
@@ -19,7 +19,7 @@
 	        templateUrl: 'partials/admin/content.html'
 	    })
 	    .state('especialidad', {
-	        url: '/especialiadad',
+	        url: '/especialidad',
 	        templateUrl: 'partials/admin/especialidad.html',
 	        controller: 'listaEspecialidadesController'
 	    })

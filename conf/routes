@@ -24,10 +24,11 @@ GET		/administrador/borrar/:id	controllers.restServices.AdministradorController.
 
 #Agenda Odontologo
 GET 	/agendaOdontologo				controllers.restServices.AgendaOdontologoController.todos()
-GET 	/agendaOdontologo/:idOdontologo		controllers.restServices.AgendaOdontologoController.buscarPorOdontologo(idOdontologo: Long)
+GET 	/agendaOdontologo/:idOdontologo	controllers.restServices.AgendaOdontologoController.buscarPorOdontologo(idOdontologo: Long)
 GET 	/agendaOdontologo/:id			controllers.restServices.AgendaOdontologoController.uno(id: Long)
 POST	/agendaOdontologo 				controllers.restServices.AgendaOdontologoController.nuevo()
-GET		/agendaOdontologo/borrar/:id 	controllers.restServices.AgendaOdontologoController.borrar(id: Long)
+DELETE	/agendaOdontologo/:id 			controllers.restServices.AgendaOdontologoController.borrar(id: Long)
+PUT 	/agendaOdontologo/:id			controllers.restServices.AgendaOdontologoController.editar(id: Long)
 
 #Atencion Medica
 GET 	/atencionMedica				controllers.restServices.AtencionMedicaController.todos()
@@ -67,9 +68,10 @@ DELETE	/odontologo/:id				controllers.restServices.OdontologoController.borrar(i
 
 #OdontologoEspecialidad
 GET 	/odontologoEspecialidad			controllers.restServices.OdontologoEspecialidadController.todos()
-GET 	/odontologoEspecialidad/:id			controllers.restServices.OdontologoEspecialidadController.uno(id: Long)
-POST	/odontologoEspecialidad 			controllers.restServices.OdontologoEspecialidadController.nuevo()
-GET		/odontologoEspecialidad/borrar/:id	controllers.restServices.OdontologoEspecialidadController.borrar(id: Long)
+GET 	/odontologoEspecialidad/:id		controllers.restServices.OdontologoEspecialidadController.uno(id: Long)
+POST	/odontologoEspecialidad 		controllers.restServices.OdontologoEspecialidadController.nuevo()
+DELETE	/odontologoEspecialidad/:id		controllers.restServices.OdontologoEspecialidadController.borrar(id: Long)
+PUT		/odontologoEspecialidad/:id		controllers.restServices.OdontologoEspecialidadController.editar(id: Long)
 
 #Paciente
 GET 	/paciente					controllers.restServices.PacienteController.todos()
@@ -82,6 +84,7 @@ GET 	/tipoAtencion				controllers.restServices.TipoAtencionMedicaController.todo
 GET 	/tipoAtencion/:id			controllers.restServices.TipoAtencionMedicaController.uno(id: Long)
 POST	/tipoAtencion 				controllers.restServices.TipoAtencionMedicaController.nuevo()
 DELETE	/tipoAtencion/:id			controllers.restServices.TipoAtencionMedicaController.borrar(id: Long)
+PUT 	/tipoAtencion/:id			controllers.restServices.TipoAtencionMedicaController.editar(id: Long)
 
 
 #Usuarios Rest Metodos

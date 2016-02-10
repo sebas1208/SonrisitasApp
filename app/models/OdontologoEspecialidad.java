@@ -42,6 +42,8 @@ public class OdontologoEspecialidad extends Model implements Serializable {
     private String nombreEspecialidad;
     @Transient
     private String nombreArea;
+    @Transient
+    private Long idEspecialidad;
 
     public static Finder<Long,OdontologoEspecialidad> find = new Finder<Long,OdontologoEspecialidad>(Long.class, OdontologoEspecialidad.class);
 
@@ -80,8 +82,24 @@ public class OdontologoEspecialidad extends Model implements Serializable {
         return this.espId.getEspNombre();
     }
 
+    private void setNombreEspecialidad(String nombreEspecialidad){
+        this.nombreEspecialidad = nombreEspecialidad;
+    }
+
     private String getNombreArea(){
         return this.espId.getEspArea();
+    }
+
+    private void setNombreArea(String nombreArea){
+        this.nombreArea = nombreArea;
+    }
+
+    public Long getIdEspecialidad(){
+        return this.getEspId().getEspId();
+    }
+
+    public void setIdEspecialidad(Long idEspecialidad){
+        this.idEspecialidad = idEspecialidad;
     }
 
     @Override

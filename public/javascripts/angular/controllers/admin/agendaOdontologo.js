@@ -50,15 +50,32 @@
 			return nombreDia;
 		}
 
-		$scope.cargarInformacionEditar = function(especialidad){
-			$scope.especialidadEditar = especialidad;
-			console.log($scope.especialidadEditar);
+		var obtenerNemotecnicoHora = function(horaLong){
+			var hora = new Date(horaLong);
+			return hora.getHours() + ':' + hora.getMinutes();
+		}
+
+		var removeByAttr = function(arr, attr, value){
+			var i = arr.length;
+			while(i--){
+				if( arr[i] && arr[i].hasOwnProperty(attr) && (arguments.length > 2 && arr[i][attr] === value ) ){
+					arr.splice(i,1);
+				}
+			}
+			return arr;
+		}
+
+		$scope.cargarInformacionEditar = function(agendaOdontologo){
+			$scope.agendaOdontologoEditar = agendaOdontologo;
+			$scope.nombreDia = agendaOdontologo.ageDiaNombre;
+			$scope.nombreHorarioInicioEscogido = obtenerNemotecnicoHora(agendaOdontologo.ageHoraInicio);
+			$scope.nombreHorarioFinEscogido = obtenerNemotecnicoHora(agendaOdontologo.ageHoraFin);
+			$scope.diaEscogido = agendaOdontologo.ageDia;
 		};
 
-		$scope.cargarInformacionEliminar = function(especialidad,index){
-			$scope.especialidadEliminar = especialidad;
+		$scope.cargarInformacionEliminar = function(agendaOdontologo,index){
+			$scope.agendaOdontologoEliminar = agendaOdontologo;
 			$scope.indiceEliminar = index;
-			console.log($scope.especialidadEliminar);
 		};
 
 		$scope.crearAgendaOdontologo = function () {
@@ -78,25 +95,29 @@
 			);
 		};
 
-		$scope.editarEspecialidad = function(){
-			EspecialidadService.actualizar({idEspecialidad: $scope.especialidadEditar.espId},
-				{espNombre: $scope.especialidadEditar.espNombre,
-					espArea: $scope.especialidadEditar.espArea,
-					espActivo: $scope.especialidadEditar.espActivo}).$promise.then(
-					function(result){
-						$scope.especialidadEditar = result;
-						console.log(result);
-					}, function(error){
-						console.log(error);
-					});
-				};
+		$scope.editarAgendaOdontologo = function(){
+			AgendaOdontologoService.actualizar({idAgendaOdontologo: $scope.agendaOdontologoEditar.ageId},
+			{
+				ageDia: $scope.diaEscogido,
+				ageHoraInicio: $scope.nombreHorarioInicioEscogido,
+				ageHoraFin: $scope.nombreHorarioFinEscogido,
+				ageDiaNombre: $scope.nombreDia,
+				ageActivo: $scope.agendaOdontologoEditar.ageActivo
+			}).$promise.then(
+			function(result){
+				$scope.agendaOdontologoEditar = result;
+				console.log(result);
+			}, function(error){
+				console.log(error);
+			});
+		};
 
-				$scope.eliminarEspecialidad = function(){
-					EspecialidadService.delete({idEspecialidad:$scope.especialidadEliminar.espId}).$promise.then(
-						function(result){
-							$scope.especialidadList.splice($scope.indiceEliminar,1)
-						});
-				};
+		$scope.eliminarAgendaOdontologo = function(){
+			AgendaOdontologoService.delete({idAgendaOdontologo:$scope.agendaOdontologoEliminar.ageId}).$promise.then(
+				function(result){
+					removeByAttr($scope.agendaOdontologoList,'ageId',$scope.agendaOdontologoEliminar.ageId);
+				});
+		};
 
-			}]);
+	}]);
 })();

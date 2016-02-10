@@ -143,13 +143,13 @@
 		}
 
 		$scope.seleccionarDia = function(){
-			$scope.fechaSeleccionada = this.fechaSeleccionada;		
+			$scope.fechaSeleccionada = this.fechaSeleccionada;
 			var agendaOdontologoDiaSeleccionadoList = [];
 			for (var i = 0; i < $scope.agendaOdontologoList.length; i++) {
 				if($scope.agendaOdontologoList[i].ageDia == ($scope.fechaSeleccionada.getDay())){
 					agendaOdontologoDiaSeleccionadoList.push($scope.agendaOdontologoList[i]);
-				}				
-			};			
+				}
+			};
 			var horariosPermitidosDia = [];
 			for (var i = 0; i < agendaOdontologoDiaSeleccionadoList.length; i++) {
 				var inicio = agendaOdontologoDiaSeleccionadoList[i].ageHoraInicio;

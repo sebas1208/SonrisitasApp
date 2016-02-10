@@ -69,6 +69,19 @@ public class TipoAtencionMedicaController extends Controller {
         return Results.ok(Json.toJson(tipoAtencionMedica));
     }
 
+    public Result editar(Long id){
+        DynamicForm dynamicForm = Form.form().bindFromRequest();
+        TipoAtencionMedica tipoAtencionMedica = TipoAtencionMedica.find.byId(id);
+        tipoAtencionMedica.setTamNombre(dynamicForm.get("tamNombre"));
+        tipoAtencionMedica.setTamDuracionHoras(Integer.parseInt(dynamicForm.get("tamDuracionHoras")));
+        tipoAtencionMedica.setTamDuracionMinutos(Integer.parseInt(dynamicForm.get("tamDuracionMinutos")));
+        tipoAtencionMedica.setTamDuracionNem(obtenerNemotecnico(tipoAtencionMedica.getTamDuracionHoras(),tipoAtencionMedica.getTamDuracionMinutos()));
+        tipoAtencionMedica.setEspId(Especialidad.find.byId(Long.valueOf(dynamicForm.get("espId"))));
+        tipoAtencionMedica.setTamActivo(Boolean.valueOf(dynamicForm.get("tamActivo")));
+        Ebean.save(tipoAtencionMedica);
+        return Results.ok(Json.toJson(tipoAtencionMedica));
+    }
+
     public Result borrar(Long id){
         Ebean.execute(new TxRunnable() {
           public void run() {

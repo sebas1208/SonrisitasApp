@@ -37,11 +37,19 @@ public class OdontologoEspecialidadController extends Controller {
         final OdontologoEspecialidad odontologoEspecialidad = new OdontologoEspecialidad();
         Ebean.execute(new TxRunnable() {
             public void run() {
-                odontologoEspecialidad.setOdoId(Ebean.find(Odontologo.class,Long.parseLong(dynamicForm.get("odontologo"))));
-                odontologoEspecialidad.setEspId(Ebean.find(Especialidad.class,Long.parseLong(dynamicForm.get("especialidad"))));
+                odontologoEspecialidad.setOdoId(Ebean.find(Odontologo.class,Long.parseLong(dynamicForm.get("odoId"))));
+                odontologoEspecialidad.setEspId(Ebean.find(Especialidad.class,Long.parseLong(dynamicForm.get("espId"))));
                 Ebean.save(odontologoEspecialidad);
             }
         });
+        return Results.ok(Json.toJson(odontologoEspecialidad));
+    }
+
+    public Result editar(Long id){
+        DynamicForm dynamicForm = Form.form().bindFromRequest();
+        OdontologoEspecialidad odontologoEspecialidad = OdontologoEspecialidad.find.byId(id);
+        odontologoEspecialidad.setEspId(Ebean.find(Especialidad.class,Long.parseLong(dynamicForm.get("espId"))));
+        Ebean.save(odontologoEspecialidad);
         return Results.ok(Json.toJson(odontologoEspecialidad));
     }
 

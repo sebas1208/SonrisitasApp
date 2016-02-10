@@ -4,8 +4,8 @@
     app.factory('TipoAtencionMedicaService',['$resource',function($resource){
 
         var factory = $resource(
-            //'http://localhost:9000/tipoAtencion/:idTipoAtencion',
-            'https://obscure-atoll-1131.herokuapp.com/:idTipoAtencion',
+            '//obscure-atoll-1131.herokuapp.com/tipoAtencion/:idTipoAtencion',
+            //'https://obscure-atoll-1131.herokuapp.com/:idTipoAtencion',
             {
                 idTipoAtencion:'@idTipoAtencion'
             },

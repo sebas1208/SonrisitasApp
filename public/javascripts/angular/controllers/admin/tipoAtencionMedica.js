@@ -9,9 +9,9 @@
 
 		$scope.cargarInformacionEditar = function(tipoAtencionMedica){
 			$scope.tipoAtencionMedicaEditar = tipoAtencionMedica;
-			$scope.especialidadEscojida = tipoAtencionMedica.espId;
-			console.log(tipoAtencionMedica);
-			console.log($scope.especialidadEscojida);
+			EspecialidadService.get({idEspecialidad:tipoAtencionMedica.idEspecialidad}).$promise.then(function(result){
+				$scope.especialidadEscojida = result;
+			})
 		};
 
 		$scope.cargarInformacionEliminar = function(tipoAtencionMedica,index){
@@ -34,17 +34,21 @@
 			);
 		};
 
-		$scope.editarEspecialidad = function(){
-			EspecialidadService.actualizar({idEspecialidad: $scope.especialidadEditar.espId},
-				{espNombre: $scope.especialidadEditar.espNombre,
-					espArea: $scope.especialidadEditar.espArea,
-					espActivo: $scope.especialidadEditar.espActivo}).$promise.then(
-					function(result){
-						$scope.especialidadEditar = result;
-						console.log(result);
-					}, function(error){
-						console.log(error);
-					});
+		$scope.editarTipoAtencionMedica = function(){
+			TipoAtencionMedicaService.actualizar({idTipoAtencion: $scope.tipoAtencionMedicaEditar.tamId},
+			{
+				tamNombre: $scope.tipoAtencionMedicaEditar.tamNombre,
+				tamDuracionHoras: $scope.tipoAtencionMedicaEditar.tamDuracionHoras,
+				tamDuracionMinutos: $scope.tipoAtencionMedicaEditar.tamDuracionMinutos,
+				tamActivo: $scope.tipoAtencionMedicaEditar.tamActivo,
+				espId: $scope.especialidadEscojida.espId
+			}).$promise.then(
+			function(result){
+				$scope.tipoAtencionMedicaEditar = result;
+				console.log(result);
+			}, function(error){
+				console.log(error);
+			});
 		};
 
 		$scope.escojerEspecialidad = function(especialidad){

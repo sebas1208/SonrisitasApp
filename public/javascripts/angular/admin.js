@@ -41,7 +41,7 @@
 	    .state('odontologoEspecialidad',{
 	        url: '/odontologoEspecialidad',
 	        templateUrl: 'partials/admin/odontologoEspecialidad.html',
-	        controller: 'listaAgendaOdontologoController'
+	        controller: 'listaOdontologoEspecialidadController'
 	    });
 	});
 })();

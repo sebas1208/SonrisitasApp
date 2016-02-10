@@ -12,15 +12,15 @@ create table public.administrador (
   adm_email                 varchar(25) not null,
   adm_activo                boolean,
   adm_fecha_registro        timestamp,
-  usu_id                    bigint,
+  usu_id                    bigint not null,
   constraint pk_administrador primary key (adm_id))
 ;
 
 create table public.agenda_odontologo (
   age_id                    bigserial not null,
   age_dia                   smallint not null,
-  age_hora_inicio           time not null,
-  age_hora_fin              time not null,
+  age_hora_inicio           timestamp not null,
+  age_hora_fin              timestamp not null,
   age_activo                boolean,
   age_fecha_registro        timestamp,
   age_dia_nombre            varchar(15) not null,
@@ -31,8 +31,8 @@ create table public.agenda_odontologo (
 create table public.atencion_medica (
   atm_id                    bigserial not null,
   atm_fecha                 timestamp not null,
-  atm_hora_inicio           time not null,
-  atm_hora_fin              time not null,
+  atm_hora_inicio           timestamp not null,
+  atm_hora_fin              timestamp not null,
   atm_activo                boolean,
   atm_fecha_registro        timestamp,
   hcd_id                    bigint not null,
@@ -77,15 +77,15 @@ create table public.historia_clinica_detalle (
 
 create table public.odontologo (
   odo_id                    bigserial not null,
-  odo_nombres               varchar(50) not null,
-  odo_apellidos             varchar(50) not null,
-  odo_direccion             varchar(50) not null,
-  odo_telefono              varchar(15) not null,
-  odo_email                 varchar(50) not null,
-  odo_cedula                varchar(15) not null,
+  odo_nombres               varchar(255),
+  odo_apellidos             varchar(255),
+  odo_direccion             varchar(255),
+  odo_telefono              varchar(255),
+  odo_email                 varchar(255),
+  odo_cedula                varchar(255),
   odo_activo                boolean,
   odo_fecha_registro        timestamp,
-  usu_id                    bigint,
+  usu_id                    bigint not null,
   constraint pk_odontologo primary key (odo_id))
 ;
 
@@ -112,7 +112,7 @@ create table public.paciente (
   pac_estado_civil          varchar(20),
   pac_lugar_nacimiento      varchar(20),
   pac_ocupacion             varchar(20),
-  usu_id                    bigint,
+  usu_id                    bigint not null,
   constraint pk_paciente primary key (pac_id))
 ;
 
@@ -121,6 +121,7 @@ create table public.tipo_atencion_medica (
   tam_nombre                varchar(50) not null,
   tam_duracion_horas        integer not null,
   tam_duracion_minutos      integer not null,
+  tam_duracion_nem          varchar(255) not null,
   tam_activo                boolean,
   tam_fecha_registro        timestamp,
   esp_id                    bigint not null,
@@ -129,13 +130,14 @@ create table public.tipo_atencion_medica (
 
 create table public.usuario (
   usu_id                    bigserial not null,
-  usu_user                  varchar(50) not null,
-  usu_password              varchar(50) not null,
-  usu_pregunta_recuperacion varchar(100) not null,
-  usu_respuesta_recuperacion varchar(100) not null,
-  usu_email                 varchar(50) not null,
+  usu_user                  varchar(255),
+  usu_password              varchar(255),
+  usu_pregunta_recuperacion varchar(255),
+  usu_respuesta_recuperacion varchar(255),
+  usu_email                 varchar(255),
   usu_activo                boolean,
   usu_fecha_registro        timestamp,
+  usu_confirm_email_random  varchar(255),
   constraint pk_usuario primary key (usu_id))
 ;
 
@@ -147,7 +149,7 @@ alter table public.atencion_medica add constraint fk_atencion_medica_hcdId_3 for
 create index ix_atencion_medica_hcdId_3 on public.atencion_medica (hcd_id);
 alter table public.atencion_medica add constraint fk_atencion_medica_odoId_4 foreign key (odo_id) references public.odontologo (odo_id);
 create index ix_atencion_medica_odoId_4 on public.atencion_medica (odo_id);
-alter table public.atencion_medica add constraint fk_atencion_medica_usuId_5 foreign key (usu_Id) references public.usuario (usu_id);
+alter table public.atencion_medica add constraint fk_atencion_medica_usuId_5 foreign key (usu_id) references public.usuario (usu_id);
 create index ix_atencion_medica_usuId_5 on public.atencion_medica (usu_id);
 alter table public.atencion_medica add constraint fk_atencion_medica_tamId_6 foreign key (tam_id) references public.tipo_atencion_medica (tam_id);
 create index ix_atencion_medica_tamId_6 on public.atencion_medica (tam_id);
@@ -170,8 +172,6 @@ create index ix_tipo_atencion_medica_espId_13 on public.tipo_atencion_medica (es
 
 # --- !Downs
 
-drop sequence if exists public.
-
 drop table if exists public.administrador cascade;
 
 drop table if exists public.agenda_odontologo cascade;
@@ -193,3 +193,4 @@ drop table if exists public.paciente cascade;
 drop table if exists public.tipo_atencion_medica cascade;
 
 drop table if exists public.usuario cascade;
+

@@ -15,11 +15,12 @@ import play.i18n.Lang;
 import play.libs.F;
 import play.libs.F.*;
 import play.twirl.api.Content;
+import views.html.*;
 
 import static play.test.Helpers.*;
 import static org.junit.Assert.*;
 
-
+import play.Logger;
 /**
 *
 * Simple (JUnit) tests that can call all parts of a play app.
@@ -28,18 +29,26 @@ import static org.junit.Assert.*;
 */
 public class ApplicationTest {
 
-    @Test
-    public void simpleCheck() {
-        int a = 1 + 1;
-        assertEquals(2, a);
-    }
+    // @Test
+    // public void renderTemplate() {
+    //     Content html = views.html.index.render("Your new application is ready.");
+    //     assertEquals("text/html", contentType(html));
+    //     assertTrue(contentAsString(html).contains("Your new application is ready."));
+    // }
+
 
     @Test
-    public void renderTemplate() {
-        Content html = views.html.index.render("Your new application is ready.");
+    public void renderHome() {
+        Content html = home.render();
         assertEquals("text/html", contentType(html));
-        assertTrue(contentAsString(html).contains("Your new application is ready."));
+        assertTrue(contentAsString(html).contains("Sonrisitas"));
     }
 
+    @Test
+    public void renderAdmin() {
+        Content html = admin.render();
+        assertEquals("text/html", contentType(html));
+        assertTrue(contentAsString(html).contains("Admin"));
+    }
 
 }

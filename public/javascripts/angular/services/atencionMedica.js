@@ -4,8 +4,8 @@
     app.factory('AtencionMedicaService',['$resource',function($resource){
 
         var factory = $resource(
-            //'http://localhost:9000/atencionMedica/:idAtencionMedica',
-            'https://obscure-atoll-1131.herokuapp.com/atencionMedica/:idAtencionMedica',
+            '//obscure-atoll-1131.herokuapp.com/atencionMedica/:idAtencionMedica',
+            //'https://obscure-atoll-1131.herokuapp.com/atencionMedica/:idAtencionMedica',
             {
                 idAtencionMedica:'@idAtencionMedica'
             },
@@ -19,8 +19,8 @@
             },
             buscarPorUsuario:
             {
-                //url: 'http://localhost:9000/atencionMedica/buscarPorUsuario/:idUsuario',
-                url: 'https://obscure-atoll-1131.herokuapp.com/atencionMedica/buscarPorUsuario/:idUsuario',
+                url: '//obscure-atoll-1131.herokuapp.com/atencionMedica/buscarPorUsuario/:idUsuario',
+                //url: 'https://obscure-atoll-1131.herokuapp.com/atencionMedica/buscarPorUsuario/:idUsuario',
                 metod: 'GET',
                 isArray: true,
                 param: {

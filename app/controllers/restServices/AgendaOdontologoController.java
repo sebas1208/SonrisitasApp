@@ -56,6 +56,19 @@ public class AgendaOdontologoController extends Controller {
         return Results.ok(Json.toJson(agendaOdontologo));
     }
 
+    public Result editar(Long id){
+        DynamicForm dynamicForm = Form.form().bindFromRequest();
+        AgendaOdontologo agendaOdontologo = AgendaOdontologo.find.byId(id);
+        agendaOdontologo.setAgeDia(Short.parseShort(dynamicForm.get("ageDia")));
+        agendaOdontologo.setAgeHoraInicio(Fechas.stringToTime(dynamicForm.get("ageHoraInicio")));
+        agendaOdontologo.setAgeHoraFin(Fechas.stringToTime(dynamicForm.get("ageHoraFin")));
+        agendaOdontologo.setAgeDiaNombre(dynamicForm.get("ageDiaNombre"));
+        agendaOdontologo.setAgeActivo(Boolean.valueOf(dynamicForm.get("ageActivo")));
+        Ebean.save(agendaOdontologo);
+
+        return Results.ok(Json.toJson(agendaOdontologo));
+    }
+
     public Result borrar(Long id){
         Ebean.execute(new TxRunnable() {
           public void run() {

@@ -51,7 +51,7 @@ public class TipoAtencionMedica extends Model implements Serializable {
     @NotNull
     @Column(name = "tam_duracion_minutos")
     private int tamDuracionMinutos;
-    @Basic(optional = false)    
+    @Basic(optional = false)
     @Column(name = "tam_duracion_nem")
     private String tamDuracionNem;
     @Column(name = "tam_activo")
@@ -68,6 +68,8 @@ public class TipoAtencionMedica extends Model implements Serializable {
     private List<AtencionMedica> atencionMedicaList;
     @Transient
     private String tamNombreEspecialidad;
+    @Transient
+    private Long idEspecialidad;
 
     public static Finder<Long,TipoAtencionMedica> find = new Finder<Long,TipoAtencionMedica>(Long.class, TipoAtencionMedica.class);
 
@@ -159,6 +161,14 @@ public class TipoAtencionMedica extends Model implements Serializable {
 
     public String getTamNombreEspecialidad() {
         return this.espId.getEspArea();
+    }
+
+    public Long getIdEspecialidad(){
+        return this.getEspId().getEspId();
+    }
+
+    public void setIdEspecialidad(Long idEspecialidad){
+        this.idEspecialidad = idEspecialidad;
     }
 
     @Override

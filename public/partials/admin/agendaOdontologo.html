@@ -26,8 +26,8 @@
 					<td>{{agendaOdontologo.ageHoraFin | date:'h:mma'}}</td>
 					<td>{{agendaOdontologo.ageActivo}}</td>
 					<td>{{agendaOdontologo.ageFechaRegistro | date:'dd/MMMM/yyyy'}}</td>
-					<td><button class="btn btn-primary"><i class="icon-edit"></i></button></td>
-					<td><button class="btn btn-danger"><i class="icon-trash"></i></button></td>
+					<td><button ng-click="toggleEditModal(); cargarInformacionEditar(agendaOdontologo)" class="btn btn-primary"><i class="icon-edit"></i></button></td>
+					<td><button ng-click="toggleDeleteModal(); cargarInformacionEliminar(agendaOdontologo)" class="btn btn-danger"><i class="icon-trash"></i></button></td>
 				</tr>
 			</tbody>
 			</table>
@@ -93,6 +93,71 @@
 					{{nombreHorarioFinEscogido}}
 				</div><br>
 				<button type="submit" ng-click="toggleModal()" class="btn btn-success">Confirmar</button>
+			</form>
+		</modal>
+
+
+		<modal title="Editar Agenda Odontologo" visible="editShowModal">
+			<form role="form" ng-submit="editarAgendaOdontologo()">
+
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						Día
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<div>
+							<li class="dropdown-header"><a href="" ng-click="escogerDia(1)"><h5>Lunes</h5></a></li>
+							<li class="dropdown-header"><a href="" ng-click="escogerDia(2)"><h5>Martes</h5></a></li>
+							<li class="dropdown-header"><a href="" ng-click="escogerDia(3)"><h5>Miercoles</h5></a></li>
+							<li class="dropdown-header"><a href="" ng-click="escogerDia(4)"><h5>Jueves</h5></a></li>
+							<li class="dropdown-header"><a href="" ng-click="escogerDia(5)"><h5>Viernes</h5></a></li>
+							<li class="dropdown-header"><a href="" ng-click="escogerDia(6)"><h5>Sabado</h5></a></li>
+							<li class="dropdown-header"><a href="" ng-click="escogerDia(7)"><h5>Domingo</h5></a></li>
+						</div>
+					</ul>
+					{{nombreDia}}
+				</div><br>
+
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						Horario Inicio
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<div ng-repeat="horario in horarioList">
+							<li class="dropdown-header"><a href="" ng-click="escogerHorarioInicio(horario,$index)"><h5>{{horario}}</h5></a></li>
+						</div>
+					</ul>
+					{{nombreHorarioInicioEscogido}}
+				</div><br>
+
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						Horario Fin
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<div ng-repeat="horario in horarioList">
+							<li class="dropdown-header"><a href="" ng-click="escogerHorarioFin(horario,$index)"><h5>{{horario}}</h5></a></li>
+						</div>
+					</ul>
+					{{nombreHorarioFinEscogido}}
+				</div>
+
+				<div class="form-group">
+					<h5>Activo <input ng-model="agendaOdontologoEditar.ageActivo" type="checkbox" placeholder="Activo" /></h5>
+				</div>
+				<button type="submit" ng-click="toggleEditModal()" class="btn btn-success">Confirmar</button>
+			</form>
+		</modal>
+
+
+		<modal title="Eliminar AgendaOdontologo" visible="deleteShowModal">
+			<form role="form" ng-submit="eliminarAgendaOdontologo()">
+				<h4>¿Esta seguro de eliminar este registro?</h4>
+				<br>
+				<button type="submit" ng-click="toggleDeleteModal()" class="btn btn-danger">Eliminar</button>
 			</form>
 		</modal>
 	</div>

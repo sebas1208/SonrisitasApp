@@ -5,7 +5,7 @@
 
         var factory = $resource(
             //'https://obscure-atoll-1131.herokuapp.com/usuario/:idUsuario',
-            'http://localhost:9000/usuario/:idUsuario',
+            '//obscure-atoll-1131.herokuapp.com/usuario/:idUsuario',
             {
                 idUsuario:'@idUsuario'
             },
@@ -19,8 +19,8 @@
             },
             buscarPorEmail:
             {
-                //url:'http://localhost:9000/usuario/buscarPorEmail/:email',
-                url:'https://obscure-atoll-1131.herokuapp.com/usuario/buscarPorEmail/:email',
+                url:'//obscure-atoll-1131.herokuapp.com/usuario/buscarPorEmail/:email',
+                //url:'https://obscure-atoll-1131.herokuapp.com/usuario/buscarPorEmail/:email',
                 method: 'GET',
                 params:{
                     email: '@email'

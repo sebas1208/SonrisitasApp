@@ -4,7 +4,7 @@
     app.factory('AgendaOdontologoService',['$resource',function($resource){
 
         var factory = $resource(
-            '//localhost:9000/agendaOdontologo/:idAgendaOdontologo',
+            '//obscure-atoll-1131.herokuapp.com/agendaOdontologo/:idAgendaOdontologo',
             {
                 idAgendaOdontologo:'@idAgendaOdontologo'
             },
@@ -19,7 +19,7 @@
             },
             buscarPorOdontologo:
             {
-                url:'//localhost:9000/agendaOdontologo/:idOdontologo',
+                url:'//obscure-atoll-1131.herokuapp.com/agendaOdontologo/:idOdontologo',
                 method:'GET',
                 isArray: true,
                 params:{

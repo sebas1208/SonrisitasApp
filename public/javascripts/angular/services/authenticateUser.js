@@ -4,7 +4,7 @@
     app.factory('AuthenticateUserService',['$resource',function($resource){
 
         var factory = $resource(
-            '//localhost:9000/authenticateUser',
+            '//obscure-atoll-1131.herokuapp.com/authenticateUser',
             {},
             {
                 authenticateUser:

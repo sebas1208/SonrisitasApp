@@ -4,7 +4,7 @@
     app.factory('OdontologoService',['$resource',function($resource){
 
         var factory = $resource(
-            '//localhost:9000/odontologo/:idOdontologo',
+            '//obscure-atoll-1131.herokuapp.com/odontologo/:idOdontologo',
             {
                 idOdontologo:'@idOdontologo'
             },

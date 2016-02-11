@@ -4,7 +4,7 @@
     app.factory('TipoAtencionMedicaService',['$resource',function($resource){
 
         var factory = $resource(
-            '//localhost:9000/tipoAtencion/:idTipoAtencion',
+            '//obscure-atoll-1131.herokuapp.com/tipoAtencion/:idTipoAtencion',
             {
                 idTipoAtencion:'@idTipoAtencion'
             },

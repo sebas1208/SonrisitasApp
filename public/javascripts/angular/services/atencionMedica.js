@@ -1,26 +1,24 @@
 (function(){
-    var app = angular.module('AtencionMedica',[]);
+    var app = angular.module('AtencionMedica',['ngResource']);
 
     app.factory('AtencionMedicaService',['$resource',function($resource){
 
         var factory = $resource(
-            '//obscure-atoll-1131.herokuapp.com/atencionMedica/:idAtencionMedica',
-            //'https://obscure-atoll-1131.herokuapp.com/atencionMedica/:idAtencionMedica',
+            '//localhost:9000/atencionMedica/:idAtencionMedica',
             {
                 idAtencionMedica:'@idAtencionMedica'
             },
             {
-            actualizar: 
+            actualizar:
             {
-                method:'PUT', 
+                method:'PUT',
                 params:{
                     idAtencionMedica:'@idAtencionMedica'
-                }            
+                }
             },
             buscarPorUsuario:
             {
-                url: '//obscure-atoll-1131.herokuapp.com/atencionMedica/buscarPorUsuario/:idUsuario',
-                //url: 'https://obscure-atoll-1131.herokuapp.com/atencionMedica/buscarPorUsuario/:idUsuario',
+                url: '//localhost:9000/atencionMedica/buscarPorUsuario/:idUsuario',
                 metod: 'GET',
                 isArray: true,
                 param: {

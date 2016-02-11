@@ -1,5 +1,5 @@
 (function () {
-	var app = angular.module('Citas',['Especialidad', 'Odontologo','AgendaOdontologo','TipoAtencionMedica','Usuario','AtencionMedica','ngCookies']);
+	var app = angular.module('Citas',['Especialidad', 'Odontologo','AgendaOdontologo','TipoAtencionMedica','Usuario','AtencionMedica','ngCookies','ngMaterial','ngMessages','toastr']);
 
 	app.controller('citasController',['$scope','$http','EspecialidadService',function($scope, $http, EspecialidadService){
 		EspecialidadService.query().$promise.then(        
@@ -14,6 +14,7 @@
 	}]);
 
 	app.controller('listaCitasController', ['$scope','$cookies','AtencionMedicaService','UsuarioService','AgendaOdontologoService','OdontologoService','TipoAtencionMedicaService', function($scope,$cookies,AtencionMedicaService,UsuarioService,AgendaOdontologoService,OdontologoService,TipoAtencionMedicaService){
+
 		UsuarioService.buscarPorEmail({email:$cookies.get('userEmail')}).$promise.then(
 			function(result){
 				$scope.usuario = result;
@@ -117,57 +118,66 @@
 		}
 	}]);
 
-	app.controller('tipoAtencionMedica', ['$scope','TipoAtencionMedicaService', function($scope,TipoAtencionMedicaService){
-		$scope.tipoAtencionMedicaList = TipoAtencionMedicaService.query();
-		console.log($scope.tipoAtencionMedicaList);
-	}]);
+app.controller('tipoAtencionMedica', ['$scope','TipoAtencionMedicaService', function($scope,TipoAtencionMedicaService){
+	$scope.tipoAtencionMedicaList = TipoAtencionMedicaService.query();
+	console.log($scope.tipoAtencionMedicaList);
+}]);
 
-	app.controller('odontologosController', ['$scope','EspecialidadService','TipoAtencionMedicaService','$stateParams', function($scope,EspecialidadService,TipoAtencionMedicaService,$stateParams){
-		$scope.especialidad = EspecialidadService.get({idEspecialidad: $stateParams.idEspecialidad});
-		$scope.tipoAtencionMedica = TipoAtencionMedicaService.get({idTipoAtencion: $stateParams.idTipoAtencionMedica})
-	}]);
+app.controller('odontologosController', ['$scope','EspecialidadService','TipoAtencionMedicaService','$stateParams', function($scope,EspecialidadService,TipoAtencionMedicaService,$stateParams){
+	$scope.especialidad = EspecialidadService.get({idEspecialidad: $stateParams.idEspecialidad});
+	$scope.tipoAtencionMedica = TipoAtencionMedicaService.get({idTipoAtencion: $stateParams.idTipoAtencionMedica})
+}]);
 
-	app.controller('horariosController', ['$scope','$http','$stateParams','$cookies','$window','OdontologoService','EspecialidadService','AgendaOdontologoService','TipoAtencionMedicaService','UsuarioService','AtencionMedicaService', function($scope,$http,$stateParams,$cookies,$window,OdontologoService,EspecialidadService,AgendaOdontologoService,TipoAtencionMedicaService,UsuarioService,AtencionMedicaService){
+app.controller('horariosController', ['$scope','$http','$stateParams','$cookies','$window','toastr','OdontologoService','EspecialidadService','AgendaOdontologoService','TipoAtencionMedicaService','UsuarioService','AtencionMedicaService', function($scope,$http,$stateParams,$cookies,$window,toastr,OdontologoService,EspecialidadService,AgendaOdontologoService,TipoAtencionMedicaService,UsuarioService,AtencionMedicaService){
 
-		$scope.idEspecialidad = $stateParams.idEspecialidad;
-		$scope.idOdontologo = $stateParams.idOdontologo;
-		$scope.odontologo = OdontologoService.get({idOdontologo: $scope.idOdontologo});
-		$scope.especialidad = EspecialidadService.get({idEspecialidad: $scope.idEspecialidad});
-		$scope.tipoAtencionMedica = TipoAtencionMedicaService.get({idTipoAtencion: $stateParams.idTipoAtencionMedica})
-		$scope.agendaOdontologoList = AgendaOdontologoService.buscarPorOdontologo({idOdontologo: $scope.idOdontologo});
-		$scope.usuario = UsuarioService.buscarPorEmail({email:$cookies.get('userEmail')});
-		$scope.horariosPermitidosDia = [];
+	$scope.myDate = new Date();
+	$scope.minDate = new Date(
+		$scope.myDate.getFullYear(),
+		$scope.myDate.getMonth(),
+		$scope.myDate.getDate()+1);
+	$scope.fechaSeleccionada = new Date($scope.minDate);
+	$scope.idEspecialidad = $stateParams.idEspecialidad;
+	$scope.idOdontologo = $stateParams.idOdontologo;
+	$scope.odontologo = OdontologoService.get({idOdontologo: $scope.idOdontologo});
+	$scope.especialidad = EspecialidadService.get({idEspecialidad: $scope.idEspecialidad});
+	$scope.tipoAtencionMedica = TipoAtencionMedicaService.get({idTipoAtencion: $stateParams.idTipoAtencionMedica})
+	$scope.agendaOdontologoList = AgendaOdontologoService.buscarPorOdontologo({idOdontologo: $scope.idOdontologo});
+	$scope.usuario = UsuarioService.buscarPorEmail({email:$cookies.get('userEmail')});
+	$scope.horariosPermitidosDia = [];
 
-		$scope.escojerHorario = function(agendaOdontologo){
-			$scope.agendaOdontologoSeleccionada = agendaOdontologo;
-		}
+	$scope.escojerHorario = function(agendaOdontologo){
+		$scope.agendaOdontologoSeleccionada = agendaOdontologo;
+	}
 
-		$scope.seleccionarDia = function(){
-			$scope.fechaSeleccionada = this.fechaSeleccionada;
-			var agendaOdontologoDiaSeleccionadoList = [];
-			for (var i = 0; i < $scope.agendaOdontologoList.length; i++) {
-				if($scope.agendaOdontologoList[i].ageDia == ($scope.fechaSeleccionada.getDay())){
-					agendaOdontologoDiaSeleccionadoList.push($scope.agendaOdontologoList[i]);
-				}
+	$scope.seleccionarDia = function(){
+		$scope.fechaSeleccionada = this.fechaSeleccionada;
+		var agendaOdontologoDiaSeleccionadoList = [];
+		for (var i = 0; i < $scope.agendaOdontologoList.length; i++) {
+			if($scope.agendaOdontologoList[i].ageDia == ($scope.fechaSeleccionada.getDay())){
+				agendaOdontologoDiaSeleccionadoList.push($scope.agendaOdontologoList[i]);
+			}
+		};
+		var horariosPermitidosDia = [];
+		for (var i = 0; i < agendaOdontologoDiaSeleccionadoList.length; i++) {
+			var inicio = agendaOdontologoDiaSeleccionadoList[i].ageHoraInicio;
+			var fin = agendaOdontologoDiaSeleccionadoList[i].ageHoraFin;
+			for (var j = inicio; j < fin; j=j+1800000) {
+				horariosPermitidosDia.push(j);
 			};
-			var horariosPermitidosDia = [];
-			for (var i = 0; i < agendaOdontologoDiaSeleccionadoList.length; i++) {
-				var inicio = agendaOdontologoDiaSeleccionadoList[i].ageHoraInicio;
-				var fin = agendaOdontologoDiaSeleccionadoList[i].ageHoraFin;
-				for (var j = inicio; j < fin; j=j+1800000) {
-					horariosPermitidosDia.push(j);
-				};
-			};
-			$scope.horariosPermitidosDia = horariosPermitidosDia;
-		}
+		};
+		$scope.horariosPermitidosDia = horariosPermitidosDia;
+	}
 
-		$scope.seleccionarHora = function(hora){
-			console.log(hora);
-			$scope.horaSeleccionada = hora;
-		}
+	$scope.seleccionarHora = function(hora){
+		console.log(hora);
+		$scope.horaSeleccionada = hora;
+	}
 
-		$scope.confirmarCita = function(){
-			var fecha = new Date(this.fechaSeleccionada);
+	$scope.confirmarCita = function(){
+		if($scope.fechaSeleccionada === undefined || $scope.horaSeleccionada === undefined){
+			toastr.warning("Debes seleccionar el horario para agendar la cita");
+		}else{
+			var fecha = new Date($scope.fechaSeleccionada);
 			fecha = fecha.getDate() + '/' + (fecha.getMonth()+1) + '/' + fecha.getFullYear();
 			var horaInicio = new Date($scope.horaSeleccionada);
 			horaInicio = horaInicio.getHours() + ':' + horaInicio.getMinutes();
@@ -187,6 +197,7 @@
 				console.log(error);
 				$scope.error = error.data;
 			});
-		}
-	}]);
+}
+}
+}]);
 })();

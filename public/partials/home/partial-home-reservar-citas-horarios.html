@@ -1,10 +1,10 @@
 <div class="container" ng-controller="horariosController">
 	{{error}}
-	<h1>{{especialidad.espNombre}} - {{odontologo.odoNombres}} {{odontologo.odoApellidos}}</h1>
+	<h1>Dr. {{odontologo.odoNombres}} {{odontologo.odoApellidos}} - {{especialidad.espNombre}}</h1>
 
 	<div ng-controller="modalController">
-		Horario de Atencion
-		
+		<h3>Horario de Atencion</h3>
+
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -22,15 +22,12 @@
 			</tbody>
 		</table>
 
+		<h3>Seleccione el Horario en que desea agendar su cita</h3>
+		<h4>Día</h4>
+		<md-datepicker ng-model="fechaSeleccionada" md-placeholder="Fecha"
+		md-min-date="minDate"></md-datepicker>
 
-		Seleccione el Horario en que desea agendar su cita
-		
-		<h5>Día</h5>
-		<div class="form-group">
-			<input ng-model="fechaSeleccionada" required type="date" placeholder="Fecha" class="form-control"/>
-		</div> <!-- /form-group -->
-	
-		<h5>Hora</h5>
+		<h4>Hora</h4>
 		<div class="dropdown">
 			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" ng-click="seleccionarDia()" aria-expanded="true">
 				Hora

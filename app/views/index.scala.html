@@ -6,6 +6,7 @@
         <title>Sonrisitas</title>
         <!-- Boostrap Css -->
         <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/toaster.min.css")">
         <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/style.css")">
         <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/signin.css")">
         <link href="@routes.Assets.versioned("stylesheets/font-awasome.css")" rel="stylesheet">
@@ -23,22 +24,27 @@
             </div>
         </nav>
         <div ui-view></div>
-        
         <!-- Angular JS -->
-        <script src="@routes.Assets.versioned("bower_components/angular/angular.min.js")"></script>
-        <script src="@routes.Assets.versioned("bower_components/angular-ui-router/release/angular-ui-router.min.js")"></script>
-        <script src="@routes.Assets.versioned("bower_components/angular-cookies/angular-cookies.min.js")"></script>
-        <script src="@routes.Assets.versioned("javascripts/angular/ui-bootstrap-tpls-0.14.3.min.js")"></script>
-        <script src="@routes.Assets.versioned("javascripts/angular/index.js")" ></script>
-        <script src="@routes.Assets.versioned("javascripts/angular/controllers/signUp.js")" ></script>
-        <script src="@routes.Assets.versioned("javascripts/angular/controllers/logIn.js")" ></script>
-        <script src="@routes.Assets.versioned("javascripts/angular/controllers/emailMessage.js")"></script>
+
+        <script src="@routes.Assets.versioned("javascripts/lib/angular.min.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/lib/angular-ui-router.min.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/lib/angular-cookies.min.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/lib/angular-resource.min.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/lib/angular-toastr.tpls.js")" ></script>
+        <script src="@routes.Assets.versioned("javascripts/lib/ui-bootstrap-tpls-0.14.3.min.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/lib/jquery.min.js")" ></script>
+        <script src="@routes.Assets.versioned("javascripts/lib/bootstrap.min.js")" ></script>
+        <script src="@routes.Assets.versioned("javascripts/base.js")"></script>
+
+        <script src="@routes.Assets.versioned("javascripts/angular/modules/index.js")" ></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/controllers/home/signUp.js")" ></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/controllers/home/logIn.js")" ></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/controllers/home/emailMessage.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/services/usuario.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/services/authenticateUser.js")"></script>
         <script src="@routes.Assets.versioned("javascripts/angular/services/alertService.js")"></script>
-        <script src="@routes.Assets.versioned("javascripts/angular/controllers/alerts.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/util/alerts.js")"></script>
         <!-- <script type="javascript" src="../js/angular/navBarController.js" ></script> -->
         <!-- Jquery JS -->
-        <script src="@routes.Assets.versioned("javascripts/lib/jquery.min.js")" ></script>
-        <!-- Bootstrap JS -->
-        <script src="@routes.Assets.versioned("javascripts/lib/bootstrap.min.js")" ></script>
     </body>
 </html>

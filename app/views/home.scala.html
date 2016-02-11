@@ -1,42 +1,47 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Home</title>
-    <!-- Boostrap Css -->
-    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
-    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap-responsive.min.css")">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
-    <link href="@routes.Assets.versioned("stylesheets/font-awasome.css")" rel="stylesheet">
-    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/style.css")">
-    
-</head>
-<body ng-app="SonrisitasHome">
-    <nav ng-controller="SessionNavBarController" class="navbar navbar-default container-fluid">
-        <div class="navbar-header">
-            <a href="home" class="navbar-brand" >Clinica Dental Sonrisitas</a>
-        </div>
-        <div class="navbar-form navbar-right">
-            {{userEmail}}       
-            <a ng-click="logout();"><button class="btn btn-danger">Salir</button></a>            
-        </div>
-    </nav>
-    <!-- /navbar -->
-    <div class="subnavbar">
-        <div class="subnavbar-inner">
-            <div class="container">
-                <ul class="mainnav">
-                    <li class="active dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-list-alt"></i><span>Citas</span> <b class="caret"></b></a>
+    <head>
+        <meta charset="utf-8">
+        <title>Home</title>
+        <!-- Boostrap Css -->
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/toaster.min.css")">
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap-responsive.min.css")">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/angular-material.min.css")">
+        <link href="@routes.Assets.versioned("stylesheets/font-awasome.css")" rel="stylesheet">
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/style.css")">
+    </head>
+    <body ng-app="SonrisitasHome">
+        <nav ng-controller="SessionNavBarController" class="navbar navbar-default container-fluid">
+            <div class="navbar-header">
+                <a href="home" class="navbar-brand" >Clinica Dental Sonrisitas</a>
+            </div>
+            <div class="navbar-form navbar-right">
+                <div class="dropdown">
+                    <a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{userName}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="" ng-click="logout()" class="bg-danger">Salir</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- /navbar -->
+        <div class="subnavbar">
+            <div class="subnavbar-inner">
+                <div class="container">
+                    <ul class="mainnav">
+                        <li class="active dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-list-alt"></i><span>Citas</span> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="reservar-citas">Reservar</a></li>
-                            <li><a ui-sref="lista-citas">Lista</a></li>                            
+                            <li><a ui-sref="lista-citas">Lista</a></li>
                         </ul>
                     </li>
                     <li><!-- <a href="reports.html"><i class="icon-list-alt"></i><span>Reports</span> </a> --> </li>
-<!--                     <li><a href="guidely.html"><i class="icon-facetime-video"></i><span>App Tour</span> </a></li>
+                    <!--                     <li><a href="guidely.html"><i class="icon-facetime-video"></i><span>App Tour</span> </a></li>
                     <li><a href="charts.html"><i class="icon-bar-chart"></i><span>Charts</span> </a> </li>
                     <li><a href="shortcodes.html"><i class="icon-code"></i><span>Shortcodes</span> </a> </li>
-                     -->
+                    -->
                 </ul>
             </div>
             <!-- /container -->
@@ -44,18 +49,25 @@
         <!-- /subnavbar-inner -->
     </div>
     <!-- /subnavbar -->
-
     <div ui-view></div>
-
     <!-- Angular JS -->
-    <script src="@routes.Assets.versioned("bower_components/angular/angular.min.js")"></script>
-    <script src="@routes.Assets.versioned("bower_components/angular-ui-router/release/angular-ui-router.min.js")"></script>
-    <script src="@routes.Assets.versioned("bower_components/angular-cookies/angular-cookies.min.js")"></script>
-    <script src="@routes.Assets.versioned("bower_components/angular-resource/angular-resource.min.js")"></script>
-    <script src="@routes.Assets.versioned("javascripts/angular/ui-bootstrap-tpls-0.14.3.min.js")"></script>
-    <script src="@routes.Assets.versioned("javascripts/angular/home.js")" ></script>
-    <script src="@routes.Assets.versioned("javascripts/angular/controllers/citas.js")" ></script>
-    <script src="@routes.Assets.versioned("javascripts/angular/controllers/modal.js")" ></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/angular.min.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/angular-ui-router.min.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/angular-cookies.min.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/angular-resource.min.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/ui-bootstrap-tpls-0.14.3.min.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/angular-toastr.tpls.js")" ></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/jquery.min.js")" ></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/bootstrap.min.js")" ></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/angular-animate.min.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/angular-aria.min.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/angular-messages.min.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/angular-material.min.js")"></script>
+
+    <script src="@routes.Assets.versioned("javascripts/base.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/angular/modules/home.js")" ></script>
+    <script src="@routes.Assets.versioned("javascripts/angular/controllers/home/citas.js")" ></script>
+    <script src="@routes.Assets.versioned("javascripts/angular/util/modal.js")" ></script>
     <script src="@routes.Assets.versioned("javascripts/angular/services/especialidad.js")" ></script>
     <script src="@routes.Assets.versioned("javascripts/angular/services/odontologo.js")" ></script>
     <script src="@routes.Assets.versioned("javascripts/angular/services/agendaOdontologo.js")" ></script>
@@ -64,9 +76,5 @@
     <script src="@routes.Assets.versioned("javascripts/angular/services/tipoAtencionMedica.js")" ></script>
     <!-- <script type="javascript" src="../js/angular/navBarController.js" ></script> -->
     <!-- Jquery JS -->
-    <script src="@routes.Assets.versioned("javascripts/lib/jquery.min.js")" ></script>
-        <!-- Bootstrap JS -->
-    <script src="@routes.Assets.versioned("javascripts/lib/bootstrap.min.js")" ></script>
-    <script src="@routes.Assets.versioned("javascripts/base.js")"></script>
 </body>
 </html>

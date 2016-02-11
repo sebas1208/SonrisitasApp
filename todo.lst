@@ -1,6 +1,4 @@
--validar que no se escoja fechas anteriores en el calendario
 -hacer un script para tener los registros iniciales
--ver la forma de ligar los odontologos con usuario, busqueda, o en base, lista...etc
 -sulucionar el problema de los puertos https en heroku
 -subir a la plataforma para ya tener la aplicacion lista
 -ponerle seguridad mediante angular que me parece la forma mas practica	

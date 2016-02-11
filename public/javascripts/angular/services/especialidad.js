@@ -1,9 +1,8 @@
 (function(){
-    var app = angular.module('Especialidad',[]);
+    var app = angular.module('Especialidad',['ngResource']);
     app.factory('EspecialidadService',['$resource',function($resource){
         var factory = $resource(
-            '//obscure-atoll-1131.herokuapp.com/especialidad/:idEspecialidad',
-            //'https://obscure-atoll-1131.herokuapp.com/especialidad/:idEspecialidad',
+            '//localhost:9000/especialidad/:idEspecialidad',
             {
                 idEspecialidad:'@idEspecialidad'
             },

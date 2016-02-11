@@ -1,5 +1,6 @@
 (function(){
 	var app = angular.module('signUp', ['alertSignUp','Usuario']);
+
 	app.controller('SignUpController', ['$scope','$http','alertService','$location','UsuarioService',function ($scope,$http, alertService, $location,UsuarioService) {
 		console.log("Entro en el singin");
 		$scope.agregarUsuario = function agregarUsuario () {

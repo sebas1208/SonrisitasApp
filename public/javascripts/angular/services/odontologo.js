@@ -1,18 +1,17 @@
 (function(){
-    var app = angular.module('Odontologo',[]);
+    var app = angular.module('Odontologo',['ngResource']);
 
     app.factory('OdontologoService',['$resource',function($resource){
 
         var factory = $resource(
-            '//obscure-atoll-1131.herokuapp.com/odontologo/:idOdontologo',
-            //'https://obscure-atoll-1131.herokuapp.com/odontologo/:idOdontologo',
+            '//localhost:9000/odontologo/:idOdontologo',
             {
                 idOdontologo:'@idOdontologo'
             },
             {
-              actualizar: 
+              actualizar:
               {
-                method:'PUT', 
+                method:'PUT',
                 params:{
                     idOdontologo:'@idOdontologo'
                 }

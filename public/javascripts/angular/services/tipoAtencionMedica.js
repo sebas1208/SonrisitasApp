@@ -1,18 +1,17 @@
 (function(){
-    var app = angular.module('TipoAtencionMedica',[]);
+    var app = angular.module('TipoAtencionMedica',['ngResource']);
 
     app.factory('TipoAtencionMedicaService',['$resource',function($resource){
 
         var factory = $resource(
-            '//obscure-atoll-1131.herokuapp.com/tipoAtencion/:idTipoAtencion',
-            //'https://obscure-atoll-1131.herokuapp.com/:idTipoAtencion',
+            '//localhost:9000/tipoAtencion/:idTipoAtencion',
             {
                 idTipoAtencion:'@idTipoAtencion'
             },
             {
-              actualizar: 
+              actualizar:
               {
-                method:'PUT', 
+                method:'PUT',
                 params:{
                     idTipoAtencion:'@idTipoAtencion'
                 }

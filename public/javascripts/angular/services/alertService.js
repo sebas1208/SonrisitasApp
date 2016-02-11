@@ -1,5 +1,5 @@
 (function(){
-	var app = angular.module('alertSignUp', []);
+	var app = angular.module('alertSignUp', ['ngResource']);
 
 	app.factory('alertService', function($timeout) {
 

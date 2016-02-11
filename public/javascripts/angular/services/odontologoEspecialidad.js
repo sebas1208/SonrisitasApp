@@ -1,18 +1,17 @@
 (function(){
-    var app = angular.module('OdontologoEspecialidad',[]);
+    var app = angular.module('OdontologoEspecialidad',['ngResource']);
 
     app.factory('OdontologoEspecialidadService',['$resource',function($resource){
 
         var factory = $resource(
-            '//obscure-atoll-1131.herokuapp.com/odontologoEspecialidad/:idOdontologoEspecialidad',
-            //'https://obscure-atoll-1131.herokuapp.com/:idOdontologoEspecialidad',
+            '//localhost:9000/odontologoEspecialidad/:idOdontologoEspecialidad',
             {
                 idOdontologoEspecialidad:'@idOdontologoEspecialidad'
             },
             {
-              actualizar: 
+              actualizar:
               {
-                method:'PUT', 
+                method:'PUT',
                 params:{
                     idOdontologoEspecialidad:'@idOdontologoEspecialidad'
                 }

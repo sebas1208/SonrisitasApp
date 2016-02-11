@@ -9,7 +9,6 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
         <link href="@routes.Assets.versioned("stylesheets/font-awasome.css")" rel="stylesheet">
         <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/style.css")">
-
     </head>
     <body ng-app="AdminHome">
         <nav ng-controller="SessionNavBarController" class="navbar navbar-default container-fluid">
@@ -17,8 +16,12 @@
                 <a href="admin" class="navbar-brand" >Clinica Dental Sonrisitas</a>
             </div>
             <div class="navbar-form navbar-right">
-                {{userEmail}}
-                <a ng-click="logout();"><button class="btn btn-danger">Salir</button></a>
+                <div class="dropdown">
+                    <a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{userName}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="" ng-click="logout()" class="bg-danger">Salir</a></li>
+                    </ul>
+                </div>
             </div>
         </nav>
         <!-- /navbar -->
@@ -50,19 +53,19 @@
     <div ui-view></div>
     
     <!-- Angular JS -->
-    <script src="@routes.Assets.versioned("bower_components/angular/angular.min.js")"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
-    <script src="@routes.Assets.versioned("bower_components/angular-ui-router/release/angular-ui-router.min.js")"></script>
-    <script src="@routes.Assets.versioned("bower_components/angular-cookies/angular-cookies.min.js")"></script>
-    <script src="@routes.Assets.versioned("bower_components/angular-resource/angular-resource.min.js")"></script>
-    <script src="@routes.Assets.versioned("javascripts/angular/ui-bootstrap-tpls-0.14.3.min.js")"></script>
-    <script src="@routes.Assets.versioned("javascripts/angular/admin.js")" ></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/angular.min.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/angular-filter.min.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/angular-ui-router.min.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/angular-cookies.min.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/angular-resource.min.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/lib/ui-bootstrap-tpls-0.14.3.min.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/angular/modules/admin.js")" ></script>
     <script src="@routes.Assets.versioned("javascripts/angular/controllers/admin/especialidad.js")" ></script>
     <script src="@routes.Assets.versioned("javascripts/angular/controllers/admin/agendaOdontologo.js")" ></script>
     <script src="@routes.Assets.versioned("javascripts/angular/controllers/admin/odontologo.js")" ></script>
     <script src="@routes.Assets.versioned("javascripts/angular/controllers/admin/odontologoEspecialidad.js")" ></script>
     <script src="@routes.Assets.versioned("javascripts/angular/controllers/admin/tipoAtencionMedica.js")" ></script>
-    <script src="@routes.Assets.versioned("javascripts/angular/controllers/modal.js")" ></script>
+    <script src="@routes.Assets.versioned("javascripts/angular/util/modal.js")" ></script>
     <script src="@routes.Assets.versioned("javascripts/angular/services/especialidad.js")" ></script>
     <script src="@routes.Assets.versioned("javascripts/angular/services/odontologo.js")" ></script>
     <script src="@routes.Assets.versioned("javascripts/angular/services/agendaOdontologo.js")" ></script>
@@ -71,7 +74,7 @@
     <!-- <script type="javascript" src="../js/angular/navBarController.js" ></script> -->
     <!-- Jquery JS -->
     <script src="@routes.Assets.versioned("javascripts/lib/jquery.min.js")" ></script>
-        <!-- Bootstrap JS -->
+    <!-- Bootstrap JS -->
     <script src="@routes.Assets.versioned("javascripts/lib/bootstrap.min.js")" ></script>
     <script src="@routes.Assets.versioned("javascripts/base.js")"></script>
 </body>

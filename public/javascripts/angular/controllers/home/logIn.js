@@ -12,13 +12,13 @@
 			function(result){
 				UsuarioService.buscarPorEmail({email:$scope.email}).$promise.then(function(result){
 					$cookies.put('userName',result.usuUser);
+					$cookies.put('userEmail',$scope.email);
+					if(result.redirectTo === "admin"){
+						$window.location.href = "/admin";
+					}else{
+						$window.location.href = "/home";
+					}
 				});
-				$cookies.put('userEmail',$scope.email);
-				if(result.redirectTo === "admin"){
-					$window.location.href = "/admin";
-				}else{
-					$window.location.href = "/home";
-				}
 			},
 			function(error){
 				console.log(error);

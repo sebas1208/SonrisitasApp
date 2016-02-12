@@ -197,7 +197,7 @@ app.controller('horariosController', ['$scope','$http','$stateParams','$cookies'
 			}, function(error){
 				console.log(error);
 				$scope.error = error.data;
-				toastr.warning($scope.error.data.error[0]);
+				toastr.warning($scope.error.data);
 			});
 }
 }

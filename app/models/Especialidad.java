@@ -59,6 +59,10 @@ public class Especialidad extends Model implements Serializable {
 
     public static Finder<Long,Especialidad> find = new Finder<Long,Especialidad>(Long.class, Especialidad.class);
 
+    public static Especialidad findByEspNombre(String nombre) {
+        return find.where().eq("esp_nombre", nombre).findUnique();
+    }
+
     public Especialidad() {
     }
 

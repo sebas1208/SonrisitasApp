@@ -2,6 +2,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Calendar;
+import controllers.restServices.EspecialidadController;
+import models.Especialidad;
+import play.db.ebean.*;
+import com.avaje.ebean.Ebean;
+
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.*;
@@ -20,6 +26,8 @@ import views.html.*;
 import static play.test.Helpers.*;
 import static org.junit.Assert.*;
 
+import play.test.*;
+
 import play.Logger;
 /**
 *
@@ -36,6 +44,26 @@ public class ApplicationTest {
     //     assertTrue(contentAsString(html).contains("Your new application is ready."));
     // }
 
+    // @Test
+    // public void crearEspecialidad(){
+    //     Especialidad especialidadPrueba = new Especialidad();
+    //     especialidadPrueba.setEspNombre("Especialidad Prueba");
+    //     especialidadPrueba.setEspArea("Especialidad Prueba");
+    //     especialidadPrueba.setEspActivo(true);
+    //     especialidadPrueba.setEspFechaRegistro(Calendar.getInstance().getTime());
+    //     Ebean.save(especialidadPrueba);
+    //     especialidadPrueba = Especialidad.findByEspNombre("Especialidad Prueba");
+    //     assertEquals("Especialidad Prueba",especialidadPrueba.getEspNombre());
+    // }
+    @Inject Application application;
+
+    @Test
+    public void eliminarEspecialidad(){
+        Especialidad especialidad = Especialidad.findByEspNombre("Especialidad Prueba");
+        Ebean.delete(especialidad);
+        especialidad = Especialidad.findByEspNombre("Especialidad Prueba");
+        assertEquals(null,especialidad);
+    }
 
     @Test
     public void renderHome() {

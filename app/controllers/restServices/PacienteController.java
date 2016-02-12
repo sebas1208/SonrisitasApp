@@ -36,7 +36,7 @@ public class PacienteController extends Controller {
         DynamicForm dynamicForm = Form.form().bindFromRequest();
         final Paciente paciente = new Paciente();
         Ebean.execute(new TxRunnable() {
-            public void run() {                
+            public void run() {
                 paciente.setPacNombres(dynamicForm.get("nombres"));
                 paciente.setPacApellidos(dynamicForm.get("apellidos"));
                 paciente.setPacDireccion(dynamicForm.get("direccion"));

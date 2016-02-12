@@ -1,3 +1,6 @@
+-poner los mensaje de toastr en los catalogos
+-tratamiento de errores enreservar cita toastr
+
 -hacer un script para tener los registros iniciales
 -sulucionar el problema de los puertos https en heroku
 -subir a la plataforma para ya tener la aplicacion lista

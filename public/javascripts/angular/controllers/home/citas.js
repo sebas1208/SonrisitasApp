@@ -193,6 +193,7 @@ app.controller('horariosController', ['$scope','$http','$stateParams','$cookies'
 				usuId: $scope.usuario.usuId
 			}).$promise.then(function(result){
 				$window.location.href = "/home#/lista-citas/";
+				toastr.info("La cita se ha agendado con exito!");
 			}, function(error){
 				console.log(error);
 				$scope.error = error.data;

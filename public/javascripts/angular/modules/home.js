@@ -1,9 +1,10 @@
 (function(){
 	var app = angular.module('SonrisitasHome', ['ui.bootstrap','ui.router','ngResource','Citas','Modal','ngCookies','toastr']);
 
-	app.controller('SessionNavBarController', ['$scope','$cookies','$window', function($scope,$cookies, $window){
+	app.controller('SessionNavBarController', ['$scope','$cookies','$window','toastr', function($scope,$cookies, $window,toastr){
 		$scope.userEmail = $cookies.get('userEmail');
 		$scope.userName = $cookies.get('userName');
+		toastr.info("Bienvenido Usuario!");
 
 		$scope.logout = function(){
 			$cookies.remove('userEmail');
